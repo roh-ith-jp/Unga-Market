@@ -1,0 +1,239 @@
+{
+  "project_name": "Unga Market",
+  "archetype": "ORGANIC & EARTHY / QUICK-COMMERCE",
+  "app_type": "hybrid_fullstack",
+  "colors": {
+    "surfaces": [
+      {
+        "name": "page",
+        "kind": "solid",
+        "bg": "#F7F8FA",
+        "on_bg": "#111827",
+        "on_bg_muted": "#4B5563",
+        "roles": {
+          "link": "#0F8A3E",
+          "error": "#D9531A",
+          "success": "#0F8A3E"
+        }
+      },
+      {
+        "name": "panel",
+        "kind": "solid",
+        "bg": "#FFFFFF",
+        "on_bg": "#111827",
+        "on_bg_muted": "#4B5563",
+        "roles": {
+          "border": "#EEF0F3",
+          "brand_badge": "#E8F6ED"
+        }
+      },
+      {
+        "name": "brand_header",
+        "kind": "solid",
+        "bg": "#0F8A3E",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#E8F6ED",
+        "roles": {
+          "accent_badge": "#F26522",
+          "secondary_text": "#DCFCE7"
+        }
+      },
+      {
+        "name": "cart_sticky_bar",
+        "kind": "solid",
+        "bg": "#0F8A3E",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#E8F6ED",
+        "roles": {
+          "cta_bg": "#F26522",
+          "cta_text": "#FFFFFF"
+        }
+      },
+      {
+        "name": "upi_payment_modal",
+        "kind": "solid",
+        "bg": "#FFFFFF",
+        "on_bg": "#111827",
+        "on_bg_muted": "#4B5563",
+        "roles": {
+          "gpay_blue": "#1A73E8",
+          "upi_accent": "#0F8A3E",
+          "qr_border": "#0F8A3E"
+        }
+      },
+      {
+        "name": "tracking_timeline_card",
+        "kind": "solid",
+        "bg": "#FFFFFF",
+        "on_bg": "#111827",
+        "on_bg_muted": "#4B5563",
+        "roles": {
+          "progress_active": "#0F8A3E",
+          "progress_inactive": "#EEF0F3",
+          "highlight_orange": "#F26522"
+        }
+      },
+      {
+        "name": "chip_selected",
+        "kind": "solid",
+        "bg": "#0F8A3E",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#E8F6ED"
+      },
+      {
+        "name": "chip_unselected",
+        "kind": "solid",
+        "bg": "#FFFFFF",
+        "on_bg": "#4B5563",
+        "on_bg_muted": "#9CA3AF"
+      }
+    ],
+    "brand_tokens": {
+      "green": "#0F8A3E",
+      "green_dark": "#0A6B2E",
+      "green_soft": "#E8F6ED",
+      "orange": "#F26522",
+      "orange_dark": "#D9531A",
+      "orange_soft": "#FFF1E7",
+      "ink": "#111827",
+      "ink_2": "#4B5563",
+      "ink_3": "#9CA3AF",
+      "bg": "#F7F8FA",
+      "card": "#FFFFFF",
+      "line": "#EEF0F3"
+    },
+    "accent": "#F26522",
+    "on_accent": "#FFFFFF"
+  },
+  "typography": {
+    "font_family_heading": "Plus Jakarta Sans Variable, sans-serif",
+    "font_family_body": "Plus Jakarta Sans Variable, sans-serif",
+    "import_line": "@import \"@fontsource-variable/plus-jakarta-sans\";",
+    "substitute_note": "Plus Jakarta Sans Variable is the designated rounded humanist font substitute for Nunito (installed pre-baked family)",
+    "scale_px": {
+      "display": 48,
+      "h1": 36,
+      "h2": 28,
+      "h3": 20,
+      "body": 16,
+      "caption": 14
+    }
+  },
+  "entry_surfaces": {
+    "/": "Quick-commerce top header with delivery address picker + search bar, horizontal category filter chips, promo banners slider, product catalog grid with increment/decrement steppers, sticky bottom cart summary bar",
+    "/login": "Swiggy-style split/drawer auth sheet with Email+Password or Phone+OTP tabs, seeded demo credentials banner, interactive mock-OTP dialog helper",
+    "/register": "Mobile-first user onboarding screen with full name, email, phone number, and address pre-fill for seamless checkout",
+    "/checkout": "Swiggy/Zomato style multi-step checkout: Address & Delivery Instructions -> Payment Gateway Selection (Google Pay / UPI with QR & Deep Link vs COD) -> Bill Breakdown & Slide-to-Pay button",
+    "/payment": "Live UPI Payment Verification Gateway with animated timer, QR code scanner modal, Google Pay / PayTM / PhonePe deep links, and simulate payment result toggle for manual testing",
+    "/tracking": "Live Swiggy/Zomato Order Tracker screen with 15-min countdown timer, animated 4-stage progress timeline (Order Placed -> Packed -> Out for Delivery -> Delivered), delivery partner card, live WebSocket/polling status, order items receipt breakdown"
+  },
+  "component_level_guidelines": {
+    "header_nav": {
+      "description": "Sticky top bar with Unga Market brand logo in rich green, location selector dropdown ('Deliver to: Indiranagar, Bengaluru'), search input with clear icon, user auth status badge, and cart button with dynamic item badge.",
+      "bg": "#FFFFFF",
+      "border": "bottom 1px solid #EEF0F3",
+      "data_testid": "app-header"
+    },
+    "product_card": {
+      "description": "Clean, high-density card displaying product image, fresh badge, title, weight/unit (e.g., 500g), original MRP (strikethrough #9CA3AF), offer price (#111827 bold), and an explicit ADD button or +/- counter stepper with green #0F8A3E background when active.",
+      "radius": "16px (rounded-2xl)",
+      "shadow": "0 2px 8px rgba(0, 0, 0, 0.04)",
+      "data_testid": "product-card"
+    },
+    "sticky_cart_bar": {
+      "description": "Swiggy/Zomato style floating bottom bar that appears when items > 0. Shows item count, total price, free delivery indicator, and an action button 'VIEW CART ->' in vibrant orange (#F26522).",
+      "position": "fixed bottom-4 left-4 right-4 max-w-lg mx-auto z-40",
+      "bg": "#0F8A3E",
+      "data_testid": "sticky-cart-bar"
+    },
+    "cart_sheet": {
+      "description": "Full bottom sheet / drawer with item breakdown, quantity modifiers, itemized bill (Item total, Delivery fee, Platform fee, Taxes, Savings tag in soft green), delivery instructions field, and proceed to checkout CTA.",
+      "data_testid": "cart-sheet"
+    },
+    "upi_gateway_screen": {
+      "description": "Real Google Pay / UPI resilient payment gateway emulator. Displays total payable amount, QR Code, VPA/UPI ID ('unga.market@okicici' with copy button), direct app intent buttons ('Pay via Google Pay', 'Pay via PhonePe', 'Pay via PayTM'), countdown timer (05:00), and automated/manual payment confirmation simulator for quick testing.",
+      "bg": "#FFFFFF",
+      "accent_btn": "#1A73E8 (GPay) and #0F8A3E (Confirm)",
+      "data_testid": "upi-gateway"
+    },
+    "live_order_tracker": {
+      "description": "Hero status page modeled after Swiggy/Zomato. Displays prominent estimated delivery time (e.g. 'Arriving in 14 mins'), delivery hero avatar + phone trigger, dynamic progress bar connecting 4 key milestones (Order Placed -> Being Prepared -> Out for Delivery -> Delivered), pulse animations on current state, and downloadable invoice/order JSON.",
+      "bg": "#F7F8FA",
+      "timeline_active_color": "#0F8A3E",
+      "data_testid": "live-order-tracker"
+    }
+  },
+  "image_urls": {
+    "fresh_groceries": [
+      {
+        "url": "https://images.unsplash.com/photo-1542838132-92c53300491e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwxfHxmcmVzaCUyMGdyb2NlcnklMjBmcnVpdHMlMjB2ZWdldGFibGVzJTIwbWFya2V0fGVufDB8fHx8MTc4Njc5MDI1Mnww&ixlib=rb-4.1.0&q=85",
+        "description": "Fresh green leafy vegetables display",
+        "category": "hero_banner"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHw0fHxmcmVzaCUyMGdyb2NlcnklMjBmcnVpdHMlMjB2ZWdldGFibGVzJTIwbWFya2V0fGVufDB8fHx8MTc4Njc5MDI1Mnww&ixlib=rb-4.1.0&q=85",
+        "description": "Fresh apples and citrus fruits in crates",
+        "category": "category_fruits"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwyfHxmcmVzaCUyMGdyb2NlcnklMjBmcnVpdHMlMjB2ZWdldGFibGVzJTIwbWFya2V0fGVufDB8fHx8MTc4Njc5MDI1Mnww&ixlib=rb-4.1.0&q=85",
+        "description": "Organic vegetable market stall",
+        "category": "category_vegetables"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwzfHxmcmVzaCUyMGdyb2NlcnklMjBmcnVpdHMlMjB2ZWdldGFibGVzJTIwbWFya2V0fGVufDB8fHx8MTc4Njc5MDI1Mnww&ixlib=rb-4.1.0&q=85",
+        "description": "Assorted fresh produce basket",
+        "category": "featured_products"
+      }
+    ]
+  },
+  "motion": {
+    "cart_bounce": "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+    "timeline_progress": "stroke-dashoffset 0.8s ease-in-out, background-color 0.4s ease",
+    "sheet_slide": "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+    "pulse_dot": "animate-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite"
+  },
+  "accessibility": {
+    "min_touch_target": "44px x 44px for buttons and steppers",
+    "contrast_ratio": "4.5:1 minimum for all body text (#111827 or #4B5563 on #FFFFFF / #F7F8FA)",
+    "screen_reader_labels": "All item increment/decrement buttons carry aria-label='Increase quantity of [item]' / aria-label='Decrease quantity of [item]'"
+  },
+  "data_testid_conventions": {
+    "header_nav": "app-header",
+    "search_input": "search-input",
+    "category_chip": "category-chip-{slug}",
+    "product_card": "product-card-{id}",
+    "product_add_button": "add-to-cart-btn-{id}",
+    "product_stepper_increment": "qty-inc-btn-{id}",
+    "product_stepper_decrement": "qty-dec-btn-{id}",
+    "cart_sticky_bar": "sticky-cart-bar",
+    "cart_sheet": "cart-sheet",
+    "checkout_btn": "checkout-submit-btn",
+    "auth_login_tab": "auth-login-tab",
+    "auth_phone_tab": "auth-phone-tab",
+    "auth_submit": "auth-submit-btn",
+    "mock_otp_input": "mock-otp-input",
+    "payment_method_upi": "payment-method-upi",
+    "payment_method_cod": "payment-method-cod",
+    "pay_via_gpay_btn": "pay-gpay-btn",
+    "confirm_payment_btn": "confirm-payment-btn",
+    "live_order_tracker": "live-order-tracker",
+    "timeline_step": "order-timeline-step-{step}",
+    "order_download_btn": "download-order-pdf-btn"
+  },
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) where suitable for sticky bars or modals",
+    "You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms",
+    "You MUST NOT center align the app container, ie no app-wide text-align: center rule in the CSS entry. This disrupts the human natural reading flow of text",
+    "Always use modern button styles like pill-shaped, or rounded buttons with interaction animations & color relevant to the app style",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 etc for icons. Use lucide-react icons instead",
+    "Every interaction needs micro-animations - hover states, transitions, slide effects, and active state indicators",
+    "Use generous spacing for padding and gaps. Cramped quick-commerce cards look cluttered",
+    "All key interactive elements MUST carry data-testid attributes according to data_testid_conventions",
+    "Ensure total compliance with base-ui / shadcn component rules (no asChild, use render prop or className on standard elements)"
+  ]
+}
