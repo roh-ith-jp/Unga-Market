@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="100%" height="100%">
   <defs>
     <linearGradient id="cartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#149A46"/>
-      <stop offset="100%" stop-color="#0A6B2E"/>
+      <stop offset="0%" stop-color="#2EaA2E"/>
+      <stop offset="100%" stop-color="#228b22"/>
     </linearGradient>
     <linearGradient id="ungaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#139543"/>
-      <stop offset="100%" stop-color="#085F27"/>
+      <stop offset="0%" stop-color="#228b22"/>
+      <stop offset="100%" stop-color="#7CFC00"/>
     </linearGradient>
     <linearGradient id="marketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF3E14"/>
-      <stop offset="100%" stop-color="#D92200"/>
+      <stop offset="0%" stop-color="#ff6600"/>
+      <stop offset="100%" stop-color="#e60000"/>
     </linearGradient>
     <linearGradient id="bagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF9D00"/>
-      <stop offset="100%" stop-color="#F25B00"/>
+      <stop offset="0%" stop-color="#ff8c1a"/>
+      <stop offset="100%" stop-color="#ff6600"/>
     </linearGradient>
     <filter id="drop" x="-10%" y="-10%" width="120%" height="120%">
       <feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity="0.12"/>
@@ -128,7 +128,7 @@
         <circle cx="45" cy="65" r="12" fill="#FFE082" opacity="0.6"/>
         <path d="M 45 45 L 45 85 M 25 65 L 65 65" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
         <!-- White Mouse Pointer Arrow -->
-        <polygon points="50,65 85,85 70,88 80,105 70,110 60,92 50,100" fill="#FFFFFF" stroke="#D84315" stroke-width="2"/>
+        <polygon points="50,65 85,85 70,88 80,105 70,110 60,92 50,100" fill="#FFFFFF" stroke="#cc4400" stroke-width="2"/>
       </g>
 
       <!-- Tagline: "— Your Everyday, Our Priority! —" -->
@@ -197,7 +197,7 @@
 
       <!-- 5. Personal Care -->
       <g transform="translate(830, 0)">
-        <circle cx="35" cy="35" r="32" fill="#7B1FA2"/>
+        <circle cx="35" cy="35" r="32" fill="#660099"/>
         <!-- Shampoo / Lotion pump -->
         <rect x="26" y="28" width="18" height="24" rx="4" fill="#FFFFFF"/>
         <path d="M 35 28 L 35 20 L 44 20" stroke="#FFFFFF" stroke-width="3" fill="none"/>

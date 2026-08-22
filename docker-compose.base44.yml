@@ -1,0 +1,17 @@
+services:
+  web:
+    image: node:22-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env.base44-defaults
+      - /run/base44/app.env
+    command: sh -c "npm install --omit=dev && npx nodemon --legacy-watch --watch server.js --watch products.js server.js"
+    restart: unless-stopped
+
+volumes:
+  node_modules:
