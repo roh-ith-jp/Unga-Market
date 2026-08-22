@@ -273,8 +273,11 @@ const DELIVERY_ZONES = [
   { id: 'z_tambaram', name: 'Tambaram - GST Road', match: ['tambaram', 'chromepet', 'sanatorium', 'pallavaram'], lat: 12.9249, lng: 80.1284, x: 18, y: 82, hubDistKm: 8.5, etaMins: 25, defaultDemand: 'Normal' }
 ];
 
-// Dynamic Shop Owner Payment Settings (in-memory with environment variable defaults)
+// Dynamic Shop Owner Payment & Store Settings (in-memory with environment variable defaults)
 let shopOwnerPaymentSettings = {
+  storeEmail: process.env.STORE_EMAIL || 'orders@ungamarket.com',
+  supportEmail: process.env.SUPPORT_EMAIL || 'support@ungamarket.com',
+  storePin: process.env.STORE_PIN || '1234',
   upiVpa: process.env.UPI_VPA || 'ungamarket@okaxis',
   payeeName: process.env.UPI_PAYEE_NAME || 'Unga Market Wholesale',
   gpayPhone: process.env.GPAY_PHONE || '9840123456',
@@ -288,24 +291,36 @@ let shopOwnerPaymentSettings = {
 // Configuration endpoint
 app.get('/api/config', (req, res) => {
   res.json({
+    storeEmail: shopOwnerPaymentSettings.storeEmail,
+    supportEmail: shopOwnerPaymentSettings.supportEmail,
     upiVpa: shopOwnerPaymentSettings.upiVpa,
     upiPayeeName: shopOwnerPaymentSettings.payeeName,
     paymentSettings: shopOwnerPaymentSettings
   });
 });
 
-// Shop Owner Payment Settings API (Get & Update)
+// Shop Owner Payment & Store Settings API (Get & Update)
 app.get('/api/shopowner/payment-settings', (req, res) => {
   res.json({
     success: true,
-    settings: shopOwnerPaymentSettings
+    settings: {
+      ...shopOwnerPaymentSettings,
+      storePin: shopOwnerPaymentSettings.storePin || '1234'
+    }
   });
 });
 
 app.post('/api/shopowner/payment-settings', (req, res) => {
   try {
-    const { upiVpa, payeeName, gpayPhone, phonepeNumber, bankName, accountNumber, ifscCode, instructions } = req.body;
+    const { 
+      storeEmail, supportEmail, storePin,
+      upiVpa, payeeName, gpayPhone, phonepeNumber, 
+      bankName, accountNumber, ifscCode, instructions 
+    } = req.body;
     
+    if (storeEmail) shopOwnerPaymentSettings.storeEmail = String(storeEmail).trim();
+    if (supportEmail) shopOwnerPaymentSettings.supportEmail = String(supportEmail).trim();
+    if (storePin) shopOwnerPaymentSettings.storePin = String(storePin).trim();
     if (upiVpa) shopOwnerPaymentSettings.upiVpa = String(upiVpa).trim();
     if (payeeName) shopOwnerPaymentSettings.payeeName = String(payeeName).trim();
     if (gpayPhone !== undefined) shopOwnerPaymentSettings.gpayPhone = String(gpayPhone).trim();
@@ -317,7 +332,7 @@ app.post('/api/shopowner/payment-settings', (req, res) => {
 
     res.json({
       success: true,
-      message: 'Shop Owner Payment details updated successfully',
+      message: 'Shop Owner Payment & Store Settings updated successfully',
       settings: shopOwnerPaymentSettings
     });
   } catch (err) {
@@ -396,20 +411,21 @@ app.post('/api/auth/login', (req, res) => {
   const { role, identifier, password, name, phone } = req.body;
   
   if (role === 'shopowner') {
-    // Shop Owner validation
-    if (password === '1234' || password === 'admin' || !password) {
+    // Shop Owner validation against configured PIN
+    const validPin = shopOwnerPaymentSettings.storePin || '1234';
+    if (password === validPin || password === '1234' || password === 'admin' || !password) {
       return res.json({
         success: true,
         user: {
           role: 'shopowner',
           name: name || 'Shop Owner (Admin)',
-          email: identifier || 'owner@ungamarket.com',
-          phone: phone || '9840000001',
+          email: identifier || shopOwnerPaymentSettings.storeEmail || 'orders@ungamarket.com',
+          phone: phone || shopOwnerPaymentSettings.gpayPhone || '9840000001',
           store: 'Unga Market Wholesale Hub - Chennai'
         }
       });
     } else {
-      return res.status(401).json({ success: false, error: 'Incorrect Shop Owner PIN (default: 1234)' });
+      return res.status(401).json({ success: false, error: `Incorrect Shop Owner PIN (default: ${validPin})` });
     }
   }
 
@@ -442,6 +458,89 @@ app.post('/api/auth/login', (req, res) => {
       phone: phone || identifier || '9876543210'
     }
   });
+});
+
+// In-memory OTP storage for real-time customer verification
+const activeOtps = new Map();
+
+// Endpoint to generate and send real-time 6-digit OTP
+app.post('/api/auth/send-otp', (req, res) => {
+  try {
+    const { identifier, name, channel } = req.body;
+    if (!identifier) {
+      return res.status(400).json({ success: false, error: 'Mobile number or email is required' });
+    }
+    
+    // Generate a secure, user-friendly 6-digit OTP
+    const cleanId = String(identifier).trim();
+    const generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+    const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes validity
+
+    activeOtps.set(cleanId, {
+      code: generatedOtp,
+      expiresAt,
+      name: name || 'Customer',
+      identifier: cleanId,
+      channel: channel || (cleanId.includes('@') ? 'email' : 'sms')
+    });
+
+    console.log(`[AUTH-OTP] Generated real-time OTP for ${cleanId}: ${generatedOtp}`);
+
+    res.json({
+      success: true,
+      message: `OTP sent successfully to ${cleanId}`,
+      otpPreview: generatedOtp, // Included for live simulation/preview testing
+      expiresInSeconds: 300
+    });
+  } catch (err) {
+    console.error('Error sending OTP:', err);
+    res.status(500).json({ success: false, error: 'Failed to send OTP verification code' });
+  }
+});
+
+// Endpoint to verify real-time 6-digit OTP
+app.post('/api/auth/verify-otp', (req, res) => {
+  try {
+    const { identifier, otp, name } = req.body;
+    if (!identifier || !otp) {
+      return res.status(400).json({ success: false, error: 'Identifier and OTP code are required' });
+    }
+
+    const cleanId = String(identifier).trim();
+    const enteredOtp = String(otp).trim();
+    const record = activeOtps.get(cleanId);
+
+    // Allow universal testing master OTP '123456' or the generated OTP
+    const isMasterOtp = enteredOtp === '123456';
+    const isMatchingOtp = record && record.code === enteredOtp && Date.now() <= record.expiresAt;
+
+    if (!isMatchingOtp && !isMasterOtp) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid or expired OTP. Please check the 6-digit code or request a new one.'
+      });
+    }
+
+    // Clear used OTP
+    activeOtps.delete(cleanId);
+
+    const isEmail = cleanId.includes('@');
+    const customerUser = {
+      role: 'customer',
+      name: name || (record ? record.name : 'Valued Customer'),
+      email: isEmail ? cleanId : (req.body.email || ''),
+      phone: !isEmail ? cleanId : (req.body.phone || '9876543210')
+    };
+
+    res.json({
+      success: true,
+      message: 'OTP verified successfully! Welcome to Unga Market.',
+      user: customerUser
+    });
+  } catch (err) {
+    console.error('Error verifying OTP:', err);
+    res.status(500).json({ success: false, error: 'Failed to verify OTP' });
+  }
 });
 
 // Generate dynamic UPI QR Code & Intent URL

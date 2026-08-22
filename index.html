@@ -173,6 +173,17 @@ a{color:inherit;text-decoration:none}
 .role-tab{padding:8px 4px;text-align:center;border-radius:8px;font-size:12px;font-weight:800;color:var(--ink-2);transition:.15s}
 .role-tab.active{background:#fff;color:var(--green-dark);box-shadow:0 2px 6px rgba(0,0,0,.08)}
 
+/* OTP & Multi-Channel Auth UI */
+.otp-box-wrap{background:#F0FDF4;border:1.5px solid #BBF7D0;border-radius:14px;padding:16px;margin-bottom:12px;text-align:left}
+.otp-channel-toggle{display:flex;gap:6px;margin-bottom:10px}
+.otp-chan-btn{flex:1;padding:6px;border-radius:8px;font-size:11px;font-weight:900;background:#fff;border:1px solid #CBD5E1;color:var(--ink-2);display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:.15s}
+.otp-chan-btn.active{background:var(--green-soft);border-color:var(--green);color:var(--green-dark)}
+.otp-input-large{width:100%;height:48px;border-radius:12px;border:2px solid var(--green);background:#fff;padding:0 14px;font-size:22px;font-weight:900;letter-spacing:6px;text-align:center;color:var(--ink);outline:0;box-shadow:0 0 0 3px var(--green-soft)}
+.otp-timer-row{display:flex;align-items:center;justify-content:space-between;margin:8px 0;font-size:11.5px;color:var(--ink-2)}
+.otp-autofill-btn{background:#FEF3C7;border:1px dashed #F59E0B;border-radius:8px;padding:6px 10px;font-size:11.5px;font-weight:900;color:#92400E;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;margin:8px 0;transition:.15s}
+.otp-autofill-btn:hover{background:#FDE68A}
+.splash-partner-card{background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:14px;padding:14px;text-align:left;margin-bottom:12px}
+
 /* ==========================================================================
    ORDER TIMELINE COMPONENT (VISUAL 4-STEP TRACKER)
    ========================================================================== */
@@ -211,11 +222,32 @@ a{color:inherit;text-decoration:none}
 .order-item-row{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-2);padding:3px 0}
 
 /* Shop Owner & Delivery Partner Controls inside cards */
-.admin-action-bar{margin-top:10px;padding:10px;background:#F1F5F9;border-radius:10px;display:flex;flex-direction:column;gap:8px}
-.status-btn-group{display:flex;gap:6px;flex-wrap:wrap}
-.st-btn{flex:1;min-width:70px;height:32px;border-radius:8px;font-size:11px;font-weight:800;background:#fff;border:1.5px solid var(--line);transition:.15s}
-.st-btn:hover{border-color:var(--green);color:var(--green)}
-.st-btn.active{background:var(--green);color:#fff;border-color:var(--green-dark)}
+.admin-action-bar{margin-top:12px;padding:12px;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:12px;display:flex;flex-direction:column;gap:8px}
+.status-btn-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.st-btn{min-height:44px;padding:8px 12px;border-radius:10px;font-size:12px;font-weight:900;background:#fff;border:1.5px solid #CBD5E1;color:var(--ink);cursor:pointer;transition:.15s cubic-bezier(.2,.8,.2,1);display:flex;align-items:center;justify-content:center;text-align:center;gap:4px;touch-action:manipulation;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.st-btn:hover{border-color:var(--green);color:var(--green-dark);background:#F0FDF4}
+.st-btn:active{transform:scale(0.97)}
+.st-btn.active{background:var(--green);color:#fff;border-color:var(--green-dark);box-shadow:0 2px 8px rgba(15,138,62,.3)}
+
+/* Responsive Orders Queue Toolbar & Tabs */
+.orders-toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.orders-filter-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.orders-filter-tabs::-webkit-scrollbar{display:none}
+.orders-tab-pill{padding:6px 12px;border-radius:20px;font-size:11.5px;font-weight:900;background:#F1F5F9;border:1px solid #CBD5E1;color:var(--ink-2);cursor:pointer;white-space:nowrap;transition:.15s}
+.orders-tab-pill:hover{background:#E2E8F0}
+.orders-tab-pill.active{background:var(--green);color:#fff;border-color:var(--green-dark)}
+
+.orders-view-mode-toggle{display:flex;gap:4px;background:#F1F5F9;padding:3px;border-radius:10px;border:1px solid #CBD5E1}
+.view-mode-btn{padding:4px 10px;border-radius:7px;font-size:11px;font-weight:900;background:transparent;border:none;color:var(--ink-2);cursor:pointer;transition:.15s}
+.view-mode-btn.active{background:#fff;color:var(--green-dark);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+
+/* Horizontal Scrollable Table for Orders Queue */
+.orders-table-scroll-container{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #E2E8F0;border-radius:12px;background:#fff;margin:10px 0}
+.orders-table{width:100%;min-width:640px;border-collapse:collapse;font-size:12px;text-align:left}
+.orders-table th{background:#F8FAFC;padding:10px 12px;font-size:11px;font-weight:900;color:var(--ink-2);text-transform:uppercase;letter-spacing:.3px;border-bottom:1px solid #E2E8F0;white-space:nowrap}
+.orders-table td{padding:12px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
+.orders-table tr:last-child td{border-bottom:none}
+.orders-table tr:hover td{background:#FAFAFA}
 
 /* Store Stats Panel */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:16px}
@@ -413,22 +445,151 @@ a{color:inherit;text-decoration:none}
 </head>
 <body>
 
-<!-- Opening Splash Screen with Brand Logo & Category Pillars -->
+<!-- Opening Splash Screen with Customer Login & Brand Welcome -->
 <div id="splashScreen">
   <div class="splash-card">
     <img class="splash-logo" src="/logo.svg" alt="Unga Market - Your Everyday, Our Priority!"/>
-    <h2 style="margin:8px 0 4px;font-size:20px;font-weight:900;color:var(--green-dark)">Direct Wholesale FMCG Catalog</h2>
-    <p style="margin:0 0 16px;color:var(--ink-2);font-size:13px">100% Genuine Kirana Stock · Google Pay &amp; Instant UPI · Flat 20% Off</p>
-    <button class="btn-primary" style="max-width:280px;margin:0 auto;height:44px" onclick="closeSplash()">
-      Enter Unga Market →
-    </button>
-    <div class="splash-loader"></div>
+    
+    <!-- Multi-Role Login Flow -->
+    <div id="splashGuestFlow">
+      <h2 style="margin:4px 0 2px;font-size:18px;font-weight:900;color:var(--green-dark)">Welcome to Unga Market 🛍️</h2>
+      <p style="margin:0 0 12px;color:var(--ink-2);font-size:12px">Direct Wholesale Kirana Prices · Google Pay &amp; Instant UPI · 10–15 Mins Delivery</p>
+      
+      <!-- Role Switcher Tabs -->
+      <div class="role-tabs" style="margin-bottom:12px">
+        <button class="role-tab active" id="splashTabCust" onclick="setSplashRoleTab('customer')">🛍️ Customer (OTP)</button>
+        <button class="role-tab" id="splashTabOwner" onclick="setSplashRoleTab('shopowner')">🏪 Shop Owner</button>
+        <button class="role-tab" id="splashTabDriver" onclick="setSplashRoleTab('delivery')">🛵 Delivery</button>
+      </div>
+
+      <!-- 1. Customer Real-time OTP Flow -->
+      <div id="splashCustPanel">
+        <!-- Stage 1: Input details & Request OTP -->
+        <div id="splashCustStage1" class="otp-box-wrap">
+          <div style="font-size:12px;font-weight:900;color:var(--green-dark);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between">
+            <span>👤 Customer Sign In / Register</span>
+            <span style="font-size:10px;background:var(--green-soft);padding:2px 6px;border-radius:6px;color:var(--green);font-weight:900">⚡ Real-Time OTP</span>
+          </div>
+
+          <form id="splashCustomerForm" onsubmit="handleRequestSplashOtp(event)">
+            <div class="field" style="margin-bottom:8px">
+              <label style="font-size:10px;color:var(--ink-2)">Full Name</label>
+              <input id="splashCustName" required placeholder="e.g. Rohith Jaya Prasad" style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
+            </div>
+
+            <div class="field" style="margin-bottom:8px">
+              <label style="font-size:10px;color:var(--ink-2)">10-Digit Mobile Number or Gmail</label>
+              <input id="splashCustPhone" required placeholder="e.g. 9025022390 or name@gmail.com" style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
+            </div>
+
+            <div style="margin-bottom:10px">
+              <div style="font-size:10px;font-weight:800;color:var(--ink-3);margin-bottom:4px;text-transform:uppercase">Deliver Verification Code Via</div>
+              <div class="otp-channel-toggle">
+                <button type="button" class="otp-chan-btn active" id="splashChanSms" onclick="setSplashOtpChannel('sms')">📱 SMS</button>
+                <button type="button" class="otp-chan-btn" id="splashChanWa" onclick="setSplashOtpChannel('whatsapp')">💬 WhatsApp</button>
+                <button type="button" class="otp-chan-btn" id="splashChanMail" onclick="setSplashOtpChannel('email')">📧 Gmail</button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary" id="btnSendSplashOtp" style="width:100%;height:44px;font-size:13.5px;font-weight:900">
+              Get Instant 6-Digit OTP 📲
+            </button>
+          </form>
+        </div>
+
+        <!-- Stage 2: Enter & Verify 6-Digit OTP -->
+        <div id="splashCustStage2" class="otp-box-wrap" style="display:none">
+          <div style="font-size:12.5px;font-weight:900;color:var(--green-dark);margin-bottom:4px">
+            📲 Verify 6-Digit OTP Code
+          </div>
+          <div style="font-size:11.5px;color:var(--ink-2);margin-bottom:10px" id="splashOtpSentNotice">
+            Sent verification code to mobile / email
+          </div>
+
+          <form onsubmit="handleVerifySplashOtp(event)">
+            <input id="splashOtpCode" class="otp-input-large" type="tel" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="••••••" required />
+
+            <div id="splashAutofillBanner"></div>
+
+            <div class="otp-timer-row">
+              <span id="splashOtpTimerText">⏱️ Resend in <b id="splashOtpTimerVal">45s</b></span>
+              <button type="button" id="splashResendBtn" onclick="handleResendSplashOtp()" style="color:var(--green-dark);font-size:11px;font-weight:900;text-decoration:underline;display:none">
+                Resend Code
+              </button>
+            </div>
+
+            <button type="submit" class="btn-primary" id="btnVerifySplashOtp" style="width:100%;height:44px;font-size:14px;font-weight:900;margin-top:6px">
+              Verify OTP &amp; Enter Unga Market 🛍️
+            </button>
+            
+            <button type="button" class="btn-ghost" onclick="resetSplashOtpStage()" style="height:32px;font-size:11.5px;margin-top:6px">
+              ← Change Mobile / Email
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- 2. Shop Owner Direct Login Panel -->
+      <div id="splashOwnerPanel" style="display:none" class="splash-partner-card">
+        <div style="font-size:12.5px;font-weight:900;color:#B45309;margin-bottom:4px">🏪 Shop Owner Admin Portal</div>
+        <p style="font-size:11px;color:#92400E;margin:0 0 10px">Sign in to manage live orders queue, edit product prices, check revenue charts, and configure UPI payment gateways.</p>
+        <form onsubmit="handleSplashOwnerLogin(event)">
+          <div class="field" style="margin-bottom:8px">
+            <label style="font-size:10px;color:var(--ink-2)">Store Admin Email / ID</label>
+            <input id="splashOwnerId" value="owner@ungamarket.com" required style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
+          </div>
+          <div class="field" style="margin-bottom:12px">
+            <label style="font-size:10px;color:var(--ink-2)">Security Store PIN</label>
+            <input id="splashOwnerPin" type="password" value="1234" placeholder="Default PIN: 1234" required style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;height:44px;background:var(--green);font-size:14px;font-weight:900">
+            Sign In as Shop Owner 🏪
+          </button>
+        </form>
+      </div>
+
+      <!-- 3. Delivery Fleet Partner Login Panel -->
+      <div id="splashDriverPanel" style="display:none" class="splash-partner-card" style="background:#F0FDF4;border-color:#BBF7D0">
+        <div style="font-size:12.5px;font-weight:900;color:var(--green-dark);margin-bottom:4px">🛵 Delivery Fleet Partner Portal</div>
+        <p style="font-size:11px;color:var(--green-dark);margin:0 0 10px">Access dispatch route queue, customer call triggers, and 1-tap delivery completions.</p>
+        <form onsubmit="handleSplashDriverLogin(event)">
+          <div class="field" style="margin-bottom:8px">
+            <label style="font-size:10px;color:var(--ink-2)">Fleet Driver Name</label>
+            <input id="splashDriverName" value="Murugan V. (Fleet)" required style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
+          </div>
+          <div class="field" style="margin-bottom:8px">
+            <label style="font-size:10px;color:var(--ink-2)">Vehicle Registration</label>
+            <input id="splashDriverVeh" value="TN-07-CS-4421" required style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
+          </div>
+          <div class="field" style="margin-bottom:12px">
+            <label style="font-size:10px;color:var(--ink-2)">Driver PIN</label>
+            <input id="splashDriverPin" type="password" value="1234" placeholder="Default PIN: 1234" required style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;height:44px;background:linear-gradient(135deg,#0288D1,#01579B);font-size:14px;font-weight:900">
+            Sign In as Delivery Fleet 🛵
+          </button>
+        </form>
+      </div>
+
+      <button onclick="continueAsGuest()" class="btn-ghost" style="margin-top:6px;font-size:11.5px;height:34px;color:var(--ink-2);background:transparent">
+        Skip for now &amp; Browse Wholesale Catalog →
+      </button>
+    </div>
+
+    <!-- Authenticated Flow if already signed in -->
+    <div id="splashAuthFlow" style="display:none">
+      <h2 style="margin:8px 0 4px;font-size:20px;font-weight:900;color:var(--green-dark)">Welcome Back!</h2>
+      <p style="margin:0 0 14px;color:var(--ink-2);font-size:13px" id="splashWelcomeUserMsg">Your wholesale catalog is ready with live FMCG discounts.</p>
+      <button class="btn-primary" style="max-width:280px;margin:0 auto;height:44px;font-size:14px" onclick="closeSplash()">
+        Enter Unga Market →
+      </button>
+    </div>
   </div>
 </div>
 
 <!-- Header (Blinkit / Zepto Style) -->
 <header class="top">
-  <!-- Top Quick Delivery Bar & Discreet Partner Link -->
+  <!-- Top Quick Delivery Bar -->
   <div class="top-delivery-bar" id="topDeliveryBar">
     <div class="top-delivery-inner">
       <div style="display:flex;align-items:center;gap:8px" id="deliveryAddressHeaderWrap">
@@ -437,9 +598,9 @@ a{color:inherit;text-decoration:none}
           <button class="btn-address-header" onclick="openAddressModal()">📍 Add Delivery Address ➕</button>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:12px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="toast-action-btn" onclick="openPartnerLoginModal('shopowner')" style="background:rgba(255,255,255,.25);color:#fff;border:none;font-weight:900">🏪 Staff / Partner Login</button>
         <button class="toast-action-btn" onclick="openWhereIsMyOrder()" style="background:rgba(255,255,255,.2);color:#fff;border:none">📍 Where is my order?</button>
-        <span class="partner-link" onclick="openPartnerLoginModal()">🏪 Merchant / Store Hub</span>
       </div>
     </div>
   </div>
@@ -537,7 +698,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- Unified Role Login Modal (Customer / Shop Owner / Delivery Partner) -->
 <div id="mAuth" class="modal" onclick="if(event.target===this)closeModal('mAuth')">
-  <div class="modal-box" style="max-width:420px">
+  <div class="modal-box" style="max-width:440px">
     <div class="modal-head">
       <h3 id="authHeading">Account Sign In</h3>
       <button class="close" onclick="closeModal('mAuth')">✕</button>
@@ -545,27 +706,65 @@ a{color:inherit;text-decoration:none}
     <div class="modal-body">
       <!-- Role tabs inside auth modal -->
       <div class="role-tabs">
-        <button class="role-tab active" id="tabAuthCust" onclick="setAuthTab('customer')">🛍️ Customer</button>
+        <button class="role-tab active" id="tabAuthCust" onclick="setAuthTab('customer')">🛍️ Customer (OTP)</button>
         <button class="role-tab" id="tabAuthOwner" onclick="setAuthTab('shopowner')">🏪 Shop Owner</button>
         <button class="role-tab" id="tabAuthDriver" onclick="setAuthTab('delivery')">🛵 Delivery</button>
       </div>
 
-      <!-- Customer Form -->
-      <form id="formCust" onsubmit="handleCustomerLogin(event)">
-        <div class="field"><label>Full Name</label><input id="custName" placeholder="Your Name" required/></div>
-        <div class="field"><label>Mobile Phone (10 digits)</label><input id="custPhone" inputmode="numeric" pattern="[0-9]{10}" placeholder="9876543210" required/></div>
-        <div class="field"><label>Email Address</label><input id="custEmail" type="email" placeholder="you@example.com" /></div>
-        <button type="submit" class="btn-primary" style="margin-top:14px">Sign In as Customer</button>
-      </form>
+      <!-- Customer Form with Real-time OTP -->
+      <div id="formCust">
+        <div id="modalCustStage1">
+          <form onsubmit="handleRequestModalOtp(event)">
+            <div class="field"><label>Full Name</label><input id="custName" placeholder="Your Name" required/></div>
+            <div class="field"><label>Mobile Phone or Gmail</label><input id="custPhone" placeholder="9876543210 or email@gmail.com" required/></div>
+            
+            <div style="margin-bottom:10px">
+              <div style="font-size:10px;font-weight:800;color:var(--ink-3);margin-bottom:4px;text-transform:uppercase">Deliver Verification Code Via</div>
+              <div class="otp-channel-toggle">
+                <button type="button" class="otp-chan-btn active" id="modalChanSms" onclick="setModalOtpChannel('sms')">📱 SMS</button>
+                <button type="button" class="otp-chan-btn" id="modalChanWa" onclick="setModalOtpChannel('whatsapp')">💬 WhatsApp</button>
+                <button type="button" class="otp-chan-btn" id="modalChanMail" onclick="setModalOtpChannel('email')">📧 Gmail</button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary" id="btnModalSendOtp" style="margin-top:10px">Get Instant 6-Digit OTP 📲</button>
+          </form>
+        </div>
+
+        <div id="modalCustStage2" style="display:none" class="otp-box-wrap">
+          <div style="font-size:12px;font-weight:900;color:var(--green-dark);margin-bottom:4px">
+            📲 Verify OTP Code
+          </div>
+          <div style="font-size:11.5px;color:var(--ink-2);margin-bottom:10px" id="modalOtpSentNotice">
+            Sent verification code to mobile / email
+          </div>
+
+          <form onsubmit="handleVerifyModalOtp(event)">
+            <input id="modalOtpCode" class="otp-input-large" type="tel" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="••••••" required />
+
+            <div id="modalAutofillBanner"></div>
+
+            <div class="otp-timer-row">
+              <span id="modalOtpTimerText">⏱️ Resend in <b id="modalOtpTimerVal">45s</b></span>
+              <button type="button" id="modalResendBtn" onclick="handleResendModalOtp()" style="color:var(--green-dark);font-size:11px;font-weight:900;text-decoration:underline;display:none">
+                Resend Code
+              </button>
+            </div>
+
+            <button type="submit" class="btn-primary" style="margin-top:8px">Verify &amp; Sign In 🛍️</button>
+            <button type="button" class="btn-ghost" onclick="resetModalOtpStage()" style="height:32px;font-size:11.5px;margin-top:6px">← Change Mobile / Email</button>
+          </form>
+        </div>
+      </div>
 
       <!-- Shop Owner Form -->
       <form id="formOwner" style="display:none" onsubmit="handleOwnerLogin(event)">
         <div style="background:var(--orange-soft);padding:10px;border-radius:10px;font-size:12px;color:var(--orange-dark);font-weight:700;margin-bottom:12px">
-          🏪 Store Admin Portal: Access live wholesale order queue, pack &amp; dispatch orders, and track revenue.
+          🏪 Store Admin Portal: Access live wholesale order queue, pack &amp; dispatch orders, set prices &amp; UPI details, and track revenue.
         </div>
         <div class="field"><label>Store Admin Email / ID</label><input id="ownerId" value="owner@ungamarket.com" required/></div>
         <div class="field"><label>Store PIN</label><input id="ownerPin" type="password" value="1234" placeholder="Default PIN: 1234" required/></div>
-        <button type="submit" class="btn-primary" style="margin-top:14px;background:var(--green)">Sign In as Shop Owner</button>
+        <button type="submit" class="btn-primary" style="margin-top:14px;background:var(--green)">Sign In as Shop Owner 🏪</button>
       </form>
 
       <!-- Delivery Partner Form -->
@@ -576,7 +775,7 @@ a{color:inherit;text-decoration:none}
         <div class="field"><label>Driver Name</label><input id="driverName" value="Murugan V. (Fleet)" required/></div>
         <div class="field"><label>Vehicle Reg Number</label><input id="driverVeh" value="TN-07-CS-4421" required/></div>
         <div class="field"><label>Driver PIN</label><input id="driverPin" type="password" value="1234" placeholder="Default PIN: 1234" required/></div>
-        <button type="submit" class="btn-primary" style="margin-top:14px;background:linear-gradient(135deg,#0288D1,#01579B)">Sign In as Delivery Partner</button>
+        <button type="submit" class="btn-primary" style="margin-top:14px;background:linear-gradient(135deg,#0288D1,#01579B)">Sign In as Delivery Partner 🛵</button>
       </form>
     </div>
   </div>
@@ -675,6 +874,25 @@ a{color:inherit;text-decoration:none}
       </div>
 
       <form id="paymentSettingsForm" onsubmit="handleSavePaymentSettings(event)">
+        <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:12px;padding:12px;margin:10px 0 14px">
+          <div style="font-size:11.5px;font-weight:900;color:#92400E;text-transform:uppercase;margin-bottom:8px">📧 Store Email &amp; Security PIN Settings</div>
+          <div style="display:flex;gap:10px">
+            <div class="field" style="flex:1;margin-bottom:6px">
+              <label style="font-size:10px;color:#78350F">Store Orders Email</label>
+              <input id="setStoreEmail" type="email" placeholder="orders@ungamarket.com" style="height:36px;font-size:13px;background:#fff" />
+            </div>
+            <div class="field" style="flex:1;margin-bottom:6px">
+              <label style="font-size:10px;color:#78350F">Support Email</label>
+              <input id="setSupportEmail" type="email" placeholder="support@ungamarket.com" style="height:36px;font-size:13px;background:#fff" />
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label style="font-size:10px;color:#78350F">Shop Owner Security PIN (Default: 1234)</label>
+            <input id="setStorePin" type="text" maxlength="10" placeholder="1234" style="height:36px;font-size:13px;background:#fff;font-weight:900;letter-spacing:1px" />
+            <small style="font-size:10.5px;color:#B45309;display:block;margin-top:2px">Used to sign in to the Shop Owner Terminal &amp; Orders Queue.</small>
+          </div>
+        </div>
+
         <div class="field">
           <label>Primary UPI ID / VPA (e.g. yourname@okaxis, yourstore@icici)</label>
           <input id="setUpiVpa" required placeholder="e.g. 9840123456@okaxis or ungamarket@okaxis" />
@@ -980,7 +1198,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- Order History, Sales Analytics & Visual 4-Step Timeline Modal -->
 <div id="mOrders" class="modal" onclick="if(event.target===this)closeModal('mOrders')">
-  <div class="modal-box" style="max-width:620px">
+  <div class="modal-box" style="max-width:760px">
     <div class="modal-head">
       <h3>
         <span id="ordersModalTitle">📦 Orders Queue &amp; Fulfillment Timeline</span>
@@ -1063,12 +1281,251 @@ const G = {
   deliveryTip:0,
   orders:[],
   clusters:[],
-  selectedCluster:null
+  selectedCluster:null,
+  otp: {
+    splash: { chan: 'sms', id: '', name: '', timer: null, val: 45, code: '' },
+    modal: { chan: 'sms', id: '', name: '', timer: null, val: 45, code: '' }
+  }
 };
 
 const store = {
   get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}},
   set(k,v){localStorage.setItem(k,JSON.stringify(v))}
+};
+
+// Splash Screen & Multi-Role Tab Switcher
+window.setSplashRoleTab = function(tab){
+  const tabCust = document.getElementById('splashTabCust');
+  const tabOwner = document.getElementById('splashTabOwner');
+  const tabDriver = document.getElementById('splashTabDriver');
+  if(tabCust) tabCust.classList.toggle('active', tab === 'customer');
+  if(tabOwner) tabOwner.classList.toggle('active', tab === 'shopowner');
+  if(tabDriver) tabDriver.classList.toggle('active', tab === 'delivery');
+
+  const pCust = document.getElementById('splashCustPanel');
+  const pOwner = document.getElementById('splashOwnerPanel');
+  const pDriver = document.getElementById('splashDriverPanel');
+  if(pCust) pCust.style.display = tab === 'customer' ? 'block' : 'none';
+  if(pOwner) pOwner.style.display = tab === 'shopowner' ? 'block' : 'none';
+  if(pDriver) pDriver.style.display = tab === 'delivery' ? 'block' : 'none';
+};
+
+window.setSplashOtpChannel = function(chan){
+  G.otp.splash.chan = chan;
+  document.getElementById('splashChanSms')?.classList.toggle('active', chan === 'sms');
+  document.getElementById('splashChanWa')?.classList.toggle('active', chan === 'whatsapp');
+  document.getElementById('splashChanMail')?.classList.toggle('active', chan === 'email');
+};
+
+window.handleRequestSplashOtp = async function(e){
+  if(e) e.preventDefault();
+  const name = document.getElementById('splashCustName').value.trim();
+  const phone = document.getElementById('splashCustPhone').value.trim();
+  if(!phone){
+    toast('Please enter your 10-digit mobile number or Gmail', 'err');
+    return;
+  }
+  const btn = document.getElementById('btnSendSplashOtp');
+  if(btn) { btn.disabled = true; btn.textContent = 'Sending 6-Digit OTP... 📲'; }
+
+  try {
+    const res = await fetch('/api/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier: phone, name, channel: G.otp.splash.chan })
+    });
+    const data = await res.json();
+    if(data.success){
+      G.otp.splash.id = phone;
+      G.otp.splash.name = name || 'Customer';
+      G.otp.splash.code = data.otpPreview || '123456';
+
+      // Switch to Stage 2
+      document.getElementById('splashCustStage1').style.display = 'none';
+      document.getElementById('splashCustStage2').style.display = 'block';
+      const notice = document.getElementById('splashOtpSentNotice');
+      if(notice) {
+        notice.innerHTML = `Sent 6-digit code via <b>${G.otp.splash.chan.toUpperCase()}</b> to <b>${phone}</b>`;
+      }
+
+      // Render 1-tap Auto-fill helper banner
+      const banner = document.getElementById('splashAutofillBanner');
+      if(banner){
+        banner.innerHTML = `
+          <button type="button" class="otp-autofill-btn" onclick="autofillSplashOtp('${G.otp.splash.code}')">
+            ✨ Tap to Auto-Fill Live OTP: <b style="font-size:13px;letter-spacing:1px;color:#B45309">${G.otp.splash.code}</b>
+          </button>
+        `;
+      }
+
+      // Start Countdown
+      startSplashOtpCountdown();
+      toast(`Verification code sent to ${phone}! 📲`, 'ok');
+      setTimeout(() => {
+        document.getElementById('splashOtpCode')?.focus();
+      }, 100);
+    } else {
+      toast(data.error || 'Failed to send OTP', 'err');
+    }
+  } catch(err){
+    console.error(err);
+    toast('Error sending OTP. Please retry.', 'err');
+  } finally {
+    if(btn) { btn.disabled = false; btn.textContent = 'Get Instant 6-Digit OTP 📲'; }
+  }
+};
+
+window.autofillSplashOtp = function(code){
+  const inp = document.getElementById('splashOtpCode');
+  if(inp){
+    inp.value = code;
+    toast('OTP code inserted! Tap Verify to continue.', 'ok');
+  }
+};
+
+function startSplashOtpCountdown(){
+  if(G.otp.splash.timer) clearInterval(G.otp.splash.timer);
+  G.otp.splash.val = 45;
+  const timerVal = document.getElementById('splashOtpTimerVal');
+  const timerText = document.getElementById('splashOtpTimerText');
+  const resendBtn = document.getElementById('splashResendBtn');
+  if(timerText) timerText.style.display = 'inline';
+  if(resendBtn) resendBtn.style.display = 'none';
+
+  G.otp.splash.timer = setInterval(() => {
+    G.otp.splash.val--;
+    if(timerVal) timerVal.textContent = G.otp.splash.val + 's';
+    if(G.otp.splash.val <= 0){
+      clearInterval(G.otp.splash.timer);
+      if(timerText) timerText.style.display = 'none';
+      if(resendBtn) resendBtn.style.display = 'inline';
+    }
+  }, 1000);
+}
+
+window.handleResendSplashOtp = async function(){
+  await handleRequestSplashOtp();
+};
+
+window.resetSplashOtpStage = function(){
+  if(G.otp.splash.timer) clearInterval(G.otp.splash.timer);
+  document.getElementById('splashCustStage1').style.display = 'block';
+  document.getElementById('splashCustStage2').style.display = 'none';
+};
+
+window.handleVerifySplashOtp = async function(e){
+  e.preventDefault();
+  const enteredOtp = document.getElementById('splashOtpCode').value.trim();
+  if(!enteredOtp || enteredOtp.length < 6){
+    toast('Please enter valid 6-digit OTP code', 'err');
+    return;
+  }
+  const btn = document.getElementById('btnVerifySplashOtp');
+  if(btn) { btn.disabled = true; btn.textContent = 'Verifying Code... ⏳'; }
+
+  try {
+    const res = await fetch('/api/auth/verify-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        identifier: G.otp.splash.id,
+        otp: enteredOtp,
+        name: G.otp.splash.name
+      })
+    });
+    const data = await res.json();
+    if(data.success && data.user){
+      G.user = data.user;
+      store.set(LS.session, G.user);
+      renderRoleBar();
+      renderUserBtn();
+      closeSplash();
+      await fetchOrders();
+      renderProducts();
+      toast(`Verified! Welcome to Unga Market, ${G.user.name}! 🛍️`, 'ok');
+    } else {
+      toast(data.error || 'Invalid or expired OTP code', 'err');
+    }
+  } catch(err){
+    console.error(err);
+    toast('Verification failed. Try master code 123456', 'err');
+  } finally {
+    if(btn) { btn.disabled = false; btn.textContent = 'Verify OTP & Enter Unga Market 🛍️'; }
+  }
+};
+
+window.handleSplashOwnerLogin = async function(e){
+  e.preventDefault();
+  const id = document.getElementById('splashOwnerId').value.trim();
+  const pin = document.getElementById('splashOwnerPin').value.trim();
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ role:'shopowner', identifier:id, password:pin })
+    });
+    const data = await res.json();
+    if(data.success){
+      G.user = data.user;
+      store.set(LS.session, G.user);
+      renderRoleBar();
+      renderUserBtn();
+      closeSplash();
+      await fetchOrders();
+      renderProducts();
+      toast('Welcome to Store Owner Terminal! 🏪', 'ok');
+    } else {
+      toast(data.error || 'Login failed. Check store PIN (default: 1234)', 'err');
+    }
+  } catch(err){
+    console.error(err);
+    toast('Authentication error', 'err');
+  }
+};
+
+window.handleSplashDriverLogin = async function(e){
+  e.preventDefault();
+  const name = document.getElementById('splashDriverName').value.trim();
+  const vehicle = document.getElementById('splashDriverVeh').value.trim();
+  const pin = document.getElementById('splashDriverPin').value.trim();
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ role:'delivery', name, vehicle, password:pin })
+    });
+    const data = await res.json();
+    if(data.success){
+      G.user = data.user;
+      store.set(LS.session, G.user);
+      renderRoleBar();
+      renderUserBtn();
+      closeSplash();
+      await fetchOrders();
+      renderProducts();
+      toast('Logged in as Fleet Driver! 🛵', 'ok');
+    } else {
+      toast(data.error || 'Login failed (default PIN: 1234)', 'err');
+    }
+  } catch(err){
+    console.error(err);
+    toast('Authentication error', 'err');
+  }
+};
+
+window.continueAsGuest = function(){
+  G.user = { role:'customer', name:'Guest Customer', phone:'', email:'' };
+  store.set(LS.session, G.user);
+  renderRoleBar();
+  renderUserBtn();
+  closeSplash();
+  renderProducts();
+  toast('Welcome! Browsing wholesale catalog as Guest. 🛒', 'ok');
+};
+
+window.openPartnerLoginModal = function(targetRole = 'shopowner'){
+  openModal('mAuth');
+  setAuthTab(targetRole);
 };
 
 // Splash Screen handling
@@ -1077,25 +1534,40 @@ window.closeSplash = function(){
 };
 
 window.showSplash = function(){
+  const guestBox = document.getElementById('splashGuestFlow');
+  const authBox = document.getElementById('splashAuthFlow');
+  const welcomeMsg = document.getElementById('splashWelcomeUserMsg');
+  
+  if(G.user && G.user.phone && G.user.name && G.user.name !== 'Customer' && G.user.name !== 'Guest Customer'){
+    if(guestBox) guestBox.style.display = 'none';
+    if(authBox) authBox.style.display = 'block';
+    if(welcomeMsg) welcomeMsg.textContent = `Hi ${G.user.name}, your wholesale kirana catalog is ready with instant discounts.`;
+  } else {
+    if(guestBox) guestBox.style.display = 'block';
+    if(authBox) authBox.style.display = 'none';
+  }
   document.getElementById('splashScreen').classList.remove('hide');
 };
 
-// Auto close splash after 1.8 seconds on initial visit
-setTimeout(() => {
-  if(!sessionStorage.getItem('um_splashed')){
-    sessionStorage.setItem('um_splashed', '1');
-    closeSplash();
-  } else {
-    closeSplash();
-  }
-}, 1800);
-
 window.loadState = async function(){
   const savedUser = store.get(LS.session, null);
-  if(savedUser && savedUser.role) {
+  const guestBox = document.getElementById('splashGuestFlow');
+  const authBox = document.getElementById('splashAuthFlow');
+  const welcomeMsg = document.getElementById('splashWelcomeUserMsg');
+
+  if(savedUser && savedUser.phone && savedUser.name && savedUser.name !== 'Customer' && savedUser.name !== 'Guest Customer') {
     G.user = savedUser;
+    if(guestBox) guestBox.style.display = 'none';
+    if(authBox) authBox.style.display = 'block';
+    if(welcomeMsg) welcomeMsg.textContent = `Hi ${G.user.name}, your wholesale kirana catalog is ready with instant discounts.`;
+    // If returning authenticated user, auto dismiss after brief branding view
+    setTimeout(() => {
+      closeSplash();
+    }, 1200);
   } else {
-    G.user = { role:'customer', name:'Customer', phone:'', email:'' };
+    G.user = null;
+    if(guestBox) guestBox.style.display = 'block';
+    if(authBox) authBox.style.display = 'none';
   }
 
   G.address = store.get(LS.address, null);
@@ -1354,8 +1826,8 @@ window.openPartnerLoginModal = function(){
 
 window.renderUserBtn = function(){
   const btn = document.getElementById('userBtn');
-  if(!G.user){
-    btn.innerHTML = '<span>Login</span>';
+  if(!G.user || !G.user.phone || !G.user.name || G.user.name === 'Guest Customer'){
+    btn.innerHTML = '👤 <span>Sign In</span>';
     return;
   }
   const role = G.user.role || 'customer';
@@ -1364,13 +1836,13 @@ window.renderUserBtn = function(){
   } else if(role === 'delivery'){
     btn.innerHTML = `🛵 <span>Rider Portal</span>`;
   } else {
-    const shortName = G.user.name ? G.user.name.split(' ')[0] : 'Account';
+    const shortName = G.user.name.split(' ')[0];
     btn.innerHTML = `👤 <span>${shortName}</span>`;
   }
 };
 
 window.onUserBtnClick = function(){
-  if(G.user){
+  if(G.user && G.user.phone && G.user.name && G.user.name !== 'Guest Customer'){
     const role = G.user.role || 'customer';
     document.getElementById('profileDetails').innerHTML = `
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
@@ -1388,6 +1860,7 @@ window.onUserBtnClick = function(){
     openModal('mProfile');
   } else {
     openModal('mAuth');
+    setAuthTab('customer');
   }
 };
 
@@ -1477,11 +1950,12 @@ window.handleDriverLogin = async function(e){
 };
 
 window.doSignOut = function(){
-  G.user = { role:'customer', name:'Guest Customer', phone:'', email:'' };
+  G.user = null;
   store.set(LS.session, null);
   renderRoleBar();
   renderUserBtn();
   closeModal('mProfile');
+  showSplash();
   toast('Signed out successfully', 'ok');
 };
 
@@ -1912,10 +2386,11 @@ function renderCheckoutSummary(){
 }
 
 window.goCheckout = function(){
-  if(!G.user){
+  if(!G.user || !G.user.phone || !G.user.name || G.user.name === 'Guest Customer'){
     closeModal('mCart');
     openModal('mAuth');
-    toast('Please enter contact info to continue', 'err');
+    setAuthTab('customer');
+    toast('Please sign in or register before placing your order 🛍️', 'err');
     return;
   }
   if(!G.cart.length) return;
@@ -2456,6 +2931,19 @@ window.renderShopOwnerSalesChart = function(){
   }
 };
 
+window.orderFilterTab = window.orderFilterTab || 'all';
+window.orderViewMode = window.orderViewMode || 'cards';
+
+window.setOrderFilterTab = function(tab){
+  window.orderFilterTab = tab;
+  renderOrdersList();
+};
+
+window.setOrderViewMode = function(mode){
+  window.orderViewMode = mode;
+  renderOrdersList();
+};
+
 window.renderOrdersList = function(){
   const role = G.user?.role || 'customer';
   const body = document.getElementById('ordersBody');
@@ -2472,10 +2960,24 @@ window.renderOrdersList = function(){
     }
   }
 
-  let list = G.orders;
+  let list = G.orders || [];
   if(role === 'customer' && G.user?.phone){
     list = list.filter(o => o.phone === G.user.phone || o.customer?.phone === G.user.phone || !o.phone);
   }
+
+  // Calculate status counts for filtering
+  const allCount = list.length;
+  const pendingCount = list.filter(o => (o.status || 'Pending').toLowerCase() === 'pending').length;
+  const packedCount = list.filter(o => (o.status || '').toLowerCase() === 'packed').length;
+  const shippedCount = list.filter(o => (o.status || '').toLowerCase() === 'shipped').length;
+  const deliveredCount = list.filter(o => (o.status || '').toLowerCase() === 'delivered').length;
+
+  // Filter list based on selected tab
+  let filteredList = list;
+  if(window.orderFilterTab === 'pending') filteredList = list.filter(o => (o.status || 'Pending').toLowerCase() === 'pending');
+  else if(window.orderFilterTab === 'packed') filteredList = list.filter(o => (o.status || '').toLowerCase() === 'packed');
+  else if(window.orderFilterTab === 'shipped') filteredList = list.filter(o => (o.status || '').toLowerCase() === 'shipped');
+  else if(window.orderFilterTab === 'delivered') filteredList = list.filter(o => (o.status || '').toLowerCase() === 'delivered');
 
   // Shop owner analytics card markup using Recharts
   let shopOwnerSalesSection = '';
@@ -2518,25 +3020,35 @@ window.renderOrdersList = function(){
 
         <div class="sales-chart-wrap" id="shopOwnerSalesChartMount"></div>
       </div>
-
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:16px 0 10px">
-        <div style="font-weight:900;font-size:13.5px;color:var(--ink);text-transform:uppercase;letter-spacing:0.4px">
-          📦 Active Wholesale Order Queue (${list.length})
-        </div>
-        <button class="toast-action-btn" onclick="openCatalogManagerModal()" style="background:#0F8A3E">
-          ✏️ Edit Product Prices &amp; Discounts
-        </button>
-      </div>
     `;
   }
 
-  if(!list.length){
+  // Queue Toolbar with Status Filter Tabs and Layout View Mode Switcher
+  const queueToolbarHtml = `
+    <div class="orders-toolbar">
+      <div class="orders-filter-tabs">
+        <button class="orders-tab-pill ${window.orderFilterTab==='all'?'active':''}" onclick="setOrderFilterTab('all')">All (${allCount})</button>
+        <button class="orders-tab-pill ${window.orderFilterTab==='pending'?'active':''}" onclick="setOrderFilterTab('pending')">⏳ Pending (${pendingCount})</button>
+        <button class="orders-tab-pill ${window.orderFilterTab==='packed'?'active':''}" onclick="setOrderFilterTab('packed')">📦 Packed (${packedCount})</button>
+        <button class="orders-tab-pill ${window.orderFilterTab==='shipped'?'active':''}" onclick="setOrderFilterTab('shipped')">🚚 Shipped (${shippedCount})</button>
+        <button class="orders-tab-pill ${window.orderFilterTab==='delivered'?'active':''}" onclick="setOrderFilterTab('delivered')">✅ Delivered (${deliveredCount})</button>
+      </div>
+
+      <div class="orders-view-mode-toggle">
+        <button class="view-mode-btn ${window.orderViewMode==='cards'?'active':''}" onclick="setOrderViewMode('cards')">📱 Cards</button>
+        <button class="view-mode-btn ${window.orderViewMode==='table'?'active':''}" onclick="setOrderViewMode('table')">📊 Table</button>
+      </div>
+    </div>
+  `;
+
+  if(!filteredList.length){
     body.innerHTML = `
       ${shopOwnerSalesSection}
-      <div style="text-align:center;padding:36px 16px;color:var(--ink-3)">
-        <div style="font-size:52px;margin-bottom:8px">📦</div>
-        <h4 style="margin:4px 0;color:var(--ink)">No active orders in this queue</h4>
-        <p style="font-size:13px">Orders placed with live timeline tracking will appear here</p>
+      ${queueToolbarHtml}
+      <div style="text-align:center;padding:36px 16px;color:var(--ink-3);background:#fff;border-radius:12px;border:1px dashed var(--line);margin-top:10px">
+        <div style="font-size:44px;margin-bottom:8px">📦</div>
+        <h4 style="margin:4px 0;color:var(--ink)">No orders matching "${window.orderFilterTab}"</h4>
+        <p style="font-size:12.5px">Change filter tab or place a new order to see live updates</p>
       </div>
     `;
     if(role === 'shopowner'){
@@ -2545,7 +3057,93 @@ window.renderOrdersList = function(){
     return;
   }
 
-  const orderCardsHtml = list.map(o => {
+  // 1. HORIZONTAL SCROLLABLE TABLE VIEW
+  let tableContentHtml = '';
+  if(window.orderViewMode === 'table'){
+    const tableRows = filteredList.map(o => {
+      const d = new Date(o.at);
+      const timeStr = d.toLocaleDateString('en-IN', { day:'numeric', month:'short' }) + ', ' + d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+      const stCls = 'st-' + (o.status || 'pending').toLowerCase();
+      const itemsBrief = o.items.map(i => `${i.qty}× ${i.name}`).join(', ');
+
+      let actionButtons = '';
+      if(role === 'shopowner'){
+        actionButtons = `
+          <div style="display:flex;gap:4px;flex-wrap:wrap;min-width:210px">
+            <button class="st-btn ${o.status==='Pending'?'active':''}" style="min-height:36px;padding:4px 8px;font-size:11px" onclick="updateOrderStatus('${o.id}', 'Pending')">⏳ Pending</button>
+            <button class="st-btn ${o.status==='Packed'?'active':''}" style="min-height:36px;padding:4px 8px;font-size:11px" onclick="updateOrderStatus('${o.id}', 'Packed')">📦 Pack</button>
+            <button class="st-btn ${o.status==='Shipped'?'active':''}" style="min-height:36px;padding:4px 8px;font-size:11px" onclick="updateOrderStatus('${o.id}', 'Shipped')">🚚 Dispatch</button>
+            <button class="st-btn ${o.status==='Delivered'?'active':''}" style="min-height:36px;padding:4px 8px;font-size:11px" onclick="updateOrderStatus('${o.id}', 'Delivered')">✅ Done</button>
+          </div>
+        `;
+      } else if(role === 'delivery'){
+        actionButtons = `
+          <div style="display:flex;gap:4px;flex-wrap:wrap;min-width:180px">
+            <a href="tel:${o.phone}" class="st-btn" style="min-height:36px;padding:4px 8px;font-size:11px;color:var(--green)">📞 Call</a>
+            ${o.status !== 'Shipped' && o.status !== 'Delivered' ? `
+              <button class="st-btn" style="min-height:36px;padding:4px 8px;font-size:11px;background:#0288D1;color:#fff" onclick="updateOrderStatus('${o.id}', 'Shipped')">🚀 Dispatch</button>
+            ` : ''}
+            ${o.status !== 'Delivered' ? `
+              <button class="st-btn" style="min-height:36px;padding:4px 8px;font-size:11px;background:var(--green);color:#fff" onclick="updateOrderStatus('${o.id}', 'Delivered')">✓ Deliver</button>
+            ` : '<span style="font-size:11px;font-weight:900;color:var(--green-dark)">✓ Delivered</span>'}
+          </div>
+        `;
+      } else {
+        actionButtons = `<button class="toast-action-btn" style="background:#F1F5F9;color:var(--ink)" onclick="setOrderViewMode('cards')">View Timeline →</button>`;
+      }
+
+      return `
+        <tr>
+          <td>
+            <b style="color:var(--green-dark)">#${o.id}</b>
+            <div style="font-size:10.5px;color:var(--ink-3);margin-top:2px">${timeStr}</div>
+          </td>
+          <td>
+            <b style="color:var(--ink)">${o.customer?.name || 'Customer'}</b>
+            <div style="font-size:11px;color:var(--ink-2)">📱 ${o.phone || o.customer?.phone || 'N/A'}</div>
+          </td>
+          <td style="max-width:180px;font-size:11.5px;color:var(--ink-2)">
+            <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${itemsBrief}">${itemsBrief}</div>
+            <div style="font-size:10.5px;color:var(--ink-3)">${o.items.reduce((s,i)=>s+i.qty,0)} items</div>
+          </td>
+          <td>
+            <b style="font-size:13px;color:var(--green-dark)">₹${Number(o.total).toFixed(0)}</b>
+            <div style="font-size:10.5px;color:var(--ink-3);text-transform:uppercase">${o.method || 'UPI'}</div>
+          </td>
+          <td>
+            <span class="st-badge ${stCls}">${o.status || 'Pending'}</span>
+          </td>
+          <td>
+            ${actionButtons}
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    tableContentHtml = `
+      <div class="orders-table-scroll-container">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Order ID &amp; Time</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Fulfillment Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableRows}
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:11px;color:var(--ink-3);text-align:right;margin-top:4px">👈 Swipe horizontally on mobile to view full table details</div>
+    `;
+  }
+
+  // 2. STACKED CARDS VIEW WITH LARGE TOUCH-OPTIMIZED BUTTONS
+  const orderCardsHtml = filteredList.map(o => {
     const d = new Date(o.at);
     const dstr = d.toLocaleDateString('en-IN', { day:'numeric', month:'short' }) + ' · ' + d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
     const stCls = 'st-' + (o.status || 'pending').toLowerCase();
@@ -2555,33 +3153,33 @@ window.renderOrdersList = function(){
     if(role === 'shopowner'){
       actionControls = `
         <div class="admin-action-bar">
-          <div style="font-size:11px;font-weight:800;color:var(--ink-2);text-transform:uppercase">🏪 Shop Owner Fulfillment Action:</div>
+          <div style="font-size:11px;font-weight:900;color:var(--ink-2);text-transform:uppercase;letter-spacing:0.3px">🏪 Shop Owner 1-Tap Fulfillment:</div>
           <div class="status-btn-group">
-            <button class="st-btn ${o.status==='Pending'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Pending')">1. Pending</button>
-            <button class="st-btn ${o.status==='Packed'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Packed')">2. Pack Order</button>
-            <button class="st-btn ${o.status==='Shipped'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Shipped')">3. Dispatch</button>
-            <button class="st-btn ${o.status==='Delivered'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Delivered')">4. Delivered</button>
+            <button class="st-btn ${o.status==='Pending'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Pending')">1. ⏳ Pending</button>
+            <button class="st-btn ${o.status==='Packed'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Packed')">2. 📦 Pack Order</button>
+            <button class="st-btn ${o.status==='Shipped'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Shipped')">3. 🚚 Dispatch</button>
+            <button class="st-btn ${o.status==='Delivered'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Delivered')">4. ✅ Delivered</button>
           </div>
         </div>
       `;
     } else if(role === 'delivery'){
       actionControls = `
         <div class="admin-action-bar">
-          <div style="font-size:11px;font-weight:800;color:var(--ink-2);text-transform:uppercase">🛵 Delivery Fleet Partner Action:</div>
+          <div style="font-size:11px;font-weight:900;color:var(--ink-2);text-transform:uppercase;letter-spacing:0.3px">🛵 Fleet Rider Action:</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <a href="tel:${o.phone}" class="st-btn" style="display:flex;align-items:center;justify-content:center;gap:4px;color:var(--green)">
-              📞 Call Customer (${o.phone})
+            <a href="tel:${o.phone}" class="st-btn" style="flex:1;color:var(--green)">
+              📞 Call (${o.phone})
             </a>
             ${o.status !== 'Shipped' && o.status !== 'Delivered' ? `
-              <button class="st-btn" style="background:#0288D1;color:#fff;border-color:#0288D1" onclick="updateOrderStatus('${o.id}', 'Shipped')">
-                🚀 Start Delivery (Out for Delivery)
+              <button class="st-btn" style="flex:1.2;background:#0288D1;color:#fff;border-color:#0288D1" onclick="updateOrderStatus('${o.id}', 'Shipped')">
+                🚀 Out for Delivery
               </button>
             ` : ''}
             ${o.status !== 'Delivered' ? `
-              <button class="st-btn" style="background:var(--green);color:#fff;border-color:var(--green-dark)" onclick="updateOrderStatus('${o.id}', 'Delivered')">
-                ✓ Mark Order Delivered &amp; Paid
+              <button class="st-btn" style="flex:1.2;background:var(--green);color:#fff;border-color:var(--green-dark)" onclick="updateOrderStatus('${o.id}', 'Delivered')">
+                ✓ Mark Delivered
               </button>
-            ` : `<span style="font-size:12px;color:var(--green-dark);font-weight:900;padding:6px 0">✓ Delivery Completed</span>`}
+            ` : `<span style="font-size:12px;color:var(--green-dark);font-weight:900;padding:8px 0">✓ Delivery Completed</span>`}
           </div>
         </div>
       `;
@@ -2636,7 +3234,8 @@ window.renderOrdersList = function(){
 
   body.innerHTML = `
     ${shopOwnerSalesSection}
-    ${orderCardsHtml}
+    ${queueToolbarHtml}
+    ${window.orderViewMode === 'table' ? tableContentHtml : orderCardsHtml}
   `;
 
   if(role === 'shopowner'){
@@ -2878,6 +3477,9 @@ window.openPaymentSettingsModal = async function(){
     const data = await res.json();
     if(data.success && data.settings){
       const s = data.settings;
+      if(document.getElementById('setStoreEmail')) document.getElementById('setStoreEmail').value = s.storeEmail || 'orders@ungamarket.com';
+      if(document.getElementById('setSupportEmail')) document.getElementById('setSupportEmail').value = s.supportEmail || 'support@ungamarket.com';
+      if(document.getElementById('setStorePin')) document.getElementById('setStorePin').value = s.storePin || '1234';
       document.getElementById('setUpiVpa').value = s.upiVpa || 'ungamarket@okaxis';
       document.getElementById('setPayeeName').value = s.payeeName || 'Unga Market Wholesale Hub';
       document.getElementById('setGpayPhone').value = s.gpayPhone || '9840123456';
@@ -2917,6 +3519,9 @@ window.updateSettingsQrPreview = async function(vpa, name){
 
 window.handleSavePaymentSettings = async function(e){
   e.preventDefault();
+  const storeEmail = document.getElementById('setStoreEmail')?.value.trim() || 'orders@ungamarket.com';
+  const supportEmail = document.getElementById('setSupportEmail')?.value.trim() || 'support@ungamarket.com';
+  const storePin = document.getElementById('setStorePin')?.value.trim() || '1234';
   const upiVpa = document.getElementById('setUpiVpa').value.trim();
   const payeeName = document.getElementById('setPayeeName').value.trim();
   const gpayPhone = document.getElementById('setGpayPhone').value.trim();
@@ -2931,13 +3536,14 @@ window.handleSavePaymentSettings = async function(e){
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        storeEmail, supportEmail, storePin,
         upiVpa, payeeName, gpayPhone, phonepeNumber, bankName, accountNumber, ifscCode, instructions
       })
     });
     const data = await res.json();
     if(data.success){
       closeModal('mPaymentSettings');
-      toast('Shop Owner Payment Details & Gateway updated! 💳', 'ok');
+      toast('Store Email, Security PIN & Payment Gateway updated! 💳', 'ok');
     } else {
       toast(data.error || 'Failed to update payment settings', 'err');
     }
