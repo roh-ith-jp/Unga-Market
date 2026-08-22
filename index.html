@@ -536,11 +536,11 @@ a{color:inherit;text-decoration:none}
         <form onsubmit="handleSplashOwnerLogin(event)">
           <div class="field" style="margin-bottom:8px">
             <label style="font-size:10px;color:var(--ink-2)">Store Admin Email / ID</label>
-            <input id="splashOwnerId" value="owner@ungamarket.com" required style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
+            <input id="splashOwnerId" value="rohithjayaprasad2910@gmail.com" required style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
           </div>
           <div class="field" style="margin-bottom:12px">
             <label style="font-size:10px;color:var(--ink-2)">Security Store PIN</label>
-            <input id="splashOwnerPin" type="password" value="1234" placeholder="Default PIN: 1234" required style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
+            <input id="splashOwnerPin" type="password" value="2910" placeholder="Default PIN: 2910" required style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
           </div>
           <button type="submit" class="btn-primary" style="width:100%;height:44px;background:var(--green);font-size:14px;font-weight:900">
             Sign In as Shop Owner 🏪
@@ -887,8 +887,8 @@ a{color:inherit;text-decoration:none}
             </div>
           </div>
           <div class="field" style="margin-bottom:0">
-            <label style="font-size:10px;color:#78350F">Shop Owner Security PIN (Default: 1234)</label>
-            <input id="setStorePin" type="text" maxlength="10" placeholder="1234" style="height:36px;font-size:13px;background:#fff;font-weight:900;letter-spacing:1px" />
+            <label style="font-size:10px;color:#78350F">Shop Owner Security PIN (Default: 2910)</label>
+            <input id="setStorePin" type="text" maxlength="10" placeholder="2910" style="height:36px;font-size:13px;background:#fff;font-weight:900;letter-spacing:1px" />
             <small style="font-size:10.5px;color:#B45309;display:block;margin-top:2px">Used to sign in to the Shop Owner Terminal &amp; Orders Queue.</small>
           </div>
         </div>
@@ -1475,7 +1475,7 @@ window.handleSplashOwnerLogin = async function(e){
       renderProducts();
       toast('Welcome to Store Owner Terminal! 🏪', 'ok');
     } else {
-      toast(data.error || 'Login failed. Check store PIN (default: 1234)', 'err');
+      toast(data.error || 'Login failed. Check store PIN (default: 2910)', 'err');
     }
   } catch(err){
     console.error(err);
@@ -3601,7 +3601,7 @@ window.openPaymentSettingsModal = async function(){
       const s = data.settings;
       if(document.getElementById('setStoreEmail')) document.getElementById('setStoreEmail').value = s.storeEmail || 'orders@ungamarket.com';
       if(document.getElementById('setSupportEmail')) document.getElementById('setSupportEmail').value = s.supportEmail || 'support@ungamarket.com';
-      if(document.getElementById('setStorePin')) document.getElementById('setStorePin').value = s.storePin || '1234';
+      if(document.getElementById('setStorePin')) document.getElementById('setStorePin').value = s.storePin || '2910';
       document.getElementById('setUpiVpa').value = s.upiVpa || 'ungamarket@okaxis';
       document.getElementById('setPayeeName').value = s.payeeName || 'Unga Market Wholesale Hub';
       document.getElementById('setGpayPhone').value = s.gpayPhone || '9840123456';
@@ -3643,7 +3643,7 @@ window.handleSavePaymentSettings = async function(e){
   e.preventDefault();
   const storeEmail = document.getElementById('setStoreEmail')?.value.trim() || 'orders@ungamarket.com';
   const supportEmail = document.getElementById('setSupportEmail')?.value.trim() || 'support@ungamarket.com';
-  const storePin = document.getElementById('setStorePin')?.value.trim() || '1234';
+  const storePin = document.getElementById('setStorePin')?.value.trim() || '2910';
   const upiVpa = document.getElementById('setUpiVpa').value.trim();
   const payeeName = document.getElementById('setPayeeName').value.trim();
   const gpayPhone = document.getElementById('setGpayPhone').value.trim();
