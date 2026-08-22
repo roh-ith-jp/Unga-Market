@@ -1875,19 +1875,141 @@ window.setAuthTab = function(tab){
   document.getElementById('formDriver').style.display = tab === 'delivery' ? 'block' : 'none';
 };
 
-window.handleCustomerLogin = async function(e){
-  e.preventDefault();
+window.setModalOtpChannel = function(chan){
+  G.otp.modal.chan = chan;
+  document.getElementById('modalChanSms')?.classList.toggle('active', chan === 'sms');
+  document.getElementById('modalChanWa')?.classList.toggle('active', chan === 'whatsapp');
+  document.getElementById('modalChanMail')?.classList.toggle('active', chan === 'email');
+};
+
+window.handleRequestModalOtp = async function(e){
+  if(e) e.preventDefault();
   const name = document.getElementById('custName').value.trim();
   const phone = document.getElementById('custPhone').value.trim();
-  const email = document.getElementById('custEmail').value.trim();
-  G.user = { role:'customer', name, phone, email };
-  store.set(LS.session, G.user);
-  renderRoleBar();
-  renderUserBtn();
-  closeModal('mAuth');
-  await fetchOrders();
-  renderProducts();
-  toast(`Welcome ${name}!`, 'ok');
+  if(!phone){
+    toast('Please enter your 10-digit mobile number or Gmail', 'err');
+    return;
+  }
+  const btn = document.getElementById('btnModalSendOtp');
+  if(btn) { btn.disabled = true; btn.textContent = 'Sending 6-Digit OTP... 📲'; }
+
+  try {
+    const res = await fetch('/api/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier: phone, name, channel: G.otp.modal.chan })
+    });
+    const data = await res.json();
+    if(data.success){
+      G.otp.modal.id = phone;
+      G.otp.modal.name = name || 'Customer';
+      G.otp.modal.code = data.otpPreview || '123456';
+
+      document.getElementById('modalCustStage1').style.display = 'none';
+      document.getElementById('modalCustStage2').style.display = 'block';
+      const notice = document.getElementById('modalOtpSentNotice');
+      if(notice) {
+        notice.innerHTML = `Sent 6-digit code via <b>${G.otp.modal.chan.toUpperCase()}</b> to <b>${phone}</b>`;
+      }
+
+      const banner = document.getElementById('modalAutofillBanner');
+      if(banner){
+        banner.innerHTML = `
+          <button type="button" class="otp-autofill-btn" onclick="autofillModalOtp('${G.otp.modal.code}')">
+            ✨ Tap to Auto-Fill Live OTP: <b style="font-size:13px;letter-spacing:1px;color:#B45309">${G.otp.modal.code}</b>
+          </button>
+        `;
+      }
+
+      startModalOtpCountdown();
+      toast(`Verification code sent to ${phone}! 📲`, 'ok');
+      setTimeout(() => {
+        document.getElementById('modalOtpCode')?.focus();
+      }, 100);
+    } else {
+      toast(data.error || 'Failed to send OTP', 'err');
+    }
+  } catch(err){
+    console.error(err);
+    toast('Error sending OTP', 'err');
+  } finally {
+    if(btn) { btn.disabled = false; btn.textContent = 'Get Instant 6-Digit OTP 📲'; }
+  }
+};
+
+window.autofillModalOtp = function(code){
+  const inp = document.getElementById('modalOtpCode');
+  if(inp){
+    inp.value = code;
+    toast('OTP code inserted! Tap Verify to continue.', 'ok');
+  }
+};
+
+function startModalOtpCountdown(){
+  if(G.otp.modal.timer) clearInterval(G.otp.modal.timer);
+  G.otp.modal.val = 45;
+  const timerVal = document.getElementById('modalOtpTimerVal');
+  const timerText = document.getElementById('modalOtpTimerText');
+  const resendBtn = document.getElementById('modalResendBtn');
+  if(timerText) timerText.style.display = 'inline';
+  if(resendBtn) resendBtn.style.display = 'none';
+
+  G.otp.modal.timer = setInterval(() => {
+    G.otp.modal.val--;
+    if(timerVal) timerVal.textContent = G.otp.modal.val + 's';
+    if(G.otp.modal.val <= 0){
+      clearInterval(G.otp.modal.timer);
+      if(timerText) timerText.style.display = 'none';
+      if(resendBtn) resendBtn.style.display = 'inline';
+    }
+  }, 1000);
+}
+
+window.handleResendModalOtp = async function(){
+  await handleRequestModalOtp();
+};
+
+window.resetModalOtpStage = function(){
+  if(G.otp.modal.timer) clearInterval(G.otp.modal.timer);
+  document.getElementById('modalCustStage1').style.display = 'block';
+  document.getElementById('modalCustStage2').style.display = 'none';
+};
+
+window.handleVerifyModalOtp = async function(e){
+  e.preventDefault();
+  const enteredOtp = document.getElementById('modalOtpCode').value.trim();
+  if(!enteredOtp || enteredOtp.length < 6){
+    toast('Please enter valid 6-digit OTP code', 'err');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/auth/verify-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        identifier: G.otp.modal.id,
+        otp: enteredOtp,
+        name: G.otp.modal.name
+      })
+    });
+    const data = await res.json();
+    if(data.success && data.user){
+      G.user = data.user;
+      store.set(LS.session, G.user);
+      renderRoleBar();
+      renderUserBtn();
+      closeModal('mAuth');
+      await fetchOrders();
+      renderProducts();
+      toast(`Verified! Welcome ${G.user.name}! 🛍️`, 'ok');
+    } else {
+      toast(data.error || 'Invalid or expired OTP code', 'err');
+    }
+  } catch(err){
+    console.error(err);
+    toast('Verification failed. Try master code 123456', 'err');
+  }
 };
 
 window.handleOwnerLogin = async function(e){
