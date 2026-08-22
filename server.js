@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import QRCode from 'qrcode';
 import { GoogleGenAI } from '@google/genai';
@@ -288,6 +289,29 @@ let shopOwnerPaymentSettings = {
   instructions: 'Scan QR with Google Pay, PhonePe, Paytm, or BHIM. You can also pay directly via GPay/PhonePe number.'
 };
 
+// Persist shop owner settings to disk so changes (incl. PIN) survive restarts
+const SETTINGS_FILE = path.join(__dirname, 'data', 'shop-settings.json');
+function loadSettings() {
+  try {
+    if (fs.existsSync(SETTINGS_FILE)) {
+      const saved = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf8'));
+      shopOwnerPaymentSettings = { ...shopOwnerPaymentSettings, ...saved };
+      console.log('[SETTINGS] Loaded saved shop owner settings from disk');
+    }
+  } catch (e) {
+    console.error('[SETTINGS] Could not load saved shop settings:', e.message);
+  }
+}
+function saveSettings() {
+  try {
+    fs.mkdirSync(path.dirname(SETTINGS_FILE), { recursive: true });
+    fs.writeFileSync(SETTINGS_FILE, JSON.stringify(shopOwnerPaymentSettings, null, 2));
+  } catch (e) {
+    console.error('[SETTINGS] Could not save shop settings:', e.message);
+  }
+}
+loadSettings();
+
 // Configuration endpoint
 app.get('/api/config', (req, res) => {
   res.json({
@@ -330,6 +354,7 @@ app.post('/api/shopowner/payment-settings', (req, res) => {
     if (ifscCode !== undefined) shopOwnerPaymentSettings.ifscCode = String(ifscCode).trim();
     if (instructions !== undefined) shopOwnerPaymentSettings.instructions = String(instructions).trim();
 
+    saveSettings();
     res.json({
       success: true,
       message: 'Shop Owner Payment & Store Settings updated successfully',
@@ -411,9 +436,9 @@ app.post('/api/auth/login', (req, res) => {
   const { role, identifier, password, name, phone } = req.body;
   
   if (role === 'shopowner') {
-    // Shop Owner validation against configured PIN
-    const validPin = shopOwnerPaymentSettings.storePin || '1234';
-    if (password === validPin || password === '1234' || password === 'admin' || !password) {
+    // Shop Owner validation against configured PIN only (no backdoors)
+    const validPin = shopOwnerPaymentSettings.storePin || '2910';
+    if (password && password === validPin) {
       return res.json({
         success: true,
         user: {
