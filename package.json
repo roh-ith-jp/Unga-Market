@@ -1,0 +1,17 @@
+{
+  "name": "unga-market",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "mkdir -p dist && cp index.html dist/",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.18.0",
+    "cors": "^2.8.6",
+    "express": "^4.21.2",
+    "qrcode": "^1.5.4"
+  }
+}

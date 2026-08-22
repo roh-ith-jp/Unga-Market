@@ -1,0 +1,8 @@
+{
+  "name": "Unga Market",
+  "description": "Wholesale FMCG grocery platform featuring genuine brand catalog at flat 20% discount with Google Pay, Instant UPI QR, Cash on Delivery, multi-role logins (Shop Owner, Delivery Partner, Customer), visual order tracking, and dynamic high-quality authentic product imagery generation & fallback system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
