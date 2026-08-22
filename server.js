@@ -264,23 +264,66 @@ let ordersList = [
 // In-memory catalog overrides for Shop Owner Add / Edit / Remove
 let dynamicProductModifications = new Map(); // id -> product object or { deleted: true }
 
-// Active Delivery Zones & Clusters definition for Chennai
+// Active Delivery Zones & Clusters definition for Chennai with real GPS coordinates
 const DELIVERY_ZONES = [
-  { id: 'z_velachery', name: 'Velachery Hub', match: ['velachery', 'madipakkam', 'pallikaranai', 'annai nagar'], x: 28, y: 55, hubDistKm: 2.1, etaMins: 12, defaultDemand: 'High' },
-  { id: 'z_omr', name: 'OMR - Thoraipakkam', match: ['omr', 'thoraipakkam', 'perungudi', 'sholinganallur', 'kandanchavadi'], x: 62, y: 70, hubDistKm: 4.8, etaMins: 18, defaultDemand: 'High' },
-  { id: 'z_adyar', name: 'Adyar - Besant Nagar', match: ['adyar', 'besant nagar', 'kotturpuram', 'thiruvanmiyur', 'gandhi nagar'], x: 74, y: 35, hubDistKm: 5.4, etaMins: 20, defaultDemand: 'Medium' },
-  { id: 'z_guindy', name: 'Guindy - Ekkattuthangal', match: ['guindy', 'ekkattuthangal', 'saidapet', 'ashok nagar'], x: 32, y: 30, hubDistKm: 3.9, etaMins: 15, defaultDemand: 'Medium' },
-  { id: 'z_tambaram', name: 'Tambaram - GST Road', match: ['tambaram', 'chromepet', 'sanatorium', 'pallavaram'], x: 18, y: 82, hubDistKm: 8.5, etaMins: 25, defaultDemand: 'Normal' }
+  { id: 'z_velachery', name: 'Velachery Hub', match: ['velachery', 'madipakkam', 'pallikaranai', 'annai nagar'], lat: 12.9815, lng: 80.2180, x: 28, y: 55, hubDistKm: 2.1, etaMins: 12, defaultDemand: 'High' },
+  { id: 'z_omr', name: 'OMR - Thoraipakkam', match: ['omr', 'thoraipakkam', 'perungudi', 'sholinganallur', 'kandanchavadi'], lat: 12.9348, lng: 80.2312, x: 62, y: 70, hubDistKm: 4.8, etaMins: 18, defaultDemand: 'High' },
+  { id: 'z_adyar', name: 'Adyar - Besant Nagar', match: ['adyar', 'besant nagar', 'kotturpuram', 'thiruvanmiyur', 'gandhi nagar'], lat: 13.0012, lng: 80.2565, x: 74, y: 35, hubDistKm: 5.4, etaMins: 20, defaultDemand: 'Medium' },
+  { id: 'z_guindy', name: 'Guindy - Ekkattuthangal', match: ['guindy', 'ekkattuthangal', 'saidapet', 'ashok nagar'], lat: 13.0067, lng: 80.2025, x: 32, y: 30, hubDistKm: 3.9, etaMins: 15, defaultDemand: 'Medium' },
+  { id: 'z_tambaram', name: 'Tambaram - GST Road', match: ['tambaram', 'chromepet', 'sanatorium', 'pallavaram'], lat: 12.9249, lng: 80.1284, x: 18, y: 82, hubDistKm: 8.5, etaMins: 25, defaultDemand: 'Normal' }
 ];
+
+// Dynamic Shop Owner Payment Settings (in-memory with environment variable defaults)
+let shopOwnerPaymentSettings = {
+  upiVpa: process.env.UPI_VPA || 'ungamarket@okaxis',
+  payeeName: process.env.UPI_PAYEE_NAME || 'Unga Market Wholesale',
+  gpayPhone: process.env.GPAY_PHONE || '9840123456',
+  phonepeNumber: process.env.PHONEPE_NUMBER || '9840123456',
+  bankName: 'HDFC Bank / Axis Bank',
+  accountNumber: '50200088991122',
+  ifscCode: 'HDFC0001234',
+  instructions: 'Scan QR with Google Pay, PhonePe, Paytm, or BHIM. You can also pay directly via GPay/PhonePe number.'
+};
 
 // Configuration endpoint
 app.get('/api/config', (req, res) => {
-  const upiVpa = process.env.UPI_VPA || 'ungamarket@okaxis';
-  const upiPayeeName = process.env.UPI_PAYEE_NAME || 'Unga Market Wholesale';
   res.json({
-    upiVpa,
-    upiPayeeName
+    upiVpa: shopOwnerPaymentSettings.upiVpa,
+    upiPayeeName: shopOwnerPaymentSettings.payeeName,
+    paymentSettings: shopOwnerPaymentSettings
   });
+});
+
+// Shop Owner Payment Settings API (Get & Update)
+app.get('/api/shopowner/payment-settings', (req, res) => {
+  res.json({
+    success: true,
+    settings: shopOwnerPaymentSettings
+  });
+});
+
+app.post('/api/shopowner/payment-settings', (req, res) => {
+  try {
+    const { upiVpa, payeeName, gpayPhone, phonepeNumber, bankName, accountNumber, ifscCode, instructions } = req.body;
+    
+    if (upiVpa) shopOwnerPaymentSettings.upiVpa = String(upiVpa).trim();
+    if (payeeName) shopOwnerPaymentSettings.payeeName = String(payeeName).trim();
+    if (gpayPhone !== undefined) shopOwnerPaymentSettings.gpayPhone = String(gpayPhone).trim();
+    if (phonepeNumber !== undefined) shopOwnerPaymentSettings.phonepeNumber = String(phonepeNumber).trim();
+    if (bankName !== undefined) shopOwnerPaymentSettings.bankName = String(bankName).trim();
+    if (accountNumber !== undefined) shopOwnerPaymentSettings.accountNumber = String(accountNumber).trim();
+    if (ifscCode !== undefined) shopOwnerPaymentSettings.ifscCode = String(ifscCode).trim();
+    if (instructions !== undefined) shopOwnerPaymentSettings.instructions = String(instructions).trim();
+
+    res.json({
+      success: true,
+      message: 'Shop Owner Payment details updated successfully',
+      settings: shopOwnerPaymentSettings
+    });
+  } catch (err) {
+    console.error('Error updating shopowner payment settings:', err);
+    res.status(500).json({ success: false, error: 'Failed to update payment settings' });
+  }
 });
 
 // Dynamic Product Image Generation / Placeholder Fetch Endpoint
@@ -408,15 +451,18 @@ app.post('/api/create-upi-qr', async (req, res) => {
     if (!amount || !orderId) {
       return res.status(400).json({ error: 'amount and orderId are required' });
     }
-    const upiVpa = process.env.UPI_VPA || 'ungamarket@okaxis';
-    const upiPayeeName = process.env.UPI_PAYEE_NAME || 'Unga Market';
-    const txNote = encodeURIComponent(note || `Order ${orderId} Unga Market`);
+    const upiVpa = shopOwnerPaymentSettings.upiVpa || 'ungamarket@okaxis';
+    const upiPayeeName = shopOwnerPaymentSettings.payeeName || 'Unga Market Wholesale';
+    const gpayPhone = shopOwnerPaymentSettings.gpayPhone || '9840123456';
+    const phonepeNumber = shopOwnerPaymentSettings.phonepeNumber || '9840123456';
+    const txNote = encodeURIComponent(note || `Order ${orderId}`);
     const encodedName = encodeURIComponent(upiPayeeName);
+    const formattedAmount = Number(amount).toFixed(2);
     
-    // Standard NPCI UPI URI Specification
-    const upiUri = `upi://pay?pa=${upiVpa}&pn=${encodedName}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${txNote}&am=${Number(amount).toFixed(2)}&cu=INR`;
+    // Standard NPCI UPI URI Specification (Universal QR format accepted across all Indian UPI apps)
+    const upiUri = `upi://pay?pa=${upiVpa}&pn=${encodedName}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${txNote}&am=${formattedAmount}&cu=INR`;
     
-    // Generate high-resolution QR code
+    // Generate high-resolution QR code with error correction
     const qrDataUrl = await QRCode.toDataURL(upiUri, {
       errorCorrectionLevel: 'H',
       type: 'image/png',
@@ -431,16 +477,20 @@ app.post('/api/create-upi-qr', async (req, res) => {
     res.json({
       success: true,
       orderId,
-      amount: Number(amount).toFixed(2),
+      amount: formattedAmount,
       upiUri,
       qrDataUrl,
       upiVpa,
       payeeName: upiPayeeName,
+      gpayPhone,
+      phonepeNumber,
+      paymentSettings: shopOwnerPaymentSettings,
       intents: {
-        gpay: `gpay://upi/pay?pa=${upiVpa}&pn=${encodedName}&am=${Number(amount).toFixed(2)}&cu=INR&tn=${txNote}`,
-        phonepe: `phonepe://pay?pa=${upiVpa}&pn=${encodedName}&am=${Number(amount).toFixed(2)}&cu=INR&tn=${txNote}`,
-        paytm: `paytmmp://pay?pa=${upiVpa}&pn=${encodedName}&am=${Number(amount).toFixed(2)}&cu=INR&tn=${txNote}`,
-        bhim: `bhim://pay?pa=${upiVpa}&pn=${encodedName}&am=${Number(amount).toFixed(2)}&cu=INR&tn=${txNote}`
+        universal: upiUri,
+        gpay: `upi://pay?pa=${upiVpa}&pn=${encodedName}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${txNote}&am=${formattedAmount}&cu=INR`,
+        phonepe: `upi://pay?pa=${upiVpa}&pn=${encodedName}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${txNote}&am=${formattedAmount}&cu=INR`,
+        paytm: `paytmmp://pay?pa=${upiVpa}&pn=${encodedName}&am=${formattedAmount}&cu=INR&tn=${txNote}`,
+        bhim: `upi://pay?pa=${upiVpa}&pn=${encodedName}&am=${formattedAmount}&cu=INR&tn=${txNote}`
       }
     });
   } catch (err) {
@@ -577,6 +627,8 @@ app.get('/api/delivery-clusters', (req, res) => {
     return {
       id: zone.id,
       name: zone.name,
+      lat: zone.lat,
+      lng: zone.lng,
       x: zone.x,
       y: zone.y,
       hubDistKm: zone.hubDistKm,
