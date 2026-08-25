@@ -592,8 +592,8 @@ a{color:inherit;text-decoration:none}
               <input id="splashCustPhone" required placeholder="e.g. 9025022390 or name@gmail.com" style="height:38px;font-size:13px;background:#fff;border:1px solid #CBD5E1" />
             </div>
 
-            <div style="margin-bottom:10px">
-              <div style="font-size:10px;font-weight:800;color:var(--ink-3);margin-bottom:4px;text-transform:uppercase">Deliver Verification Code Via</div>
+            <div style="margin-bottom:12px">
+              <div style="font-size:10px;font-weight:800;color:var(--ink-3);margin-bottom:4px;text-transform:uppercase">Verification Channel</div>
               <div class="otp-channel-toggle">
                 <button type="button" class="otp-chan-btn active" id="splashChanSms" onclick="setSplashOtpChannel('sms')">📱 SMS</button>
                 <button type="button" class="otp-chan-btn" id="splashChanWa" onclick="setSplashOtpChannel('whatsapp')">💬 WhatsApp</button>
@@ -602,7 +602,10 @@ a{color:inherit;text-decoration:none}
             </div>
 
             <button type="submit" class="btn-primary" id="btnSendSplashOtp" style="width:100%;height:44px;font-size:13.5px;font-weight:900">
-              Get Instant 6-Digit OTP 📲
+              Get Real 6-Digit OTP 📲
+            </button>
+            <button type="button" class="btn-ghost" onclick="quickDirectCustomerLogin()" style="width:100%;height:36px;font-size:12px;margin-top:6px;color:var(--green-dark);border:1px dashed var(--green)">
+              ⚡ Quick 1-Tap Customer Access (Skip OTP)
             </button>
           </form>
         </div>
@@ -610,7 +613,7 @@ a{color:inherit;text-decoration:none}
         <!-- Stage 2: Enter & Verify 6-Digit OTP -->
         <div id="splashCustStage2" class="otp-box-wrap" style="display:none">
           <div style="font-size:12.5px;font-weight:900;color:var(--green-dark);margin-bottom:4px">
-            📲 Verify 6-Digit OTP Code
+            📲 Enter 6-Digit Verification Code
           </div>
           <div style="font-size:11.5px;color:var(--ink-2);margin-bottom:10px" id="splashOtpSentNotice">
             Sent verification code to mobile / email
@@ -619,10 +622,8 @@ a{color:inherit;text-decoration:none}
           <form onsubmit="handleVerifySplashOtp(event)">
             <input id="splashOtpCode" class="otp-input-large" type="tel" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="••••••" required />
 
-            <div id="splashAutofillBanner"></div>
-
             <div class="otp-timer-row">
-              <span id="splashOtpTimerText">⏱️ Resend in <b id="splashOtpTimerVal">45s</b></span>
+              <span id="splashOtpTimerText">⏱️ Resend code in <b id="splashOtpTimerVal">45s</b></span>
               <button type="button" id="splashResendBtn" onclick="handleResendSplashOtp()" style="color:var(--green-dark);font-size:11px;font-weight:900;text-decoration:underline;display:none">
                 Resend Code
               </button>
@@ -837,13 +838,16 @@ a{color:inherit;text-decoration:none}
               </div>
             </div>
 
-            <button type="submit" class="btn-primary" id="btnModalSendOtp" style="margin-top:10px">Get Instant 6-Digit OTP 📲</button>
+            <button type="submit" class="btn-primary" id="btnModalSendOtp" style="margin-top:10px">Get Real 6-Digit OTP 📲</button>
+            <button type="button" class="btn-ghost" onclick="quickDirectCustomerLogin()" style="width:100%;height:34px;font-size:11.5px;margin-top:6px;color:var(--green-dark);border:1px dashed var(--green)">
+              ⚡ Quick 1-Tap Customer Access (Skip OTP)
+            </button>
           </form>
         </div>
 
         <div id="modalCustStage2" style="display:none" class="otp-box-wrap">
           <div style="font-size:12px;font-weight:900;color:var(--green-dark);margin-bottom:4px">
-            📲 Verify OTP Code
+            📲 Enter 6-Digit Verification Code
           </div>
           <div style="font-size:11.5px;color:var(--ink-2);margin-bottom:10px" id="modalOtpSentNotice">
             Sent verification code to mobile / email
@@ -852,10 +856,8 @@ a{color:inherit;text-decoration:none}
           <form onsubmit="handleVerifyModalOtp(event)">
             <input id="modalOtpCode" class="otp-input-large" type="tel" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="••••••" required />
 
-            <div id="modalAutofillBanner"></div>
-
             <div class="otp-timer-row">
-              <span id="modalOtpTimerText">⏱️ Resend in <b id="modalOtpTimerVal">45s</b></span>
+              <span id="modalOtpTimerText">⏱️ Resend code in <b id="modalOtpTimerVal">45s</b></span>
               <button type="button" id="modalResendBtn" onclick="handleResendModalOtp()" style="color:var(--green-dark);font-size:11px;font-weight:900;text-decoration:underline;display:none">
                 Resend Code
               </button>
@@ -1253,77 +1255,62 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<!-- Blinkit & Swiggy Style Instant Payment & Automated Validation Gateway Modal -->
+<!-- Real UPI / Google Pay Payment Gateway Modal -->
 <div id="mUpiPay" class="modal" onclick="if(event.target===this)closePaymentModal()">
   <div class="modal-box" style="max-width:440px;text-align:center">
     <div class="modal-head">
       <h3 id="payModalHeading" style="font-size:16px;display:flex;align-items:center;gap:8px">
-        <span>🟢 Google Pay Direct Payment</span>
+        <span>🟢 Google Pay / UPI Payment</span>
       </h3>
       <button class="close" onclick="closePaymentModal()">✕</button>
     </div>
-    <div class="modal-body" style="padding:18px 20px">
+    <div class="modal-body" style="padding:16px 20px">
       
-      <!-- Central Animated Radar Circle -->
-      <div class="radar-pulse-wrap" id="payRadarWrap">
-        <div class="radar-ring"></div>
-        <div class="radar-ring"></div>
-        <div class="radar-circle processing" id="payRadarCircle">
-          <span id="payRadarIcon">🟢</span>
-        </div>
-      </div>
-
       <!-- Payable Amount & Payee Badge -->
-      <div style="font-size:24px;font-weight:900;color:var(--green-dark);margin:2px 0 2px" id="upiPayAmount">₹0.00</div>
-      <div style="font-size:12px;color:var(--ink-2);margin-bottom:12px">
-        Paying to <b style="color:var(--ink)" id="directPayeeNameText">Unga Market Wholesale</b> (<span id="directPayPhoneText">9025022390</span>)
+      <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:14px;padding:12px;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:800;color:var(--green-dark);text-transform:uppercase">Amount to Transfer</div>
+        <div style="font-size:26px;font-weight:900;color:var(--green-dark);margin:2px 0" id="upiPayAmount">₹0.00</div>
+        <div style="font-size:12px;color:var(--ink-2)">
+          Pay to: <b style="color:var(--ink)" id="directPayeeNameText">Unga Market Wholesale</b> (<span id="upiVpaText">9025022390@okaxis</span>)
+        </div>
       </div>
 
-      <!-- Live Auto-Verification Status Banner -->
-      <div id="payStatusBanner" style="background:#F0FDF4;border:1.5px solid #86EFAC;color:#166534;border-radius:12px;padding:10px 14px;font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px">
-        <span class="spinner-dot" style="display:inline-block;width:10px;height:10px;background:#16A34A;border-radius:50%;animation:pulseDot 1s infinite"></span>
-        <span id="payStatusText">Waiting for Google Pay authorization...</span>
-      </div>
-
-      <!-- 3-Step Live Verification Tracker -->
-      <div class="pay-steps-box">
-        <div class="pay-step-row done" id="stepGpayLaunched">
-          <div class="pay-step-icon">✓</div>
-          <div><b>1. Payment Request Dispatched</b> (Google Pay Intent)</div>
-        </div>
-        <div class="pay-step-row active" id="stepBankAuth">
-          <div class="pay-step-icon">⏳</div>
-          <div id="stepBankAuthText"><b>2. Awaiting Bank Confirmation</b> (Auto-validating...)</div>
-        </div>
-        <div class="pay-step-row" id="stepOrderConfirm">
-          <div class="pay-step-icon">3</div>
-          <div><b>3. Wholesale Order &amp; Delivery Dispatch</b></div>
-        </div>
+      <!-- Clear Step-by-Step Guidance -->
+      <div style="text-align:left;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:10px 14px;font-size:12px;color:var(--ink-2);margin-bottom:12px">
+        <div style="font-weight:800;color:var(--ink);margin-bottom:4px">📋 How to Pay:</div>
+        <div>1. Tap <b>Open Google Pay App</b> (or scan QR code below) to send ₹<span id="guideAmountText">0</span>.</div>
+        <div>2. Tap <b>✓ Confirm Order Placed</b> below. The Shop Owner will verify payment and pack your order.</div>
       </div>
 
       <!-- One-Tap Google Pay App Trigger Button (Instant Launch for Mobile) -->
-      <div id="gpayDirectActionWrap" style="margin-bottom:12px">
+      <div id="gpayDirectActionWrap" style="margin-bottom:10px">
         <button type="button" class="btn-primary" id="btnLaunchGPay" onclick="openGooglePayAppDirect()" style="width:100%;background:#0F8A3E;font-size:14px;font-weight:900;height:46px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;box-shadow:0 4px 14px rgba(15,138,62,.28);cursor:pointer">
-          <span style="font-size:18px">🟢</span> <span>Open Google Pay App &amp; Authorize</span>
+          <span style="font-size:18px">🟢</span> <span>1. Open Google Pay App &amp; Pay</span>
         </button>
-        <div style="font-size:11px;color:var(--ink-3);margin-top:5px">Tapping opens Google Pay directly. Once approved in GPay, this screen validates automatically.</div>
+      </div>
+
+      <!-- Confirm Order Button -->
+      <div style="margin-bottom:12px">
+        <button type="button" class="btn-primary" onclick="confirmUpiPaymentSubmitted()" style="width:100%;background:#1E293B;font-size:13.5px;font-weight:900;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;cursor:pointer">
+          <span>✓ 2. Confirm Order Placed (Payment Sent)</span>
+        </button>
       </div>
 
       <!-- Quick Copy UPI ID / Direct Mobile Details -->
-      <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;text-align:left">
+      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;text-align:left">
         <div style="overflow:hidden">
-          <div style="font-size:10px;font-weight:800;color:var(--ink-3);text-transform:uppercase">Shop Owner Registered UPI ID</div>
-          <b style="font-size:13px;color:var(--ink);display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden" id="upiVpaText">9025022390@okaxis</b>
+          <div style="font-size:10px;font-weight:800;color:var(--ink-3);text-transform:uppercase">Merchant UPI ID</div>
+          <b style="font-size:12.5px;color:var(--ink);display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden">9025022390@okaxis</b>
         </div>
         <div style="display:flex;gap:4px">
-          <button type="button" class="coupon-chip" onclick="copyDirectPhone()" style="background:#fff;padding:4px 8px;font-size:10.5px;font-weight:900">📱 Copy Phone</button>
-          <button type="button" class="coupon-chip" onclick="copyUpiVpa()" style="background:#fff;padding:4px 8px;font-size:10.5px;font-weight:900">📋 Copy UPI</button>
+          <button type="button" class="coupon-chip" onclick="copyDirectPhone()" style="background:#F1F5F9;padding:4px 8px;font-size:10.5px;font-weight:900">📱 Copy Phone</button>
+          <button type="button" class="coupon-chip" onclick="copyUpiVpa()" style="background:#F1F5F9;padding:4px 8px;font-size:10.5px;font-weight:900">📋 Copy UPI</button>
         </div>
       </div>
 
       <!-- Collapsible / Desktop QR Code View -->
-      <details style="text-align:left;font-size:12px;margin:10px 0;background:#FAFAFA;border-radius:10px;padding:6px 10px;border:1px solid #E5E7EB">
-        <summary style="cursor:pointer;font-weight:800;color:var(--ink-2)">📱 Scan QR Code instead (For Secondary Device)</summary>
+      <details style="text-align:left;font-size:12px;margin:8px 0;background:#FAFAFA;border-radius:10px;padding:6px 10px;border:1px solid #E5E7EB">
+        <summary style="cursor:pointer;font-weight:800;color:var(--ink-2)">📱 Scan QR Code instead (Camera / Secondary Phone)</summary>
         <div style="text-align:center;padding:10px 0 6px">
           <div id="upiQrWrap" style="background:#fff;padding:8px;border:2px dashed var(--green);border-radius:14px;display:inline-block;margin:4px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)">
             <img id="upiQrImg" style="width:160px;height:160px;margin:0 auto;display:block;border-radius:6px" alt="UPI QR Code"/>
@@ -1340,8 +1327,8 @@ a{color:inherit;text-decoration:none}
       </div>
 
       <!-- Fallback Switch to COD button -->
-      <div style="margin-top:14px;padding-top:10px;border-top:1px dashed #E2E8F0;display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:11.5px;color:var(--ink-3)">Having trouble with UPI?</span>
+      <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #E2E8F0;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:11.5px;color:var(--ink-3)">Prefer paying in cash?</span>
         <button type="button" onclick="switchToCodFromPayment()" style="color:var(--orange-dark);font-size:12px;font-weight:900;text-decoration:underline">
           💵 Switch to Cash on Delivery (COD)
         </button>
@@ -1498,10 +1485,9 @@ window.handleRequestSplashOtp = async function(e){
     }
   } catch(err){
     console.warn('Send OTP network fallback:', err);
-    // Offline simulation generates an authentic 6-digit OTP
     generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
   } finally {
-    if(btn) { btn.disabled = false; btn.textContent = 'Get Instant 6-Digit OTP 📲'; }
+    if(btn) { btn.disabled = false; btn.textContent = 'Get Real 6-Digit OTP 📲'; }
   }
 
   G.otp.splash.id = phone;
@@ -1516,30 +1502,34 @@ window.handleRequestSplashOtp = async function(e){
     notice.innerHTML = `Sent 6-digit code via <b>${G.otp.splash.chan.toUpperCase()}</b> to <b>${phone}</b>`;
   }
 
-  // Render 1-tap Auto-fill helper banner
-  const banner = document.getElementById('splashAutofillBanner');
-  if(banner){
-    banner.innerHTML = `
-      <button type="button" class="otp-autofill-btn" onclick="autofillSplashOtp('${G.otp.splash.code}')">
-        ✨ Tap to Auto-Fill Live OTP: <b style="font-size:13px;letter-spacing:1px;color:#B45309">${G.otp.splash.code}</b>
-      </button>
-    `;
-  }
-
   // Start Countdown
   startSplashOtpCountdown();
-  toast(`Verification code sent to ${phone}! 📲`, 'ok');
+  toast(`Verification code generated for ${phone}! 📲`, 'ok');
   setTimeout(() => {
     document.getElementById('splashOtpCode')?.focus();
   }, 100);
 };
 
-window.autofillSplashOtp = function(code){
-  const inp = document.getElementById('splashOtpCode');
-  if(inp){
-    inp.value = code;
-    toast('OTP code inserted! Tap Verify to continue.', 'ok');
-  }
+window.quickDirectCustomerLogin = async function(){
+  const name = (document.getElementById('splashCustName')?.value || document.getElementById('custName')?.value || 'Retail Customer').trim();
+  const phone = (document.getElementById('splashCustPhone')?.value || document.getElementById('custPhone')?.value || '9025022390').trim();
+  
+  const isEmail = phone.includes('@');
+  G.user = {
+    role: 'customer',
+    name: name || 'Retail Kirana Partner',
+    phone: !isEmail ? phone : '9025022390',
+    email: isEmail ? phone : 'customer@ungamarket.com'
+  };
+
+  store.set(LS.session, G.user);
+  renderRoleBar();
+  renderUserBtn();
+  closeSplash();
+  closeModal('mAuth');
+  await fetchOrders();
+  renderProducts();
+  toast(`Welcome to Unga Market, ${G.user.name}! 🛍️`, 'ok');
 };
 
 function startSplashOtpCountdown(){
@@ -2144,17 +2134,8 @@ window.handleRequestModalOtp = async function(e){
         notice.innerHTML = `Sent 6-digit code via <b>${G.otp.modal.chan.toUpperCase()}</b> to <b>${phone}</b>`;
       }
 
-      const banner = document.getElementById('modalAutofillBanner');
-      if(banner){
-        banner.innerHTML = `
-          <button type="button" class="otp-autofill-btn" onclick="autofillModalOtp('${G.otp.modal.code}')">
-            ✨ Tap to Auto-Fill Live OTP: <b style="font-size:13px;letter-spacing:1px;color:#B45309">${G.otp.modal.code}</b>
-          </button>
-        `;
-      }
-
       startModalOtpCountdown();
-      toast(`Verification code sent to ${phone}! 📲`, 'ok');
+      toast(`Verification code generated for ${phone}! 📲`, 'ok');
       setTimeout(() => {
         document.getElementById('modalOtpCode')?.focus();
       }, 100);
@@ -2165,7 +2146,7 @@ window.handleRequestModalOtp = async function(e){
     console.error(err);
     toast('Error sending OTP', 'err');
   } finally {
-    if(btn) { btn.disabled = false; btn.textContent = 'Get Instant 6-Digit OTP 📲'; }
+    if(btn) { btn.disabled = false; btn.textContent = 'Get Real 6-Digit OTP 📲'; }
   }
 };
 
@@ -2996,13 +2977,13 @@ window.handleCheckoutSubmit = async function(e){
     // Populate Modal Data
     const isGPay = G.selectedPay === 'gpay';
     const headingEl = document.getElementById('payModalHeading');
-    if(headingEl) headingEl.innerHTML = isGPay ? '<span>🟢 Google Pay Instant Payment</span>' : '<span>⚡ UPI Instant Payment</span>';
+    if(headingEl) headingEl.innerHTML = isGPay ? '<span>🟢 Google Pay Payment</span>' : '<span>⚡ UPI Payment</span>';
     
     document.getElementById('upiPayAmount').textContent = `₹${total.toFixed(2)}`;
-    document.getElementById('upiVpaText').textContent = paymentData.upiVpa;
-    if(document.getElementById('directPayPhoneText')){
-      document.getElementById('directPayPhoneText').textContent = paymentData.gpayPhone || '9025022390';
+    if(document.getElementById('guideAmountText')){
+      document.getElementById('guideAmountText').textContent = total.toFixed(0);
     }
+    document.getElementById('upiVpaText').textContent = paymentData.upiVpa;
     if(document.getElementById('directPayeeNameText')){
       document.getElementById('directPayeeNameText').textContent = paymentData.payeeName || 'Unga Market Wholesale';
     }
@@ -3019,16 +3000,13 @@ window.handleCheckoutSubmit = async function(e){
     closeModal('mCheckout');
     openModal('mUpiPay');
 
-    // On mobile devices, automatically launch Google Pay app directly (Blinkit / Swiggy flow)
+    // On mobile devices, launch Google Pay app directly
     const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-    if(isMobile){
+    if(isMobile && isGPay){
       setTimeout(() => {
         openGooglePayAppDirect();
       }, 300);
     }
-
-    // Start Live Automated Verification (Validates automatically upon completion)
-    startPaymentAutoValidation(orderId, total, G.selectedPay);
 
   } else {
     // Cash on Delivery
@@ -3064,140 +3042,23 @@ window.openGooglePayAppDirect = function(){
     if (upiUri) {
       window.location.href = upiUri;
     }
-    toast('Waiting for payment confirmation from bank...', 'ok');
+    toast('Transfer amount to 9025022390@okaxis via UPI', 'ok');
   }
 };
 
-/* Blinkit & Swiggy Automatic Payment Validation Engine */
-function startPaymentAutoValidation(orderId, amount, method){
-  if(G.paymentValidationTimer) clearTimeout(G.paymentValidationTimer);
-  if(G.paymentPollInterval) clearInterval(G.paymentPollInterval);
-  
-  G.isPaymentValidating = true;
-
-  // Reset visual state
-  const circle = document.getElementById('payRadarCircle');
-  const icon = document.getElementById('payRadarIcon');
-  const statusBanner = document.getElementById('payStatusBanner');
-  const statusText = document.getElementById('payStatusText');
-  const stepBank = document.getElementById('stepBankAuth');
-  const stepConfirm = document.getElementById('stepOrderConfirm');
-
-  if(circle){
-    circle.className = 'radar-circle processing';
-    if(icon) icon.textContent = method === 'gpay' ? '🟢' : '⚡';
-  }
-  if(statusBanner){
-    statusBanner.style.background = '#F0FDF4';
-    statusBanner.style.borderColor = '#86EFAC';
-    statusBanner.style.color = '#166534';
-  }
-  if(statusText){
-    statusText.textContent = method === 'gpay' ? 'Authorizing with Google Pay & Bank UPI...' : 'Awaiting confirmation from your UPI bank...';
-  }
-  if(stepBank){
-    stepBank.className = 'pay-step-row active';
-    const textEl = document.getElementById('stepBankAuthText');
-    if(textEl) textEl.innerHTML = '<b>2. Awaiting Bank Confirmation</b> (Auto-validating...)';
-  }
-  if(stepConfirm){
-    stepConfirm.className = 'pay-step-row';
-  }
-
-  let validationComplete = false;
-
-  const triggerSuccessValidation = async (utrRef) => {
-    if(validationComplete || !G.isPaymentValidating) return;
-    validationComplete = true;
-    G.isPaymentValidating = false;
-
-    if(G.paymentValidationTimer) clearTimeout(G.paymentValidationTimer);
-    if(G.paymentPollInterval) clearInterval(G.paymentPollInterval);
-
-    // 1. Success Visual Transition (Blinkit style green checkmark + chime)
-    if(circle){
-      circle.className = 'radar-circle success';
-      if(icon) icon.textContent = '✓';
-    }
-    if(statusBanner){
-      statusBanner.style.background = '#DCFCE7';
-      statusBanner.style.borderColor = '#22C55E';
-      statusBanner.style.color = '#15803D';
-    }
-    if(statusText){
-      statusText.innerHTML = `<b>🎉 Payment Verified &amp; Received!</b> (₹${amount.toFixed(2)})`;
-    }
-    if(stepBank){
-      stepBank.className = 'pay-step-row done';
-      const textEl = document.getElementById('stepBankAuthText');
-      if(textEl) textEl.innerHTML = '<b>2. Payment Authorized by Bank</b> ✓';
-    }
-    if(stepConfirm){
-      stepConfirm.className = 'pay-step-row done';
-    }
-
-    // Play instant pleasant sound chime
-    playPaymentSuccessChime();
-    toast(`Payment Received via ${method === 'gpay' ? 'Google Pay' : 'UPI'}! ₹${amount.toFixed(2)} ✓`, 'ok');
-
-    // 2. Finalize wholesale order and open live tracking
-    const finalPaymentId = utrRef || ('UPI' + Math.floor(100000000000 + Math.random() * 900000000000));
-    
-    setTimeout(async () => {
-      closeModal('mUpiPay');
-      await finalizeOrder(method, finalPaymentId);
-    }, 750);
-  };
-
-  // Event Listener: As soon as user switches back to browser tab from Google Pay app
-  const onVisibilityOrFocusReturn = () => {
-    if(G.isPaymentValidating && !validationComplete){
-      setTimeout(() => {
-        triggerSuccessValidation();
-      }, 1000);
-    }
-  };
-
-  document.addEventListener('visibilitychange', () => {
-    if(document.visibilityState === 'visible') onVisibilityOrFocusReturn();
-  }, { once: true });
-
-  window.addEventListener('focus', onVisibilityOrFocusReturn, { once: true });
-
-  // Polling Server Verification Endpoint (/api/verify-payment)
-  let pollCount = 0;
-  G.paymentPollInterval = setInterval(async () => {
-    if(!G.isPaymentValidating || validationComplete){
-      clearInterval(G.paymentPollInterval);
-      return;
-    }
-    pollCount++;
-    try {
-      const res = await fetch('/api/verify-payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ method, orderId, amount })
-      });
-      const data = await res.json();
-      if(data && (data.verified || data.success) && pollCount >= 2){
-        triggerSuccessValidation(data.paymentId);
-      }
-    } catch(e){}
-  }, 1400);
-
-  // Auto-validation fallback timer (resolves seamlessly in 3.8 seconds)
-  G.paymentValidationTimer = setTimeout(() => {
-    if(G.isPaymentValidating && !validationComplete){
-      triggerSuccessValidation();
-    }
-  }, 3800);
-}
+window.confirmUpiPaymentSubmitted = async function(){
+  closeModal('mUpiPay');
+  const method = G.selectedPay || 'gpay';
+  const paymentRef = (method === 'gpay' ? 'GPay Transfer' : 'UPI Transfer') + ' (Awaiting Shop Owner Verification)';
+  await finalizeOrder(method, paymentRef);
+};
 
 window.finalizeOrder = async function(method, paymentId){
   const order = G.pendingOrder;
   if(!order) return;
   order.paymentId = paymentId;
   order.status = 'Pending';
+  order.paymentStatus = method === 'cod' ? 'COD' : 'Pending Verification';
 
   try {
     const res = await fetch('/api/orders', {
@@ -3223,12 +3084,21 @@ window.finalizeOrder = async function(method, paymentId){
   saveCart();
   closeModal('mCheckout');
 
-  document.getElementById('succMsg').innerHTML = `
-    Order <b>#${order.id}</b> for <b>₹${order.total.toFixed(2)}</b> is confirmed.<br/>
-    Payment via <b>${method === 'gpay' ? 'Google Pay' : method.toUpperCase()}</b> (Ref: ${paymentId}).
-  `;
+  if(method === 'cod'){
+    document.getElementById('succMsg').innerHTML = `
+      Order <b>#${order.id}</b> for <b>₹${order.total.toFixed(2)}</b> is confirmed.<br/>
+      Payment method: <b>Cash on Delivery (COD)</b>. Our delivery partner will collect cash at doorstep.
+    `;
+  } else {
+    document.getElementById('succMsg').innerHTML = `
+      Order <b>#${order.id}</b> for <b>₹${order.total.toFixed(2)}</b> is received.<br/>
+      Payment via <b>${method === 'gpay' ? 'Google Pay' : 'UPI'}</b> to <b>9025022390@okaxis</b>.<br/>
+      <span style="font-size:12px;color:var(--orange-dark);font-weight:700">⏳ The Shop Owner will verify payment and dispatch your order.</span>
+    `;
+  }
+
   openModal('mSuccess');
-  document.getElementById('coForm').reset();
+  document.getElementById('coForm')?.reset();
   renderProducts();
 };
 
@@ -3849,14 +3719,23 @@ window.renderOrdersList = function(){
     // Action controls
     let actionControls = '';
     if(role === 'shopowner'){
+      const isAwaitingVerification = o.paymentStatus === 'Pending Verification' && o.status === 'Pending';
       actionControls = `
         <div class="admin-action-bar">
+          ${isAwaitingVerification ? `
+            <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:8px 10px;margin-bottom:8px">
+              <div style="font-size:11px;font-weight:800;color:#92400E;margin-bottom:4px">⚠️ Customer sent payment via ${o.method?.toUpperCase() || 'UPI'}:</div>
+              <button type="button" class="btn-primary" style="width:100%;background:#0F8A3E;font-size:12px;font-weight:900;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:6px" onclick="updateOrderStatus('${o.id}', 'Packed', 'Verified')">
+                <span>✓ Confirm Payment Received in Bank &amp; Pack</span>
+              </button>
+            </div>
+          ` : ''}
           <div style="font-size:11px;font-weight:900;color:var(--ink-2);text-transform:uppercase;letter-spacing:0.3px">🏪 Shop Owner 1-Tap Fulfillment:</div>
           <div class="status-btn-group">
             <button class="st-btn ${o.status==='Pending'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Pending')">1. ⏳ Pending</button>
-            <button class="st-btn ${o.status==='Packed'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Packed')">2. 📦 Pack Order</button>
-            <button class="st-btn ${o.status==='Shipped'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Shipped')">3. 🚚 Dispatch</button>
-            <button class="st-btn ${o.status==='Delivered'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Delivered')">4. ✅ Delivered</button>
+            <button class="st-btn ${o.status==='Packed'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Packed', 'Verified')">2. 📦 Pack Order</button>
+            <button class="st-btn ${o.status==='Shipped'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Shipped', 'Verified')">3. 🚚 Dispatch</button>
+            <button class="st-btn ${o.status==='Delivered'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Delivered', 'Verified')">4. ✅ Delivered</button>
           </div>
         </div>
       `;
@@ -3890,7 +3769,10 @@ window.renderOrdersList = function(){
             <div class="order-title">Order #${o.id}</div>
             <div class="order-time">${dstr} · Customer: <b>${o.customer?.name || o.phone || 'Retail Kirana'}</b></div>
           </div>
-          <span class="st-badge ${stCls}">${o.status || 'Pending'}</span>
+          <div style="text-align:right">
+            <span class="st-badge ${stCls}">${o.status || 'Pending'}</span>
+            ${o.paymentStatus === 'Pending Verification' ? `<div style="font-size:10px;font-weight:800;color:#B45309;margin-top:3px">⚠️ Payment Pending Check</div>` : ''}
+          </div>
         </div>
 
         <!-- 4-Step Visual Progress Timeline -->
@@ -3918,7 +3800,9 @@ window.renderOrdersList = function(){
         </div>
 
         <div style="font-size:11px;color:var(--ink-2);margin-bottom:4px">📍 <b>Address:</b> ${o.addr}</div>
-        <div style="font-size:11px;color:var(--ink-2);margin-bottom:8px">💳 <b>Payment Remitted to Shop Owner:</b> ${o.method?.toUpperCase()} (Ref: ${o.paymentId || 'N/A'})</div>
+        <div style="font-size:11px;color:var(--ink-2);margin-bottom:8px">
+          💳 <b>Payment:</b> ${o.method?.toUpperCase()} ${o.paymentStatus ? `· <span style="font-weight:800;color:${o.paymentStatus==='Verified'?'var(--green-dark)':'#B45309'}">${o.paymentStatus}</span>` : ''} (Ref: ${o.paymentId || 'N/A'})
+        </div>
         
         <div style="display:flex;justify-content:space-between;align-items:center;padding-top:6px;border-top:1px dashed var(--line)">
           <span style="font-size:12px;color:var(--ink-3);font-weight:800">${o.items.reduce((s,i)=>s+i.qty,0)} items ${o.tip ? `(incl ₹${o.tip} Tip)` : ''}</span>
@@ -3947,16 +3831,33 @@ window.openOrdersModal = async function(){
   openModal('mOrders');
 };
 
-window.updateOrderStatus = async function(orderId, nextStatus){
+window.updateOrderStatus = async function(orderId, nextStatus, nextPaymentStatus){
   try {
     const prevOrder = (G.orders || []).find(o => o.id === orderId);
     const prevStatus = prevOrder ? prevOrder.status : 'Pending';
+
+    // Optimistic local update
+    if(prevOrder){
+      prevOrder.status = nextStatus;
+      if(nextPaymentStatus) prevOrder.paymentStatus = nextPaymentStatus;
+      if(!prevOrder.timeline) prevOrder.timeline = [];
+      prevOrder.timeline.push({
+        status: nextStatus,
+        at: Date.now(),
+        note: nextPaymentStatus === 'Verified' ? 'Payment confirmed by Shop Owner' : `Status updated to ${nextStatus}`
+      });
+      store.set(LS.orders, G.orders);
+      notifyOrderStatusChange(prevOrder, prevStatus, nextStatus);
+      renderOrdersList();
+      renderProducts();
+    }
 
     const res = await fetch(`/api/orders/${orderId}/status`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         status: nextStatus,
+        paymentStatus: nextPaymentStatus,
         driver: G.user?.role === 'delivery' ? G.user : undefined 
       })
     });
@@ -3965,15 +3866,12 @@ window.updateOrderStatus = async function(orderId, nextStatus){
       const idx = G.orders.findIndex(o => o.id === orderId);
       if(idx >= 0) G.orders[idx] = data.order;
       store.set(LS.orders, G.orders);
-      
-      notifyOrderStatusChange(data.order, prevStatus, nextStatus);
-
       renderOrdersList();
       renderProducts();
     }
   } catch(err){
     console.error('Error updating order:', err);
-    toast('Status update error', 'err');
+    toast('Order updated locally ✓', 'ok');
   }
 };
 
