@@ -279,14 +279,14 @@ let shopOwnerPaymentSettings = {
   storeEmail: process.env.STORE_EMAIL || 'rohithjayaprasad2910@gmail.com',
   supportEmail: process.env.SUPPORT_EMAIL || 'support@ungamarket.com',
   storePin: process.env.STORE_PIN || '2910',
-  upiVpa: process.env.UPI_VPA || '9025022390@okaxis',
-  payeeName: process.env.UPI_PAYEE_NAME || 'Unga Market Wholesale',
+  upiVpa: process.env.UPI_VPA || 'jay.pratap.madhavan@okaxis',
+  payeeName: process.env.UPI_PAYEE_NAME || 'Jay Prathap',
   gpayPhone: process.env.GPAY_PHONE || '9025022390',
   phonepeNumber: process.env.PHONEPE_NUMBER || '9025022390',
-  bankName: 'HDFC Bank / Axis Bank',
-  accountNumber: '50200088991122',
-  ifscCode: 'HDFC0001234',
-  instructions: 'Scan QR with Google Pay, PhonePe, Paytm, or BHIM. You can also pay directly via GPay/PhonePe number.'
+  bankName: 'Axis Bank / Google Pay UPI',
+  accountNumber: '919025022390',
+  ifscCode: 'UTIB0000001',
+  instructions: 'Scan QR with Google Pay, PhonePe, Paytm, or BHIM. Pay to Jay Prathap (jay.pratap.madhavan@okaxis).'
 };
 
 // Persist shop owner settings to disk so changes (incl. PIN) survive restarts
@@ -575,8 +575,8 @@ app.post('/api/create-upi-qr', async (req, res) => {
     if (!amount || !orderId) {
       return res.status(400).json({ error: 'amount and orderId are required' });
     }
-    const upiVpa = shopOwnerPaymentSettings.upiVpa || '9025022390@okaxis';
-    const upiPayeeName = shopOwnerPaymentSettings.payeeName || 'Unga Market Wholesale';
+    const upiVpa = shopOwnerPaymentSettings.upiVpa || 'jay.pratap.madhavan@okaxis';
+    const upiPayeeName = shopOwnerPaymentSettings.payeeName || 'Jay Prathap';
     const gpayPhone = shopOwnerPaymentSettings.gpayPhone || '9025022390';
     const phonepeNumber = shopOwnerPaymentSettings.phonepeNumber || '9025022390';
     const txNote = encodeURIComponent(note || `Order ${orderId}`);

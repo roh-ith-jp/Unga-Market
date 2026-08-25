@@ -1266,61 +1266,75 @@ a{color:inherit;text-decoration:none}
     </div>
     <div class="modal-body" style="padding:16px 20px">
       
-      <!-- Payable Amount & Payee Badge -->
-      <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:14px;padding:12px;margin-bottom:12px">
-        <div style="font-size:11px;font-weight:800;color:var(--green-dark);text-transform:uppercase">Amount to Transfer</div>
-        <div style="font-size:26px;font-weight:900;color:var(--green-dark);margin:2px 0" id="upiPayAmount">₹0.00</div>
-        <div style="font-size:12px;color:var(--ink-2)">
-          Pay to: <b style="color:var(--ink)" id="directPayeeNameText">Unga Market Wholesale</b> (<span id="upiVpaText">9025022390@okaxis</span>)
+      <!-- Google Pay Merchant Card Inspired Design -->
+      <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:18px;padding:16px 14px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,0.04)">
+        
+        <!-- Merchant Header Profile (Jay Prathap) -->
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px">
+          <div style="width:38px;height:38px;border-radius:50%;background:#334155;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;box-shadow:0 2px 6px rgba(0,0,0,.15)">
+            J
+          </div>
+          <div style="text-align:left">
+            <div style="font-size:16px;font-weight:900;color:var(--ink)" id="directPayeeNameText">Jay Prathap</div>
+            <div style="font-size:11px;color:var(--ink-3)">Verified Google Pay Merchant</div>
+          </div>
         </div>
-      </div>
 
-      <!-- Clear Step-by-Step Guidance -->
-      <div style="text-align:left;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:10px 14px;font-size:12px;color:var(--ink-2);margin-bottom:12px">
-        <div style="font-weight:800;color:var(--ink);margin-bottom:4px">📋 How to Pay:</div>
-        <div>1. Tap <b>Open Google Pay App</b> (or scan QR code below) to send ₹<span id="guideAmountText">0</span>.</div>
-        <div>2. Tap <b>✓ Confirm Order Placed</b> below. The Shop Owner will verify payment and pack your order.</div>
+        <!-- QR Code Container with Google Pay Styling -->
+        <div style="background:#FFFFFF;border-radius:16px;padding:14px;border:1.5px solid #E2E8F0;display:inline-block;box-shadow:0 4px 16px rgba(0,0,0,0.06);margin-bottom:10px;max-width:260px;width:100%">
+          <div id="upiQrWrap" style="position:relative;margin:0 auto;display:inline-block">
+            <img id="upiQrImg" style="width:200px;height:200px;margin:0 auto;display:block;border-radius:8px" alt="Google Pay QR Code"/>
+          </div>
+          <div style="font-size:12px;font-weight:800;color:var(--ink);margin-top:10px;word-break:break-all" id="upiVpaText">
+            jay.pratap.madhavan@okaxis
+          </div>
+          <div style="font-size:11px;color:var(--ink-3);margin-top:2px">
+            Scan to pay with any UPI app
+          </div>
+        </div>
+
+        <!-- Payable Amount Badge -->
+        <div style="background:#ECFDF5;border:1.5px solid #A7F3D0;border-radius:12px;padding:10px;margin-top:4px">
+          <div style="font-size:11px;font-weight:800;color:#065F46;text-transform:uppercase;letter-spacing:0.3px">Total Amount to Pay</div>
+          <div style="font-size:26px;font-weight:900;color:#047857;margin:1px 0" id="upiPayAmount">₹0.00</div>
+        </div>
+
       </div>
 
       <!-- One-Tap Google Pay App Trigger Button (Instant Launch for Mobile) -->
-      <div id="gpayDirectActionWrap" style="margin-bottom:10px">
+      <div id="gpayDirectActionWrap" style="margin-bottom:8px">
         <button type="button" class="btn-primary" id="btnLaunchGPay" onclick="openGooglePayAppDirect()" style="width:100%;background:#0F8A3E;font-size:14px;font-weight:900;height:46px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;box-shadow:0 4px 14px rgba(15,138,62,.28);cursor:pointer">
           <span style="font-size:18px">🟢</span> <span>1. Open Google Pay App &amp; Pay</span>
         </button>
       </div>
 
-      <!-- Confirm Order Button -->
-      <div style="margin-bottom:12px">
-        <button type="button" class="btn-primary" onclick="confirmUpiPaymentSubmitted()" style="width:100%;background:#1E293B;font-size:13.5px;font-weight:900;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;cursor:pointer">
-          <span>✓ 2. Confirm Order Placed (Payment Sent)</span>
+      <!-- Transaction Reference Input (Optional for customer) & Confirm Payment Success Button -->
+      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:10px 12px;margin-bottom:10px;text-align:left">
+        <label style="font-size:11px;font-weight:800;color:var(--ink-2);display:block;margin-bottom:4px">
+          2. Finished payment in GPay / UPI app? Confirm below:
+        </label>
+        <div style="display:flex;gap:6px;margin-bottom:8px">
+          <input id="upiUtrInput" placeholder="Enter 12-digit UPI / UTR Ref No. (optional)" style="height:36px;font-size:12px;flex:1;border:1px solid var(--line);border-radius:8px;padding:0 8px" />
+        </div>
+        <button type="button" class="btn-primary" onclick="confirmUpiPaymentSubmitted()" style="width:100%;background:#0A6B2E;font-size:14px;font-weight:900;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:10px;cursor:pointer">
+          <span>✓ Confirm Payment &amp; Place Order</span>
         </button>
       </div>
 
       <!-- Quick Copy UPI ID / Direct Mobile Details -->
-      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;text-align:left">
+      <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;text-align:left">
         <div style="overflow:hidden">
           <div style="font-size:10px;font-weight:800;color:var(--ink-3);text-transform:uppercase">Merchant UPI ID</div>
-          <b style="font-size:12.5px;color:var(--ink);display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden">9025022390@okaxis</b>
+          <b style="font-size:12px;color:var(--ink);display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden" id="upiVpaCopyText">jay.pratap.madhavan@okaxis</b>
         </div>
         <div style="display:flex;gap:4px">
-          <button type="button" class="coupon-chip" onclick="copyDirectPhone()" style="background:#F1F5F9;padding:4px 8px;font-size:10.5px;font-weight:900">📱 Copy Phone</button>
-          <button type="button" class="coupon-chip" onclick="copyUpiVpa()" style="background:#F1F5F9;padding:4px 8px;font-size:10.5px;font-weight:900">📋 Copy UPI</button>
+          <button type="button" class="coupon-chip" onclick="copyUpiVpa()" style="background:#fff;padding:4px 8px;font-size:11px;font-weight:900;border:1px solid #CBD5E1">📋 Copy UPI</button>
+          <button type="button" class="coupon-chip" onclick="copyDirectPhone()" style="background:#fff;padding:4px 8px;font-size:11px;font-weight:900;border:1px solid #CBD5E1">📱 Copy Phone</button>
         </div>
       </div>
-
-      <!-- Collapsible / Desktop QR Code View -->
-      <details style="text-align:left;font-size:12px;margin:8px 0;background:#FAFAFA;border-radius:10px;padding:6px 10px;border:1px solid #E5E7EB">
-        <summary style="cursor:pointer;font-weight:800;color:var(--ink-2)">📱 Scan QR Code instead (Camera / Secondary Phone)</summary>
-        <div style="text-align:center;padding:10px 0 6px">
-          <div id="upiQrWrap" style="background:#fff;padding:8px;border:2px dashed var(--green);border-radius:14px;display:inline-block;margin:4px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)">
-            <img id="upiQrImg" style="width:160px;height:160px;margin:0 auto;display:block;border-radius:6px" alt="UPI QR Code"/>
-          </div>
-          <div style="font-size:11px;color:var(--ink-3)">Scan with Google Pay, PhonePe, or Paytm camera</div>
-        </div>
-      </details>
       
       <!-- Instant App Deep Link Alternative Buttons -->
-      <div style="display:flex;gap:6px;justify-content:center;margin-top:8px">
+      <div style="display:flex;gap:6px;justify-content:center;margin-top:6px">
         <a id="btnGpay" class="btn-primary" style="flex:1;font-size:11px;padding:4px;height:34px;background:#0F8A3E;display:flex;align-items:center;justify-content:center" target="_blank" onclick="openGooglePayAppDirect();return false;">🟢 GPay App</a>
         <a id="btnPhonepe" class="btn-ghost" style="flex:1;font-size:11px;padding:4px;height:34px;margin-top:0;display:flex;align-items:center;justify-content:center" target="_blank">🟣 PhonePe</a>
         <a id="btnPaytm" class="btn-ghost" style="flex:1;font-size:11px;padding:4px;height:34px;margin-top:0;display:flex;align-items:center;justify-content:center" target="_blank">🔵 Paytm / UPI</a>
@@ -1353,12 +1367,12 @@ a{color:inherit;text-decoration:none}
 
 <!-- Order Success Modal -->
 <div id="mSuccess" class="modal" onclick="if(event.target===this)closeModal('mSuccess')">
-  <div class="modal-box" style="max-width:400px;text-align:center">
+  <div class="modal-box" style="max-width:420px;text-align:center">
     <div class="modal-body" style="padding:28px 20px">
       <div style="font-size:56px;margin-bottom:8px">🎉</div>
-      <h2 style="margin:0 0 6px;font-size:20px;color:var(--green-dark)">Order Confirmed!</h2>
-      <p style="margin:0 0 8px;color:var(--ink-2);font-size:13px" id="succMsg"></p>
-      <div style="background:var(--green-soft);color:var(--green-dark);padding:10px;border-radius:10px;font-size:12px;font-weight:800;margin:12px 0">
+      <h2 style="margin:0 0 6px;font-size:20px;color:var(--green-dark)" id="succTitle">Payment Successful &amp; Order Placed!</h2>
+      <p style="margin:0 0 10px;color:var(--ink-2);font-size:13px" id="succMsg"></p>
+      <div id="succStatusBanner" style="background:var(--green-soft);color:var(--green-dark);padding:10px;border-radius:10px;font-size:12px;font-weight:800;margin:12px 0">
         🚀 100% Genuine FMCG stock reserved · Status: <b>Pending</b>
       </div>
       <button class="btn-primary" onclick="closeModal('mSuccess');openOrdersModal()">Track Live Order Timeline →</button>
@@ -2939,8 +2953,8 @@ window.handleCheckoutSubmit = async function(e){
     }
 
     if(!paymentData){
-      const vpa = G.paymentSettings?.upiVpa || '9025022390@okaxis';
-      const payee = G.paymentSettings?.payeeName || 'Unga Market Wholesale';
+      const vpa = G.paymentSettings?.upiVpa || 'jay.pratap.madhavan@okaxis';
+      const payee = G.paymentSettings?.payeeName || 'Jay Prathap';
       const gpayNum = G.paymentSettings?.gpayPhone || '9025022390';
       const encPayee = encodeURIComponent(payee);
       const note = encodeURIComponent(`Order ${orderId} Unga Market`);
@@ -2977,15 +2991,18 @@ window.handleCheckoutSubmit = async function(e){
     // Populate Modal Data
     const isGPay = G.selectedPay === 'gpay';
     const headingEl = document.getElementById('payModalHeading');
-    if(headingEl) headingEl.innerHTML = isGPay ? '<span>🟢 Google Pay Payment</span>' : '<span>⚡ UPI Payment</span>';
+    if(headingEl) headingEl.innerHTML = isGPay ? '<span>🟢 Google Pay Direct Payment</span>' : '<span>⚡ UPI Direct Payment</span>';
     
     document.getElementById('upiPayAmount').textContent = `₹${total.toFixed(2)}`;
     if(document.getElementById('guideAmountText')){
       document.getElementById('guideAmountText').textContent = total.toFixed(0);
     }
     document.getElementById('upiVpaText').textContent = paymentData.upiVpa;
+    if(document.getElementById('upiVpaCopyText')){
+      document.getElementById('upiVpaCopyText').textContent = paymentData.upiVpa;
+    }
     if(document.getElementById('directPayeeNameText')){
-      document.getElementById('directPayeeNameText').textContent = paymentData.payeeName || 'Unga Market Wholesale';
+      document.getElementById('directPayeeNameText').textContent = paymentData.payeeName || 'Jay Prathap';
     }
     if(document.getElementById('upiQrImg')){
       document.getElementById('upiQrImg').src = paymentData.qrDataUrl;
@@ -3020,7 +3037,7 @@ window.openGooglePayAppDirect = function(){
   const isAndroid = /Android/i.test(navigator.userAgent);
   const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  toast('Opening Google Pay app...', 'ok');
+  toast('Opening Google Pay app for Jay Prathap...', 'ok');
 
   if (isAndroid) {
     if (intents?.gpay) {
@@ -3042,23 +3059,25 @@ window.openGooglePayAppDirect = function(){
     if (upiUri) {
       window.location.href = upiUri;
     }
-    toast('Transfer amount to 9025022390@okaxis via UPI', 'ok');
+    toast('Transfer amount to jay.pratap.madhavan@okaxis via UPI', 'ok');
   }
 };
 
 window.confirmUpiPaymentSubmitted = async function(){
+  const customUtr = (document.getElementById('upiUtrInput')?.value || '').trim();
   closeModal('mUpiPay');
   const method = G.selectedPay || 'gpay';
-  const paymentRef = (method === 'gpay' ? 'GPay Transfer' : 'UPI Transfer') + ' (Awaiting Shop Owner Verification)';
-  await finalizeOrder(method, paymentRef);
+  const paymentRef = customUtr ? `UPI/UTR: ${customUtr}` : ('GPAY_' + Date.now().toString(36).toUpperCase());
+  playPaymentSuccessChime();
+  await finalizeOrder(method, paymentRef, 'Paid (Google Pay)');
 };
 
-window.finalizeOrder = async function(method, paymentId){
+window.finalizeOrder = async function(method, paymentId, paymentStatus = null){
   const order = G.pendingOrder;
   if(!order) return;
   order.paymentId = paymentId;
   order.status = 'Pending';
-  order.paymentStatus = method === 'cod' ? 'COD' : 'Pending Verification';
+  order.paymentStatus = paymentStatus || (method === 'cod' ? 'COD' : 'Paid (Google Pay)');
 
   try {
     const res = await fetch('/api/orders', {
@@ -3074,7 +3093,7 @@ window.finalizeOrder = async function(method, paymentId){
   } catch(err){
     console.error('Offline save fallback:', err);
     order.timeline = [
-      { status: 'Pending', at: Date.now(), note: `Order placed via ${method.toUpperCase()}` }
+      { status: 'Pending', at: Date.now(), note: `Payment Confirmed & Order placed via ${method.toUpperCase()} (₹${order.total.toFixed(2)})` }
     ];
     G.orders.unshift(order);
     store.set(LS.orders, G.orders);
@@ -3084,21 +3103,42 @@ window.finalizeOrder = async function(method, paymentId){
   saveCart();
   closeModal('mCheckout');
 
+  const succTitleEl = document.getElementById('succTitle');
+  const succMsgEl = document.getElementById('succMsg');
+  const succBannerEl = document.getElementById('succStatusBanner');
+
   if(method === 'cod'){
-    document.getElementById('succMsg').innerHTML = `
-      Order <b>#${order.id}</b> for <b>₹${order.total.toFixed(2)}</b> is confirmed.<br/>
-      Payment method: <b>Cash on Delivery (COD)</b>. Our delivery partner will collect cash at doorstep.
-    `;
+    if(succTitleEl) succTitleEl.textContent = '🎉 Order Confirmed!';
+    if(succMsgEl) {
+      succMsgEl.innerHTML = `
+        Order <b>#${order.id}</b> for <b>₹${order.total.toFixed(2)}</b> is confirmed.<br/>
+        Payment method: <b>Cash on Delivery (COD)</b>. Our delivery partner will collect cash at doorstep.
+      `;
+    }
+    if(succBannerEl) {
+      succBannerEl.innerHTML = `💵 Cash on Delivery · Status: <b>Pending (Fulfillment Queue)</b>`;
+      succBannerEl.style.background = '#FFFBEB';
+      succBannerEl.style.color = '#B45309';
+    }
   } else {
-    document.getElementById('succMsg').innerHTML = `
-      Order <b>#${order.id}</b> for <b>₹${order.total.toFixed(2)}</b> is received.<br/>
-      Payment via <b>${method === 'gpay' ? 'Google Pay' : 'UPI'}</b> to <b>9025022390@okaxis</b>.<br/>
-      <span style="font-size:12px;color:var(--orange-dark);font-weight:700">⏳ The Shop Owner will verify payment and dispatch your order.</span>
-    `;
+    if(succTitleEl) succTitleEl.textContent = '🎉 Payment Successful & Order Confirmed!';
+    if(succMsgEl) {
+      succMsgEl.innerHTML = `
+        Order <b>#${order.id}</b> for <b>₹${order.total.toFixed(2)}</b> is confirmed.<br/>
+        Payment confirmed to <b>Jay Prathap</b> via <b>${method === 'gpay' ? 'Google Pay' : 'UPI'}</b>.<br/>
+        <div style="font-size:11.5px;color:var(--ink-3);margin-top:4px">Payment Ref: <b>${order.paymentId}</b> · UPI ID: <code>jay.pratap.madhavan@okaxis</code></div>
+      `;
+    }
+    if(succBannerEl) {
+      succBannerEl.innerHTML = `🚀 Payment Received · 100% Genuine FMCG stock reserved for dispatch`;
+      succBannerEl.style.background = 'var(--green-soft)';
+      succBannerEl.style.color = 'var(--green-dark)';
+    }
   }
 
   openModal('mSuccess');
   document.getElementById('coForm')?.reset();
+  if(document.getElementById('upiUtrInput')) document.getElementById('upiUtrInput').value = '';
   renderProducts();
 };
 
@@ -3719,23 +3759,14 @@ window.renderOrdersList = function(){
     // Action controls
     let actionControls = '';
     if(role === 'shopowner'){
-      const isAwaitingVerification = o.paymentStatus === 'Pending Verification' && o.status === 'Pending';
       actionControls = `
         <div class="admin-action-bar">
-          ${isAwaitingVerification ? `
-            <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:8px 10px;margin-bottom:8px">
-              <div style="font-size:11px;font-weight:800;color:#92400E;margin-bottom:4px">⚠️ Customer sent payment via ${o.method?.toUpperCase() || 'UPI'}:</div>
-              <button type="button" class="btn-primary" style="width:100%;background:#0F8A3E;font-size:12px;font-weight:900;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:6px" onclick="updateOrderStatus('${o.id}', 'Packed', 'Verified')">
-                <span>✓ Confirm Payment Received in Bank &amp; Pack</span>
-              </button>
-            </div>
-          ` : ''}
           <div style="font-size:11px;font-weight:900;color:var(--ink-2);text-transform:uppercase;letter-spacing:0.3px">🏪 Shop Owner 1-Tap Fulfillment:</div>
           <div class="status-btn-group">
             <button class="st-btn ${o.status==='Pending'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Pending')">1. ⏳ Pending</button>
-            <button class="st-btn ${o.status==='Packed'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Packed', 'Verified')">2. 📦 Pack Order</button>
-            <button class="st-btn ${o.status==='Shipped'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Shipped', 'Verified')">3. 🚚 Dispatch</button>
-            <button class="st-btn ${o.status==='Delivered'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Delivered', 'Verified')">4. ✅ Delivered</button>
+            <button class="st-btn ${o.status==='Packed'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Packed', 'Paid (Verified)')">2. 📦 Pack Order</button>
+            <button class="st-btn ${o.status==='Shipped'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Shipped', 'Paid (Verified)')">3. 🚚 Dispatch</button>
+            <button class="st-btn ${o.status==='Delivered'?'active':''}" onclick="updateOrderStatus('${o.id}', 'Delivered', 'Paid (Verified)')">4. ✅ Delivered</button>
           </div>
         </div>
       `;
@@ -3762,6 +3793,9 @@ window.renderOrdersList = function(){
       `;
     }
 
+    const isPaid = (o.paymentStatus && o.paymentStatus.includes('Paid')) || o.method === 'gpay' || o.method === 'upi';
+    const paymentLabel = o.method === 'cod' ? 'Cash on Delivery (COD)' : (o.method === 'gpay' ? 'Google Pay (Jay Prathap)' : 'UPI Direct');
+
     return `
       <div class="order-card">
         <div class="order-head">
@@ -3771,7 +3805,9 @@ window.renderOrdersList = function(){
           </div>
           <div style="text-align:right">
             <span class="st-badge ${stCls}">${o.status || 'Pending'}</span>
-            ${o.paymentStatus === 'Pending Verification' ? `<div style="font-size:10px;font-weight:800;color:#B45309;margin-top:3px">⚠️ Payment Pending Check</div>` : ''}
+            <div style="font-size:10.5px;font-weight:900;margin-top:3px;color:${isPaid?'var(--green-dark)':'var(--orange-dark)'}">
+              ${isPaid ? '🟢 Paid' : '💵 Pay on Delivery'}
+            </div>
           </div>
         </div>
 
@@ -3801,7 +3837,7 @@ window.renderOrdersList = function(){
 
         <div style="font-size:11px;color:var(--ink-2);margin-bottom:4px">📍 <b>Address:</b> ${o.addr}</div>
         <div style="font-size:11px;color:var(--ink-2);margin-bottom:8px">
-          💳 <b>Payment:</b> ${o.method?.toUpperCase()} ${o.paymentStatus ? `· <span style="font-weight:800;color:${o.paymentStatus==='Verified'?'var(--green-dark)':'#B45309'}">${o.paymentStatus}</span>` : ''} (Ref: ${o.paymentId || 'N/A'})
+          💳 <b>Payment:</b> ${paymentLabel} · <b style="color:${isPaid?'var(--green-dark)':'var(--orange-dark)'}">${isPaid ? '✓ Confirmed Paid' : 'COD Pending'}</b> (Ref: ${o.paymentId || 'N/A'})
         </div>
         
         <div style="display:flex;justify-content:space-between;align-items:center;padding-top:6px;border-top:1px dashed var(--line)">
@@ -4076,16 +4112,16 @@ window.openPaymentSettingsModal = async function(){
       if(document.getElementById('setStoreEmail')) document.getElementById('setStoreEmail').value = s.storeEmail || 'rohithjayaprasad2910@gmail.com';
       if(document.getElementById('setSupportEmail')) document.getElementById('setSupportEmail').value = s.supportEmail || 'support@ungamarket.com';
       if(document.getElementById('setStorePin')) document.getElementById('setStorePin').value = s.storePin || '2910';
-      document.getElementById('setUpiVpa').value = s.upiVpa || '9025022390@okaxis';
-      document.getElementById('setPayeeName').value = s.payeeName || 'Unga Market Wholesale Hub';
+      document.getElementById('setUpiVpa').value = s.upiVpa || 'jay.pratap.madhavan@okaxis';
+      document.getElementById('setPayeeName').value = s.payeeName || 'Jay Prathap';
       document.getElementById('setGpayPhone').value = s.gpayPhone || '9025022390';
       document.getElementById('setPhonepeNumber').value = s.phonepeNumber || '9025022390';
-      document.getElementById('setBankName').value = s.bankName || 'HDFC Bank';
-      document.getElementById('setAccountNumber').value = s.accountNumber || '50200088991122';
-      document.getElementById('setIfscCode').value = s.ifscCode || 'HDFC0001234';
-      document.getElementById('setInstructions').value = s.instructions || '';
+      document.getElementById('setBankName').value = s.bankName || 'Axis Bank / Google Pay';
+      document.getElementById('setAccountNumber').value = s.accountNumber || '919025022390';
+      document.getElementById('setIfscCode').value = s.ifscCode || 'UTIB0000001';
+      document.getElementById('setInstructions').value = s.instructions || 'Pay to Jay Prathap (jay.pratap.madhavan@okaxis)';
       
-      updateSettingsQrPreview(s.upiVpa || '9025022390@okaxis', s.payeeName || 'Unga Market Wholesale Hub');
+      updateSettingsQrPreview(s.upiVpa || 'jay.pratap.madhavan@okaxis', s.payeeName || 'Jay Prathap');
     }
   } catch(e){
     console.warn('Error loading payment settings:', e);
@@ -4118,8 +4154,8 @@ window.handleSavePaymentSettings = async function(e){
   const storeEmail = document.getElementById('setStoreEmail')?.value.trim() || 'orders@ungamarket.com';
   const supportEmail = document.getElementById('setSupportEmail')?.value.trim() || 'support@ungamarket.com';
   const storePin = document.getElementById('setStorePin')?.value.trim() || '2910';
-  const upiVpa = document.getElementById('setUpiVpa').value.trim();
-  const payeeName = document.getElementById('setPayeeName').value.trim();
+  const upiVpa = document.getElementById('setUpiVpa').value.trim() || 'jay.pratap.madhavan@okaxis';
+  const payeeName = document.getElementById('setPayeeName').value.trim() || 'Jay Prathap';
   const gpayPhone = document.getElementById('setGpayPhone').value.trim();
   const phonepeNumber = document.getElementById('setPhonepeNumber').value.trim();
   const bankName = document.getElementById('setBankName').value.trim();
@@ -4150,8 +4186,8 @@ window.handleSavePaymentSettings = async function(e){
 };
 
 window.copyUpiVpa = function(){
-  const el = document.getElementById('upiVpaText');
-  const vpa = el ? el.textContent.trim() : '9025022390@okaxis';
+  const el = document.getElementById('upiVpaCopyText') || document.getElementById('upiVpaText');
+  const vpa = el ? el.textContent.trim() : 'jay.pratap.madhavan@okaxis';
   navigator.clipboard.writeText(vpa).then(() => {
     toast(`Copied UPI ID: ${vpa} 📋`, 'ok');
   }).catch(() => {
