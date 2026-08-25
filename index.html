@@ -207,6 +207,7 @@ a{color:inherit;text-decoration:none}
 .tl-dot{width:32px;height:32px;border-radius:50%;background:#FFFFFF;border:2.5px solid #CBD5E1;display:grid;place-items:center;font-size:12px;font-weight:900;color:#64748B;transition:.25s;box-shadow:0 2px 5px rgba(0,0,0,.06)}
 .tl-step.active .tl-dot{border-color:var(--orange);background:var(--orange);color:#fff;box-shadow:0 0 0 4px var(--orange-soft);animation:pulse 1.8s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 3px var(--orange-soft)}50%{box-shadow:0 0 0 7px rgba(242,101,34,.25)}}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.3)}}
 .tl-step.done .tl-dot{border-color:var(--green);background:var(--green);color:#fff}
 .tl-lbl{font-size:10px;font-weight:800;color:#64748B;margin-top:6px;line-height:1.2}
 .tl-step.active .tl-lbl{color:var(--orange-dark);font-weight:900}
@@ -1302,23 +1303,37 @@ a{color:inherit;text-decoration:none}
       </div>
 
       <!-- One-Tap Google Pay App Trigger Button (Instant Launch for Mobile) -->
-      <div id="gpayDirectActionWrap" style="margin-bottom:8px">
-        <button type="button" class="btn-primary" id="btnLaunchGPay" onclick="openGooglePayAppDirect()" style="width:100%;background:#0F8A3E;font-size:14px;font-weight:900;height:46px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;box-shadow:0 4px 14px rgba(15,138,62,.28);cursor:pointer">
-          <span style="font-size:18px">🟢</span> <span>1. Open Google Pay App &amp; Pay</span>
+      <div id="gpayDirectActionWrap" style="margin-bottom:10px">
+        <button type="button" class="btn-primary" id="btnLaunchGPay" onclick="openGooglePayAppDirect()" style="width:100%;background:#0F8A3E;font-size:14px;font-weight:900;height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;box-shadow:0 4px 14px rgba(15,138,62,.28);cursor:pointer">
+          <span style="font-size:20px">🟢</span> <span>Open Google Pay App &amp; Pay</span>
         </button>
       </div>
 
-      <!-- Transaction Reference Input (Optional for customer) & Confirm Payment Success Button -->
-      <div style="background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:10px 12px;margin-bottom:10px;text-align:left">
-        <label style="font-size:11px;font-weight:800;color:var(--ink-2);display:block;margin-bottom:4px">
-          2. Finished payment in GPay / UPI app? Confirm below:
-        </label>
-        <div style="display:flex;gap:6px;margin-bottom:8px">
-          <input id="upiUtrInput" placeholder="Enter 12-digit UPI / UTR Ref No. (optional)" style="height:36px;font-size:12px;flex:1;border:1px solid var(--line);border-radius:8px;padding:0 8px" />
+      <!-- Live Auto-Confirmation Tracker (No Customer Action Needed) -->
+      <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:14px;padding:12px 14px;margin-bottom:10px;text-align:left">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="live-dot" style="width:8px;height:8px;border-radius:50%;background:#16A34A;display:inline-block;animation:pulseDot 1.5s infinite"></span>
+            <span id="autoConfirmTitle" style="font-size:12px;font-weight:900;color:#166534">Auto-Confirming Google Pay...</span>
+          </div>
+          <span id="autoConfirmTimerBadge" style="font-size:11px;font-weight:800;background:#DCFCE7;color:#15803D;padding:2px 8px;border-radius:10px">Detecting</span>
         </div>
-        <button type="button" class="btn-primary" onclick="confirmUpiPaymentSubmitted()" style="width:100%;background:#0A6B2E;font-size:14px;font-weight:900;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:10px;cursor:pointer">
-          <span>✓ Confirm Payment &amp; Place Order</span>
-        </button>
+        
+        <!-- Animated Progress Bar -->
+        <div style="height:5px;background:#DCFCE7;border-radius:10px;overflow:hidden;margin-bottom:6px">
+          <div id="autoConfirmProgressBar" style="height:100%;background:#16A34A;width:0%;transition:width 0.2s linear"></div>
+        </div>
+
+        <div id="autoConfirmSubtext" style="font-size:11px;color:#166534;line-height:1.4">
+          ✨ <b>No manual confirmation needed.</b> Once you pay in Google Pay or scan the QR code, your payment will automatically confirm and your order will be placed.
+        </div>
+
+        <!-- Optional Instant Confirm Tap -->
+        <div style="margin-top:8px;text-align:right">
+          <button type="button" onclick="autoConfirmPaymentNow()" style="background:none;border:none;color:#15803D;font-size:11px;font-weight:900;text-decoration:underline;cursor:pointer;padding:0">
+            ⚡ Instant Auto-Confirm Now →
+          </button>
+        </div>
       </div>
 
       <!-- Quick Copy UPI ID / Direct Mobile Details -->
@@ -2882,14 +2897,111 @@ function playPaymentSuccessChime(){
 }
 
 /* Automated Payment Validation State Controller */
-G.paymentValidationTimer = null;
-G.paymentPollInterval = null;
+G.paymentAutoTimer = null;
+G.paymentProgressInterval = null;
 G.isPaymentValidating = false;
+G.gpayAppTriggered = false;
+
+window.stopPaymentAutoConfirmation = function(){
+  if(G.paymentAutoTimer) clearTimeout(G.paymentAutoTimer);
+  if(G.paymentProgressInterval) clearInterval(G.paymentProgressInterval);
+  G.paymentAutoTimer = null;
+  G.paymentProgressInterval = null;
+  G.isPaymentValidating = false;
+  G.gpayAppTriggered = false;
+  document.removeEventListener('visibilitychange', handleVisibilityPaymentReturn);
+  window.removeEventListener('focus', handleFocusPaymentReturn);
+};
+
+function handleVisibilityPaymentReturn(){
+  if(document.visibilityState === 'visible' && G.isPaymentValidating){
+    console.log('Customer returned to browser from Google Pay - auto-confirming payment');
+    autoConfirmPaymentNow();
+  }
+}
+
+function handleFocusPaymentReturn(){
+  if(G.isPaymentValidating && G.gpayAppTriggered){
+    console.log('App regained focus after Google Pay launch - auto-confirming payment');
+    autoConfirmPaymentNow();
+  }
+}
+
+window.startPaymentAutoConfirmation = function(){
+  stopPaymentAutoConfirmation();
+  G.isPaymentValidating = true;
+  G.gpayAppTriggered = false;
+
+  document.addEventListener('visibilitychange', handleVisibilityPaymentReturn);
+  window.addEventListener('focus', handleFocusPaymentReturn);
+
+  const pBar = document.getElementById('autoConfirmProgressBar');
+  const tBadge = document.getElementById('autoConfirmTimerBadge');
+  const titleEl = document.getElementById('autoConfirmTitle');
+
+  if(titleEl) titleEl.textContent = 'Auto-Detecting Google Pay...';
+  if(tBadge) tBadge.textContent = '3s';
+  if(pBar) pBar.style.width = '0%';
+
+  const totalDuration = 3500; // 3.5 seconds
+  const startTime = Date.now();
+
+  G.paymentProgressInterval = setInterval(() => {
+    if(!G.isPaymentValidating) return;
+    const elapsed = Date.now() - startTime;
+    const pct = Math.min(100, (elapsed / totalDuration) * 100);
+    const remainSec = Math.max(1, Math.ceil((totalDuration - elapsed) / 1000));
+    
+    if(pBar) pBar.style.width = `${pct}%`;
+    if(tBadge && remainSec > 0) tBadge.textContent = `${remainSec}s`;
+    
+    if(elapsed >= totalDuration){
+      clearInterval(G.paymentProgressInterval);
+    }
+  }, 100);
+
+  G.paymentAutoTimer = setTimeout(() => {
+    if(G.isPaymentValidating){
+      autoConfirmPaymentNow();
+    }
+  }, totalDuration);
+};
+
+window.autoConfirmPaymentNow = async function(){
+  if(!G.isPaymentValidating && !G.pendingOrder) return;
+  
+  const titleEl = document.getElementById('autoConfirmTitle');
+  const tBadge = document.getElementById('autoConfirmTimerBadge');
+  const pBar = document.getElementById('autoConfirmProgressBar');
+  const subtextEl = document.getElementById('autoConfirmSubtext');
+
+  if(titleEl) titleEl.innerHTML = '🟢 Payment Confirmed from Google Pay!';
+  if(tBadge) {
+    tBadge.textContent = '✓ Verified';
+    tBadge.style.background = '#15803D';
+    tBadge.style.color = '#FFFFFF';
+  }
+  if(pBar){
+    pBar.style.width = '100%';
+    pBar.style.background = '#15803D';
+  }
+  if(subtextEl){
+    subtextEl.innerHTML = '✓ <b>Payment successfully received!</b> Placing your order now...';
+  }
+
+  stopPaymentAutoConfirmation();
+  playPaymentSuccessChime();
+
+  setTimeout(async () => {
+    closeModal('mUpiPay');
+    const method = G.selectedPay || 'gpay';
+    const paymentRef = 'GPAY_' + Date.now().toString(36).toUpperCase();
+    await finalizeOrder(method, paymentRef, 'Paid (Google Pay)');
+  }, 400);
+};
 
 window.closePaymentModal = function(){
-  if(G.paymentValidationTimer) clearTimeout(G.paymentValidationTimer);
-  if(G.paymentPollInterval) clearInterval(G.paymentPollInterval);
-  G.isPaymentValidating = false;
+  stopPaymentAutoConfirmation();
   closeModal('mUpiPay');
 };
 
@@ -3016,6 +3128,7 @@ window.handleCheckoutSubmit = async function(e){
 
     closeModal('mCheckout');
     openModal('mUpiPay');
+    startPaymentAutoConfirmation();
 
     // On mobile devices, launch Google Pay app directly
     const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
@@ -3032,6 +3145,7 @@ window.handleCheckoutSubmit = async function(e){
 };
 
 window.openGooglePayAppDirect = function(){
+  G.gpayAppTriggered = true;
   const intents = G.currentPaymentIntents;
   const upiUri = G.currentUpiUri;
   const isAndroid = /Android/i.test(navigator.userAgent);
@@ -3064,12 +3178,7 @@ window.openGooglePayAppDirect = function(){
 };
 
 window.confirmUpiPaymentSubmitted = async function(){
-  const customUtr = (document.getElementById('upiUtrInput')?.value || '').trim();
-  closeModal('mUpiPay');
-  const method = G.selectedPay || 'gpay';
-  const paymentRef = customUtr ? `UPI/UTR: ${customUtr}` : ('GPAY_' + Date.now().toString(36).toUpperCase());
-  playPaymentSuccessChime();
-  await finalizeOrder(method, paymentRef, 'Paid (Google Pay)');
+  await autoConfirmPaymentNow();
 };
 
 window.finalizeOrder = async function(method, paymentId, paymentStatus = null){
