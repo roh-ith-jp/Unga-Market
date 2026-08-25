@@ -276,13 +276,13 @@ const DELIVERY_ZONES = [
 
 // Dynamic Shop Owner Payment & Store Settings (in-memory with environment variable defaults)
 let shopOwnerPaymentSettings = {
-  storeEmail: process.env.STORE_EMAIL || 'orders@ungamarket.com',
+  storeEmail: process.env.STORE_EMAIL || 'rohithjayaprasad2910@gmail.com',
   supportEmail: process.env.SUPPORT_EMAIL || 'support@ungamarket.com',
-  storePin: process.env.STORE_PIN || '1234',
-  upiVpa: process.env.UPI_VPA || 'ungamarket@okaxis',
+  storePin: process.env.STORE_PIN || '2910',
+  upiVpa: process.env.UPI_VPA || '9025022390@okaxis',
   payeeName: process.env.UPI_PAYEE_NAME || 'Unga Market Wholesale',
-  gpayPhone: process.env.GPAY_PHONE || '9840123456',
-  phonepeNumber: process.env.PHONEPE_NUMBER || '9840123456',
+  gpayPhone: process.env.GPAY_PHONE || '9025022390',
+  phonepeNumber: process.env.PHONEPE_NUMBER || '9025022390',
   bankName: 'HDFC Bank / Axis Bank',
   accountNumber: '50200088991122',
   ifscCode: 'HDFC0001234',
@@ -575,10 +575,10 @@ app.post('/api/create-upi-qr', async (req, res) => {
     if (!amount || !orderId) {
       return res.status(400).json({ error: 'amount and orderId are required' });
     }
-    const upiVpa = shopOwnerPaymentSettings.upiVpa || 'ungamarket@okaxis';
+    const upiVpa = shopOwnerPaymentSettings.upiVpa || '9025022390@okaxis';
     const upiPayeeName = shopOwnerPaymentSettings.payeeName || 'Unga Market Wholesale';
-    const gpayPhone = shopOwnerPaymentSettings.gpayPhone || '9840123456';
-    const phonepeNumber = shopOwnerPaymentSettings.phonepeNumber || '9840123456';
+    const gpayPhone = shopOwnerPaymentSettings.gpayPhone || '9025022390';
+    const phonepeNumber = shopOwnerPaymentSettings.phonepeNumber || '9025022390';
     const txNote = encodeURIComponent(note || `Order ${orderId}`);
     const encodedName = encodeURIComponent(upiPayeeName);
     const formattedAmount = Number(amount).toFixed(2);
@@ -586,17 +586,35 @@ app.post('/api/create-upi-qr', async (req, res) => {
     // Standard NPCI UPI URI Specification (Universal QR format accepted across all Indian UPI apps)
     const upiUri = `upi://pay?pa=${upiVpa}&pn=${encodedName}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${txNote}&am=${formattedAmount}&cu=INR`;
     
+    // Direct Google Pay Android Package Intent
+    const gpayIntent = `intent://pay?pa=${upiVpa}&pn=${encodedName}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${txNote}&am=${formattedAmount}&cu=INR#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end;`;
+
+    // Direct Google Pay Tez App Protocol URI
+    const gpayTez = `tez://upi/pay?pa=${upiVpa}&pn=${encodedName}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${txNote}&am=${formattedAmount}&cu=INR`;
+
+    // Direct PhonePe Intent
+    const phonepeIntent = `intent://pay?pa=${upiVpa}&pn=${encodedName}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${txNote}&am=${formattedAmount}&cu=INR#Intent;scheme=upi;package=com.phonepe.app;end;`;
+
+    // Direct Paytm URI
+    const paytmUri = `paytmmp://pay?pa=${upiVpa}&pn=${encodedName}&am=${formattedAmount}&cu=INR&tn=${txNote}`;
+
     // Generate high-resolution QR code with error correction
-    const qrDataUrl = await QRCode.toDataURL(upiUri, {
-      errorCorrectionLevel: 'H',
-      type: 'image/png',
-      margin: 2,
-      width: 320,
-      color: {
-        dark: '#0A6B2E',
-        light: '#FFFFFF'
-      }
-    });
+    let qrDataUrl = '';
+    try {
+      qrDataUrl = await QRCode.toDataURL(upiUri, {
+        errorCorrectionLevel: 'H',
+        type: 'image/png',
+        margin: 2,
+        width: 320,
+        color: {
+          dark: '#0A6B2E',
+          light: '#FFFFFF'
+        }
+      });
+    } catch (qrErr) {
+      console.warn('QR Code generation fallback:', qrErr.message);
+      qrDataUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(upiUri)}`;
+    }
 
     res.json({
       success: true,
@@ -611,10 +629,13 @@ app.post('/api/create-upi-qr', async (req, res) => {
       paymentSettings: shopOwnerPaymentSettings,
       intents: {
         universal: upiUri,
-        gpay: `upi://pay?pa=${upiVpa}&pn=${encodedName}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${txNote}&am=${formattedAmount}&cu=INR`,
-        phonepe: `upi://pay?pa=${upiVpa}&pn=${encodedName}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${txNote}&am=${formattedAmount}&cu=INR`,
-        paytm: `paytmmp://pay?pa=${upiVpa}&pn=${encodedName}&am=${formattedAmount}&cu=INR&tn=${txNote}`,
-        bhim: `upi://pay?pa=${upiVpa}&pn=${encodedName}&am=${formattedAmount}&cu=INR&tn=${txNote}`
+        gpay: gpayIntent,
+        gpayTez: gpayTez,
+        gpayUpi: upiUri,
+        phonepe: phonepeIntent,
+        phonepeUpi: upiUri,
+        paytm: paytmUri,
+        bhim: upiUri
       }
     });
   } catch (err) {

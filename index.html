@@ -1147,51 +1147,64 @@ a{color:inherit;text-decoration:none}
 <div id="mUpiPay" class="modal" onclick="if(event.target===this)closeModal('mUpiPay')">
   <div class="modal-box" style="max-width:440px;text-align:center">
     <div class="modal-head">
-      <h3 id="payModalHeading">⚡ Instant Payment</h3>
+      <h3 id="payModalHeading">🟢 Google Pay Instant Payment</h3>
       <button class="close" onclick="closeModal('mUpiPay')">✕</button>
     </div>
     <div class="modal-body" style="padding:16px 20px">
-      <div id="payModalSubtext" style="font-size:12.5px;color:var(--ink-2);margin-bottom:6px">Scan QR code using Google Pay, PhonePe, or any UPI app</div>
-      
-      <div id="upiQrWrap" style="background:#fff;padding:10px;border:2px dashed var(--green);border-radius:16px;display:inline-block;margin:4px 0">
-        <img id="upiQrImg" style="width:190px;height:190px;margin:0 auto;display:block" alt="UPI QR Code"/>
+      <div id="payModalSubtext" style="font-size:12.5px;color:var(--ink-2);margin-bottom:8px">Pay directly to Shop Owner registered mobile number or scan QR</div>
+
+      <!-- One-Tap Google Pay App Trigger Button (Highlighted for GPay mode) -->
+      <div id="gpayDirectActionWrap" style="margin-bottom:12px">
+        <button type="button" class="btn-primary" id="btnLaunchGPay" onclick="openGooglePayAppDirect()" style="width:100%;background:#0F8A3E;font-size:13.5px;font-weight:900;height:44px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;box-shadow:0 4px 14px rgba(15,138,62,.28);cursor:pointer">
+          <span style="font-size:18px">🟢</span> <span>Open Google Pay App &amp; Pay</span>
+        </button>
+        <div style="font-size:11px;color:var(--ink-3);margin-top:4px">Opens your local Google Pay application with pre-filled amount and payee details</div>
+      </div>
+
+      <!-- Direct GPay / PhonePe Mobile Numbers Box (For direct transfer without scanning) -->
+      <div id="directNumbersBox" style="background:#EFF6FF;border:1.5px solid #93C5FD;border-radius:12px;padding:10px 14px;margin-bottom:10px;text-align:left;font-size:12px">
+        <div style="font-weight:900;color:#1E40AF;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center">
+          <span>📱 Pay via GPay Mobile Number:</span>
+          <span style="font-size:10px;background:#DBEAFE;color:#1E40AF;padding:2px 8px;border-radius:6px;font-weight:800">Direct Payee</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+          <div>
+            <span style="color:var(--ink-2);font-size:11px">GPay Number: </span><b style="color:#0F172A;font-size:15px;letter-spacing:.5px" id="directPayPhoneText">9025022390</b>
+            <div style="font-size:10.5px;color:#3B82F6;margin-top:1px">Payee: <span id="directPayeeNameText">Unga Market Wholesale</span></div>
+          </div>
+          <button type="button" onclick="copyDirectPhone()" style="background:#fff;border:1px solid #93C5FD;color:#1D4ED8;font-size:11px;font-weight:800;border-radius:8px;padding:4px 10px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.05)">📋 Copy Number</button>
+        </div>
+      </div>
+
+      <!-- Dynamic QR Code Container -->
+      <div style="font-size:11.5px;font-weight:800;color:var(--ink-2);text-transform:uppercase;margin:6px 0 2px;letter-spacing:.3px">Or Scan Dynamic QR Code</div>
+      <div id="upiQrWrap" style="background:#fff;padding:10px;border:2px dashed var(--green);border-radius:16px;display:inline-block;margin:4px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)">
+        <img id="upiQrImg" style="width:185px;height:185px;margin:0 auto;display:block;border-radius:8px" alt="UPI QR Code"/>
       </div>
       
-      <div style="margin:6px 0;font-size:22px;font-weight:900;color:var(--green-dark)" id="upiPayAmount">₹0.00</div>
+      <div style="margin:4px 0 8px;font-size:22px;font-weight:900;color:var(--green-dark)" id="upiPayAmount">₹0.00</div>
 
       <!-- Quick Copy UPI VPA Box -->
       <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px">
         <div style="text-align:left;overflow:hidden">
-          <div style="font-size:10px;font-weight:800;color:var(--ink-3);text-transform:uppercase">Direct Payee UPI ID</div>
-          <b style="font-size:13px;color:var(--ink);display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden" id="upiVpaText">ungamarket@okaxis</b>
+          <div style="font-size:10px;font-weight:800;color:var(--ink-3);text-transform:uppercase">Direct Payee UPI ID / VPA</div>
+          <b style="font-size:13px;color:var(--ink);display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden" id="upiVpaText">9025022390@okaxis</b>
         </div>
         <button type="button" class="coupon-chip" onclick="copyUpiVpa()" style="background:#fff;padding:4px 10px;font-size:11px;font-weight:900;flex-shrink:0">📋 Copy UPI ID</button>
       </div>
-
-      <!-- Direct GPay / PhonePe Mobile Numbers Box (For direct transfer without scanning) -->
-      <div id="directNumbersBox" style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:8px 12px;margin-bottom:12px;text-align:left;font-size:12px">
-        <div style="font-weight:900;color:#1E40AF;margin-bottom:4px;display:flex;justify-content:space-between">
-          <span>📱 Pay via GPay / PhonePe Mobile:</span>
-          <span style="font-size:10px;background:#DBEAFE;color:#1E40AF;padding:1px 6px;border-radius:6px">Direct Transfer</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:2px">
-          <span>GPay / PhonePe Number: <b style="color:#111827" id="directPayPhoneText">9840123456</b></span>
-          <button type="button" onclick="copyDirectPhone()" style="background:#fff;border:1px solid #93C5FD;color:#1D4ED8;font-size:11px;font-weight:800;border-radius:6px;padding:2px 8px;cursor:pointer">Copy Number</button>
-        </div>
-      </div>
       
-      <!-- Instant App Deep Link Buttons -->
+      <!-- Instant App Deep Link Alternative Buttons -->
       <div style="display:flex;gap:6px;justify-content:center;margin-bottom:12px">
-        <a id="btnGpay" class="btn-primary" style="flex:1;font-size:11.5px;padding:4px;height:36px;background:#0F8A3E" target="_blank">Open GPay</a>
-        <a id="btnPhonepe" class="btn-ghost" style="flex:1;font-size:11.5px;padding:4px;height:36px;margin-top:0" target="_blank">Open PhonePe</a>
-        <a id="btnPaytm" class="btn-ghost" style="flex:1;font-size:11.5px;padding:4px;height:36px;margin-top:0" target="_blank">Open UPI</a>
+        <a id="btnGpay" class="btn-primary" style="flex:1;font-size:11px;padding:4px;height:36px;background:#0F8A3E;display:flex;align-items:center;justify-content:center" target="_blank" onclick="openGooglePayAppDirect();return false;">🟢 GPay App</a>
+        <a id="btnPhonepe" class="btn-ghost" style="flex:1;font-size:11px;padding:4px;height:36px;margin-top:0;display:flex;align-items:center;justify-content:center" target="_blank">🟣 PhonePe</a>
+        <a id="btnPaytm" class="btn-ghost" style="flex:1;font-size:11px;padding:4px;height:36px;margin-top:0;display:flex;align-items:center;justify-content:center" target="_blank">🔵 Paytm / UPI</a>
       </div>
 
       <div class="field" style="text-align:left;margin-top:6px">
         <label>UPI Reference / UTR Number (Optional)</label>
         <input id="upiUtr" placeholder="Enter 12-digit UTR from payment app" />
       </div>
-      <button class="btn-primary" onclick="confirmUpiPayment()">I Have Paid ✓</button>
+      <button class="btn-primary" onclick="confirmUpiPayment()" style="height:42px;font-size:14px">✓ I Have Completed Payment</button>
     </div>
   </div>
 </div>
@@ -2716,6 +2729,7 @@ window.handleCheckoutSubmit = async function(e){
   };
 
   if(G.selectedPay === 'gpay' || G.selectedPay === 'upi'){
+    let paymentData = null;
     try {
       toast('Generating dynamic payment QR...', 'ok');
       const res = await fetch('/api/create-upi-qr', {
@@ -2724,35 +2738,132 @@ window.handleCheckoutSubmit = async function(e){
         body: JSON.stringify({ amount: total, orderId, note: `Order ${orderId} Unga Market` })
       });
       const data = await res.json();
-      if(data.success){
-        if(G.selectedPay === 'gpay'){
-          document.getElementById('payModalHeading').textContent = '🟢 Google Pay Instant Payment';
-          document.getElementById('payModalSubtext').textContent = 'Direct wholesale remittance to Shop Owner';
-        } else {
-          document.getElementById('payModalHeading').textContent = '⚡ Instant UPI Payment';
-          document.getElementById('payModalSubtext').textContent = 'Scan QR code with GPay, PhonePe, Paytm, or BHIM';
-        }
-        document.getElementById('upiQrImg').src = data.qrDataUrl;
-        document.getElementById('upiPayAmount').textContent = `₹${total.toFixed(2)}`;
-        document.getElementById('upiVpaText').textContent = data.upiVpa;
-        if(document.getElementById('directPayPhoneText')){
-          document.getElementById('directPayPhoneText').textContent = data.gpayPhone || data.phonepeNumber || '9840123456';
-        }
-        document.getElementById('btnGpay').href = data.intents.gpay;
-        document.getElementById('btnPhonepe').href = data.intents.phonepe;
-        document.getElementById('btnPaytm').href = data.intents.universal || data.intents.paytm;
-        closeModal('mCheckout');
-        openModal('mUpiPay');
-      } else {
-        toast('Could not generate UPI QR', 'err');
+      if(data.success) {
+        paymentData = data;
       }
     } catch(err) {
-      console.error(err);
-      toast('Payment gateway error. Please retry.', 'err');
+      console.warn('Backend QR fetch failed, using client-side generator:', err);
+    }
+
+    // Bulletproof fallback if backend API is unreachable or on static host
+    if(!paymentData){
+      const vpa = G.paymentSettings?.upiVpa || '9025022390@okaxis';
+      const payee = G.paymentSettings?.payeeName || 'Unga Market Wholesale';
+      const gpayNum = G.paymentSettings?.gpayPhone || '9025022390';
+      const encPayee = encodeURIComponent(payee);
+      const note = encodeURIComponent(`Order ${orderId} Unga Market`);
+      const formattedAmt = total.toFixed(2);
+      const clientUpiUri = `upi://pay?pa=${vpa}&pn=${encPayee}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${note}&am=${formattedAmt}&cu=INR`;
+      const clientQr = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(clientUpiUri)}`;
+      
+      paymentData = {
+        success: true,
+        orderId,
+        amount: formattedAmt,
+        upiUri: clientUpiUri,
+        qrDataUrl: clientQr,
+        upiVpa: vpa,
+        payeeName: payee,
+        gpayPhone: gpayNum,
+        phonepeNumber: gpayNum,
+        intents: {
+          universal: clientUpiUri,
+          gpay: `intent://pay?pa=${vpa}&pn=${encPayee}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${note}&am=${formattedAmt}&cu=INR#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end;`,
+          gpayTez: `tez://upi/pay?pa=${vpa}&pn=${encPayee}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${note}&am=${formattedAmt}&cu=INR`,
+          gpayUpi: clientUpiUri,
+          phonepe: `intent://pay?pa=${vpa}&pn=${encPayee}&mc=5411&tid=${orderId}&tr=${orderId}&tn=${note}&am=${formattedAmt}&cu=INR#Intent;scheme=upi;package=com.phonepe.app;end;`,
+          phonepeUpi: clientUpiUri,
+          paytm: `paytmmp://pay?pa=${vpa}&pn=${encPayee}&am=${formattedAmt}&cu=INR&tn=${note}`,
+          bhim: clientUpiUri
+        }
+      };
+    }
+
+    G.currentPaymentIntents = paymentData.intents;
+    G.currentUpiUri = paymentData.upiUri;
+
+    if(G.selectedPay === 'gpay'){
+      document.getElementById('payModalHeading').textContent = '🟢 Google Pay Instant Payment';
+      document.getElementById('payModalSubtext').textContent = 'Direct wholesale remittance to Shop Owner GPay';
+      const gpayWrap = document.getElementById('gpayDirectActionWrap');
+      if(gpayWrap) gpayWrap.style.display = 'block';
+    } else {
+      document.getElementById('payModalHeading').textContent = '⚡ Instant UPI Payment';
+      document.getElementById('payModalSubtext').textContent = 'Scan QR code with GPay, PhonePe, Paytm, or BHIM';
+      const gpayWrap = document.getElementById('gpayDirectActionWrap');
+      if(gpayWrap) gpayWrap.style.display = 'block';
+    }
+
+    document.getElementById('upiQrImg').src = paymentData.qrDataUrl;
+    document.getElementById('upiPayAmount').textContent = `₹${total.toFixed(2)}`;
+    document.getElementById('upiVpaText').textContent = paymentData.upiVpa;
+    if(document.getElementById('directPayPhoneText')){
+      document.getElementById('directPayPhoneText').textContent = paymentData.gpayPhone || '9025022390';
+    }
+    if(document.getElementById('directPayeeNameText')){
+      document.getElementById('directPayeeNameText').textContent = paymentData.payeeName || 'Unga Market Wholesale';
+    }
+    if(document.getElementById('btnPhonepe')){
+      document.getElementById('btnPhonepe').href = paymentData.intents?.phonepe || paymentData.upiUri;
+    }
+    if(document.getElementById('btnPaytm')){
+      document.getElementById('btnPaytm').href = paymentData.intents?.universal || paymentData.intents?.paytm || paymentData.upiUri;
+    }
+
+    closeModal('mCheckout');
+    openModal('mUpiPay');
+
+    // On mobile devices, automatically prompt Google Pay app if GPay is selected
+    if(G.selectedPay === 'gpay' && /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)){
+      setTimeout(() => {
+        openGooglePayAppDirect();
+      }, 350);
     }
   } else {
     // Cash on Delivery
     await finalizeOrder('cod', 'COD_' + Date.now());
+  }
+};
+
+window.openGooglePayAppDirect = function(){
+  const intents = G.currentPaymentIntents;
+  const upiUri = G.currentUpiUri;
+  const gpayNum = document.getElementById('directPayPhoneText')?.textContent || '9025022390';
+
+  if (!intents && !upiUri) {
+    toast(`Payment details ready for GPay: ${gpayNum} 📱`, 'ok');
+    return;
+  }
+
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  toast('Opening Google Pay app...', 'ok');
+
+  if (isAndroid) {
+    // 1. Try Android Intent directly targeting Google Pay app
+    if (intents?.gpay) {
+      window.location.href = intents.gpay;
+    } else if (intents?.gpayTez) {
+      window.location.href = intents.gpayTez;
+    } else if (upiUri) {
+      window.location.href = upiUri;
+    }
+  } else if (isIOS) {
+    // On iOS, universal UPI URI or Tez opens installed GPay/UPI
+    if (intents?.gpayTez) {
+      window.location.href = intents.gpayTez;
+    } else if (upiUri) {
+      window.location.href = upiUri;
+    } else if (intents?.universal) {
+      window.location.href = intents.universal;
+    }
+  } else {
+    // On desktop browser
+    if (upiUri) {
+      window.location.href = upiUri;
+    }
+    toast('On mobile phones, this opens Google Pay app directly. Please scan the QR code above!', 'ok');
   }
 };
 
@@ -3744,19 +3855,19 @@ window.openPaymentSettingsModal = async function(){
     const data = await res.json();
     if(data.success && data.settings){
       const s = data.settings;
-      if(document.getElementById('setStoreEmail')) document.getElementById('setStoreEmail').value = s.storeEmail || 'orders@ungamarket.com';
+      if(document.getElementById('setStoreEmail')) document.getElementById('setStoreEmail').value = s.storeEmail || 'rohithjayaprasad2910@gmail.com';
       if(document.getElementById('setSupportEmail')) document.getElementById('setSupportEmail').value = s.supportEmail || 'support@ungamarket.com';
       if(document.getElementById('setStorePin')) document.getElementById('setStorePin').value = s.storePin || '2910';
-      document.getElementById('setUpiVpa').value = s.upiVpa || 'ungamarket@okaxis';
+      document.getElementById('setUpiVpa').value = s.upiVpa || '9025022390@okaxis';
       document.getElementById('setPayeeName').value = s.payeeName || 'Unga Market Wholesale Hub';
-      document.getElementById('setGpayPhone').value = s.gpayPhone || '9840123456';
-      document.getElementById('setPhonepeNumber').value = s.phonepeNumber || '9840123456';
+      document.getElementById('setGpayPhone').value = s.gpayPhone || '9025022390';
+      document.getElementById('setPhonepeNumber').value = s.phonepeNumber || '9025022390';
       document.getElementById('setBankName').value = s.bankName || 'HDFC Bank';
       document.getElementById('setAccountNumber').value = s.accountNumber || '50200088991122';
       document.getElementById('setIfscCode').value = s.ifscCode || 'HDFC0001234';
       document.getElementById('setInstructions').value = s.instructions || '';
       
-      updateSettingsQrPreview(s.upiVpa, s.payeeName);
+      updateSettingsQrPreview(s.upiVpa || '9025022390@okaxis', s.payeeName || 'Unga Market Wholesale Hub');
     }
   } catch(e){
     console.warn('Error loading payment settings:', e);
@@ -3822,7 +3933,7 @@ window.handleSavePaymentSettings = async function(e){
 
 window.copyUpiVpa = function(){
   const el = document.getElementById('upiVpaText');
-  const vpa = el ? el.textContent.trim() : 'ungamarket@okaxis';
+  const vpa = el ? el.textContent.trim() : '9025022390@okaxis';
   navigator.clipboard.writeText(vpa).then(() => {
     toast(`Copied UPI ID: ${vpa} 📋`, 'ok');
   }).catch(() => {
@@ -3832,11 +3943,11 @@ window.copyUpiVpa = function(){
 
 window.copyDirectPhone = function(){
   const el = document.getElementById('directPayPhoneText');
-  const phone = el ? el.textContent.trim() : '9840123456';
+  const phone = el ? el.textContent.trim() : '9025022390';
   navigator.clipboard.writeText(phone).then(() => {
-    toast(`Copied GPay/PhonePe Number: ${phone} 📱`, 'ok');
+    toast(`Copied GPay Mobile Number: ${phone} 📱`, 'ok');
   }).catch(() => {
-    toast(`Number: ${phone}`, 'ok');
+    toast(`GPay Number: ${phone}`, 'ok');
   });
 };
 
