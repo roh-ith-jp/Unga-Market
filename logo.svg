@@ -1,209 +1,403 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="100%" height="100%">
   <defs>
+    <!-- Master Gradients -->
+    <linearGradient id="ungaGreen" x1="0%" y1="0%" x2="100%" y2="80%">
+      <stop offset="0%" stop-color="#0B5D28"/>
+      <stop offset="35%" stop-color="#148A3C"/>
+      <stop offset="70%" stop-color="#38B000"/>
+      <stop offset="100%" stop-color="#70E000"/>
+    </linearGradient>
+    
+    <linearGradient id="marketOrangeRed" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF5400"/>
+      <stop offset="45%" stop-color="#FF2A00"/>
+      <stop offset="100%" stop-color="#C9184A"/>
+    </linearGradient>
+
+    <linearGradient id="marketShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C9184A"/>
+      <stop offset="100%" stop-color="#800F2F"/>
+    </linearGradient>
+
     <linearGradient id="cartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2EaA2E"/>
-      <stop offset="100%" stop-color="#228b22"/>
+      <stop offset="0%" stop-color="#198754"/>
+      <stop offset="100%" stop-color="#0B5D28"/>
     </linearGradient>
-    <linearGradient id="ungaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#228b22"/>
-      <stop offset="100%" stop-color="#7CFC00"/>
-    </linearGradient>
-    <linearGradient id="marketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff6600"/>
-      <stop offset="100%" stop-color="#e60000"/>
-    </linearGradient>
+
     <linearGradient id="bagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff8c1a"/>
-      <stop offset="100%" stop-color="#ff6600"/>
+      <stop offset="0%" stop-color="#FFA200"/>
+      <stop offset="50%" stop-color="#FF6B00"/>
+      <stop offset="100%" stop-color="#E85D04"/>
     </linearGradient>
-    <filter id="drop" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity="0.12"/>
+
+    <linearGradient id="carrotGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF7900"/>
+      <stop offset="100%" stop-color="#E85D04"/>
+    </linearGradient>
+
+    <linearGradient id="breadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E9B777"/>
+      <stop offset="60%" stop-color="#DDA15E"/>
+      <stop offset="100%" stop-color="#BC6C25"/>
+    </linearGradient>
+
+    <linearGradient id="tomatoGrad" x1="30%" y1="20%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#FF4D6D"/>
+      <stop offset="40%" stop-color="#E63946"/>
+      <stop offset="100%" stop-color="#A4161A"/>
+    </linearGradient>
+
+    <linearGradient id="pepperGrad" x1="20%" y1="20%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#FFE169"/>
+      <stop offset="50%" stop-color="#FDB813"/>
+      <stop offset="100%" stop-color="#F77F00"/>
+    </linearGradient>
+
+    <linearGradient id="swooshGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF7900"/>
+      <stop offset="50%" stop-color="#FF4800"/>
+      <stop offset="100%" stop-color="#FF7900"/>
+    </linearGradient>
+
+    <!-- Filters for realism -->
+    <filter id="softShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-opacity="0.12" flood-color="#0B5D28"/>
+    </filter>
+
+    <filter id="badgeShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.15"/>
     </filter>
   </defs>
 
-  <!-- Background is transparent -->
-  <g id="logo-root" filter="url(#drop)">
-    <!-- LEFT: GROCERY CART WITH FRESH PRODUCE -->
-    <g transform="translate(10, 20)">
-      <!-- Speed Motion Lines behind cart -->
-      <path d="M 40 180 L 110 180" stroke="#0F8A3E" stroke-width="14" stroke-linecap="round"/>
-      <path d="M 20 225 L 95 225" stroke="#0F8A3E" stroke-width="14" stroke-linecap="round"/>
-      <path d="M 45 270 L 105 270" stroke="#0F8A3E" stroke-width="14" stroke-linecap="round"/>
+  <style>
+    .font-script { font-family: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    .font-sans-bold { font-family: 'Nunito', 'Arial Black', Impact, system-ui, sans-serif; }
+    .font-tagline { font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif; font-style: italic; }
+    .font-badge { font-family: 'Nunito', system-ui, sans-serif; }
+  </style>
 
-      <!-- Groceries inside Cart -->
-      <!-- Green lettuce/kale -->
-      <path d="M 120 120 C 130 50, 190 60, 210 110 C 230 40, 280 60, 290 120 Z" fill="#2E7D32"/>
-      <path d="M 140 100 C 155 30, 210 40, 235 90 C 265 25, 305 50, 310 115 Z" fill="#4CAF50"/>
+  <!-- Clean Background -->
+  <rect width="1200" height="680" fill="transparent"/>
+
+  <g id="unga-market-logo" filter="url(#softShadow)">
+    
+    <!-- ========================================== -->
+    <!-- LEFT: GROCERY CART WITH ABUNDANT PRODUCE   -->
+    <!-- ========================================== -->
+    <g id="grocery-cart-section" transform="translate(10, 0)">
       
-      <!-- Carrot with green top -->
-      <g transform="translate(130, 85) rotate(-25)">
-        <!-- Green stem -->
-        <path d="M 25 15 C 20 -15, 35 -15, 30 15 M 30 15 C 35 -20, 50 -10, 35 15" stroke="#2E7D32" stroke-width="4" fill="none"/>
-        <!-- Orange body -->
-        <path d="M 15 15 Q 35 10 45 15 L 30 110 Z" fill="#FF5722"/>
+      <!-- Motion / Speed Lines (Green) -->
+      <g id="speed-lines">
+        <path d="M 45 220 L 130 220" stroke="#0B7A35" stroke-width="16" stroke-linecap="round"/>
+        <path d="M 25 280 L 115 280" stroke="#0B7A35" stroke-width="16" stroke-linecap="round"/>
+        <path d="M 50 340 L 135 340" stroke="#0B7A35" stroke-width="16" stroke-linecap="round"/>
       </g>
 
-      <!-- French Baguette Bread -->
-      <g transform="translate(250, 20) rotate(32)">
-        <rect x="0" y="0" width="54" height="150" rx="27" fill="#E0A96D"/>
-        <!-- Slits -->
-        <line x1="12" y1="35" x2="42" y2="48" stroke="#8D5B28" stroke-width="4" stroke-linecap="round"/>
-        <line x1="12" y1="65" x2="42" y2="78" stroke="#8D5B28" stroke-width="4" stroke-linecap="round"/>
-        <line x1="12" y1="95" x2="42" y2="108" stroke="#8D5B28" stroke-width="4" stroke-linecap="round"/>
+      <!-- Cart Ground Shadow -->
+      <ellipse cx="230" cy="450" rx="140" ry="12" fill="#000000" opacity="0.08"/>
+
+      <!-- Produce & Food Overflows -->
+      <g id="produce-overflow">
+        
+        <!-- Lush Parsley / Kale Greens at Top Left -->
+        <path d="M 140 160 C 130 90, 190 70, 210 110 C 230 50, 290 70, 280 130 C 310 90, 350 120, 330 160 C 320 190, 260 200, 210 190 C 170 200, 140 180, 140 160 Z" fill="#2D6A4F"/>
+        <path d="M 160 140 C 165 75, 220 75, 235 115 C 265 60, 310 80, 305 135 C 325 110, 355 135, 335 165 C 310 195, 250 185, 210 175 C 180 185, 155 165, 160 140 Z" fill="#40916C"/>
+        <path d="M 180 120 C 190 85, 230 85, 245 115 C 265 75, 295 90, 290 130 Z" fill="#52B788"/>
+
+        <!-- French Crusty Baguette Bread sticking out top right -->
+        <g transform="translate(300, 10) rotate(32)">
+          <rect x="0" y="0" width="60" height="175" rx="30" fill="url(#breadGrad)" stroke="#A65B1A" stroke-width="2"/>
+          <!-- Diagonal baked slits with highlights -->
+          <ellipse cx="30" cy="45" rx="18" ry="6" fill="#8D4925" transform="rotate(-15, 30, 45)"/>
+          <ellipse cx="30" cy="43" rx="14" ry="3" fill="#FFE8D6" transform="rotate(-15, 30, 43)"/>
+          
+          <ellipse cx="30" cy="80" rx="18" ry="6" fill="#8D4925" transform="rotate(-15, 30, 80)"/>
+          <ellipse cx="30" cy="78" rx="14" ry="3" fill="#FFE8D6" transform="rotate(-15, 30, 78)"/>
+          
+          <ellipse cx="30" cy="115" rx="18" ry="6" fill="#8D4925" transform="rotate(-15, 30, 115)"/>
+          <ellipse cx="30" cy="113" rx="14" ry="3" fill="#FFE8D6" transform="rotate(-15, 30, 113)"/>
+        </g>
+
+        <!-- Milk Bottle with Blue Cap -->
+        <g transform="translate(330, 75)">
+          <rect x="18" y="0" width="30" height="20" rx="4" fill="#0077B6"/>
+          <path d="M 20 20 L 46 20 L 58 55 L 58 135 L 8 135 L 8 55 Z" fill="url(#milkGrad)" stroke="#CBD5E1" stroke-width="2"/>
+          <rect x="8" y="70" width="50" height="30" fill="#0077B6" opacity="0.9"/>
+          <!-- Milk glass gloss -->
+          <path d="M 14 55 L 14 130" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+        </g>
+
+        <!-- Fresh Orange Carrot with Green Leaves -->
+        <g transform="translate(150, 95) rotate(-28)">
+          <!-- Leafy Carrot Tops -->
+          <path d="M 30 15 C 20 -25, 45 -20, 35 15 M 35 15 C 45 -30, 65 -15, 40 15 M 25 15 C 5 -15, 20 -30, 28 15" stroke="#2D6A4F" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M 32 15 C 26 -20, 42 -15, 34 15 M 36 15 C 42 -22, 58 -10, 38 15" stroke="#52B788" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <!-- Carrot Body -->
+          <path d="M 15 15 Q 40 10 50 15 L 34 135 Q 32 138 30 135 Z" fill="url(#carrotGrad)"/>
+          <!-- Ridges -->
+          <path d="M 22 45 Q 32 48 42 45 M 24 75 Q 32 78 40 75 M 26 105 Q 32 107 36 105" stroke="#D00000" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        </g>
+
+        <!-- Golden Bananas Cluster -->
+        <g transform="translate(255, 140)">
+          <!-- Banana 1 -->
+          <path d="M 0 30 C 30 -5, 75 10, 85 75 C 65 75, 30 55, 0 30 Z" fill="#FDB813" stroke="#E09F3E" stroke-width="1.5"/>
+          <path d="M 0 30 L -5 35" stroke="#582F0E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 85 75 L 88 80" stroke="#582F0E" stroke-width="4" stroke-linecap="round"/>
+          
+          <!-- Banana 2 -->
+          <path d="M 15 40 C 45 10, 90 25, 100 90 C 80 90, 45 70, 15 40 Z" fill="#FFE169" stroke="#E09F3E" stroke-width="1.5"/>
+          <!-- Banana 3 -->
+          <path d="M 30 55 C 55 25, 100 40, 110 105 C 90 105, 55 85, 30 55 Z" fill="#FDB813" stroke="#E09F3E" stroke-width="1.5"/>
+        </g>
+
+        <!-- Golden Yellow Bell Pepper / Capsicum -->
+        <g transform="translate(225, 155)">
+          <path d="M 20 20 C 10 5, 35 5, 25 20 C 40 10, 50 25, 45 40 C 55 55, 35 75, 20 75 C 5 75, -15 55, -5 40 C -10 25, 5 10, 20 20 Z" fill="url(#pepperGrad)"/>
+          <!-- Stem -->
+          <path d="M 20 18 C 18 5, 28 0, 24 -10" stroke="#2D6A4F" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <!-- Highlight -->
+          <ellipse cx="12" cy="35" rx="6" ry="14" fill="#FFFFFF" opacity="0.4" transform="rotate(-20, 12, 35)"/>
+        </g>
+
+        <!-- Fresh Juicy Red Tomatoes -->
+        <g transform="translate(205, 230)">
+          <circle cx="28" cy="28" r="30" fill="url(#tomatoGrad)"/>
+          <!-- Calyx leaf -->
+          <path d="M 28 0 L 22 8 L 14 4 L 20 12 L 12 18 L 22 18 L 24 26 L 30 18 L 38 22 L 34 14 L 42 10 L 32 8 Z" fill="#2D6A4F"/>
+          <path d="M 28 2 L 28 -6" stroke="#1B4332" stroke-width="4" stroke-linecap="round"/>
+          <!-- Tomato Specular Sheen -->
+          <ellipse cx="18" cy="18" rx="7" ry="4" fill="#FFFFFF" opacity="0.6" transform="rotate(-30, 18, 18)"/>
+        </g>
+
+        <g transform="translate(325, 215)">
+          <circle cx="26" cy="26" r="28" fill="url(#tomatoGrad)"/>
+          <!-- Calyx leaf -->
+          <path d="M 26 0 L 20 8 L 12 4 L 18 12 L 10 18 L 20 18 L 22 26 L 28 18 L 36 22 L 32 14 L 40 10 L 30 8 Z" fill="#2D6A4F"/>
+          <!-- Tomato Specular Sheen -->
+          <ellipse cx="16" cy="16" rx="6" ry="3.5" fill="#FFFFFF" opacity="0.6" transform="rotate(-30, 16, 16)"/>
+        </g>
+
+        <!-- Crisp Green Lettuce Filling in Foreground -->
+        <path d="M 140 235 C 130 200, 170 190, 190 220 C 220 180, 260 190, 270 230 C 300 200, 340 210, 350 245 C 320 270, 260 265, 200 260 C 160 265, 140 250, 140 235 Z" fill="#52B788"/>
+        <path d="M 155 245 C 170 215, 210 210, 230 240 C 260 215, 300 220, 320 255 Z" fill="#74C69D"/>
+
+        <!-- Craft Cardboard Packaging Box Inside Cart -->
+        <path d="M 145 235 L 365 235 L 350 300 L 160 300 Z" fill="#DDA15E" stroke="#BC6C25" stroke-width="2"/>
+        <line x1="145" y1="260" x2="360" y2="260" stroke="#BC6C25" stroke-width="2.5" opacity="0.6"/>
       </g>
 
-      <!-- Milk Bottle -->
-      <g transform="translate(285, 75)">
-        <rect x="10" y="0" width="22" height="16" rx="4" fill="#0288D1"/>
-        <path d="M 12 16 L 30 16 L 40 40 L 40 105 L 2 105 L 2 40 Z" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
-        <rect x="2" y="55" width="38" height="25" fill="#0288D1"/>
+      <!-- Cart Handle & Basket Frame -->
+      <g id="cart-skeleton">
+        <!-- Ergonomic Green Handle -->
+        <path d="M 75 160 L 135 220 L 160 220" fill="none" stroke="#0B7A35" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+        
+        <!-- Main Cart Outer Wire Basket -->
+        <path d="M 140 220 L 390 260 L 365 390 L 175 390 Z" fill="none" stroke="url(#cartGrad)" stroke-width="22" stroke-linejoin="round" stroke-linecap="round"/>
+        
+        <!-- Basket Inner Mesh Wire Grid -->
+        <!-- Vertical Grid Struts -->
+        <line x1="195" y1="270" x2="205" y2="380" stroke="#0B7A35" stroke-width="11" stroke-linecap="round"/>
+        <line x1="245" y1="278" x2="255" y2="380" stroke="#0B7A35" stroke-width="11" stroke-linecap="round"/>
+        <line x1="295" y1="285" x2="305" y2="380" stroke="#0B7A35" stroke-width="11" stroke-linecap="round"/>
+        <line x1="345" y1="292" x2="355" y2="380" stroke="#0B7A35" stroke-width="11" stroke-linecap="round"/>
+        
+        <!-- Horizontal Grid Struts -->
+        <line x1="165" y1="305" x2="375" y2="320" stroke="#0B7A35" stroke-width="11" stroke-linecap="round"/>
+        <line x1="172" y1="350" x2="368" y2="360" stroke="#0B7A35" stroke-width="11" stroke-linecap="round"/>
+
+        <!-- Chassis & Axle Support Base -->
+        <path d="M 175 390 L 175 420 L 350 420" fill="none" stroke="#084C22" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Back Wheel -->
+        <circle cx="185" cy="445" r="28" fill="#084C22"/>
+        <circle cx="185" cy="445" r="14" fill="#FFFFFF"/>
+        <circle cx="185" cy="445" r="6" fill="#084C22"/>
+
+        <!-- Front Wheel -->
+        <circle cx="340" cy="445" r="28" fill="#084C22"/>
+        <circle cx="340" cy="445" r="14" fill="#FFFFFF"/>
+        <circle cx="340" cy="445" r="6" fill="#084C22"/>
       </g>
-
-      <!-- Yellow Banana bunch -->
-      <path d="M 215 145 C 235 125, 275 135, 285 185 C 275 190, 245 180, 215 145 Z" fill="#FBC02D"/>
-      <path d="M 225 155 C 245 135, 285 145, 295 195 C 285 200, 255 190, 225 155 Z" fill="#FDD835"/>
-
-      <!-- Yellow Bell Pepper -->
-      <circle cx="225" cy="140" r="28" fill="#FBC02D"/>
-      <path d="M 222 110 C 220 100, 228 100, 226 112" stroke="#2E7D32" stroke-width="5" fill="none"/>
-
-      <!-- Red Tomato / Apple -->
-      <circle cx="195" cy="170" r="24" fill="#E53935"/>
-      <path d="M 195 146 Q 192 140 198 140" stroke="#2E7D32" stroke-width="4" fill="none"/>
-
-      <!-- Red Apple with leaf -->
-      <circle cx="310" cy="165" r="22" fill="#D32F2F"/>
-      <ellipse cx="316" cy="144" rx="6" ry="3" fill="#388E3C" transform="rotate(-30, 316, 144)"/>
-
-      <!-- Brown Grocery Crate inside Cart -->
-      <rect x="130" y="155" width="180" height="70" rx="8" fill="#D4A373"/>
-      <line x1="130" y1="180" x2="310" y2="180" stroke="#BC8A5F" stroke-width="3"/>
-
-      <!-- Cart Handle & Basket Skeleton -->
-      <!-- Handle -->
-      <path d="M 65 135 L 125 185 L 140 185" stroke="#0F8A3E" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      
-      <!-- Cart Main Basket -->
-      <path d="M 130 185 L 320 220 L 305 320 L 160 320 Z" fill="none" stroke="url(#cartGrad)" stroke-width="18" stroke-linejoin="round" stroke-linecap="round"/>
-      
-      <!-- Basket Grid lines -->
-      <line x1="165" y1="230" x2="180" y2="310" stroke="#0F8A3E" stroke-width="8" stroke-linecap="round"/>
-      <line x1="210" y1="235" x2="220" y2="310" stroke="#0F8A3E" stroke-width="8" stroke-linecap="round"/>
-      <line x1="255" y1="240" x2="260" y2="310" stroke="#0F8A3E" stroke-width="8" stroke-linecap="round"/>
-      <line x1="145" y1="270" x2="295" y2="280" stroke="#0F8A3E" stroke-width="8" stroke-linecap="round"/>
-
-      <!-- Cart Chassis & Wheels -->
-      <path d="M 160 320 L 160 345 L 295 345" stroke="#0A6B2E" stroke-width="12" stroke-linecap="round" fill="none"/>
-      
-      <!-- Front & Back Wheels -->
-      <circle cx="165" cy="365" r="22" fill="#1B4332"/>
-      <circle cx="165" cy="365" r="10" fill="#E8F5E9"/>
-      
-      <circle cx="285" cy="365" r="22" fill="#1B4332"/>
-      <circle cx="285" cy="365" r="10" fill="#E8F5E9"/>
     </g>
 
-    <!-- RIGHT: TYPOGRAPHY & LOGO SCRIPT -->
-    <g transform="translate(345, 20)">
-      <!-- Leaf on top of 'U' -->
-      <g transform="translate(425, 10)">
-        <circle cx="10" cy="18" r="18" fill="#FF5722"/>
-        <path d="M 18 55 C 30 15, 80 5, 95 12 C 85 45, 55 65, 18 55 Z" fill="#2E7D32"/>
-        <path d="M 18 55 Q 55 35 95 12" stroke="#81C784" stroke-width="3" fill="none"/>
+
+    <!-- =================================================== -->
+    <!-- CENTER & RIGHT: "Unga Market" CALLIGRAPHY & TYPOGRAPHY -->
+    <!-- =================================================== -->
+    <g id="brand-typography-section" transform="translate(425, 0)">
+      
+      <!-- Top Flourish Leaf & Orange Seed on top of 'U' -->
+      <g id="leaf-sprout-mark" transform="translate(90, 30)">
+        <!-- Orange Seed/Dot Head -->
+        <circle cx="28" cy="42" r="24" fill="#F77F00"/>
+        
+        <!-- Sprouting Leaf -->
+        <path d="M 38 85 C 55 35, 115 15, 140 25 C 128 72, 85 98, 38 85 Z" fill="#2EA043"/>
+        <path d="M 38 85 Q 85 55, 140 25" stroke="#9EF01A" stroke-width="4" fill="none"/>
       </g>
 
-      <!-- 'Unga' Calligraphy Text (Exact flowing green style) -->
-      <text x="5" y="160" font-family="'Nunito', 'Arial Rounded MT Bold', sans-serif" font-weight="900" font-size="160" fill="url(#ungaGrad)" letter-spacing="-4">Unga</text>
+      <!-- "Unga" Artistic Flowing Gradient Cursive Script -->
+      <!-- Smooth, beautiful vector rendering of the signature cursive "Unga" -->
+      <g id="word-unga">
+        <!-- 3D depth backdrop / shadow -->
+        <text x="32" y="218" class="font-script" font-weight="900" font-size="205" fill="#063E19" letter-spacing="-6" opacity="0.85">Unga</text>
+        
+        <!-- Main 'Unga' with lush leaf gradient -->
+        <text x="30" y="215" class="font-script" font-weight="900" font-size="205" fill="url(#ungaGreen)" letter-spacing="-6">Unga</text>
 
-      <!-- 'Market' Bold Red-Orange Text -->
-      <text x="0" y="305" font-family="'Nunito', 'Arial Black', sans-serif" font-weight="900" font-size="145" fill="url(#marketGrad)" letter-spacing="-2">Market</text>
-
-      <!-- Orange Shopping Bag with Cursor Clicker on right -->
-      <g transform="translate(470, 195)">
-        <!-- Bag Handle -->
-        <path d="M 28 25 C 28 -5, 76 -5, 76 25" fill="none" stroke="#2D6A4F" stroke-width="8" stroke-linecap="round"/>
-        <!-- Bag Body -->
-        <path d="M 10 30 L 95 30 L 105 110 L 0 110 Z" fill="url(#bagGrad)" rx="8"/>
-        <!-- Clicker Star burst -->
-        <circle cx="45" cy="65" r="12" fill="#FFE082" opacity="0.6"/>
-        <path d="M 45 45 L 45 85 M 25 65 L 65 65" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-        <!-- White Mouse Pointer Arrow -->
-        <polygon points="50,65 85,85 70,88 80,105 70,110 60,92 50,100" fill="#FFFFFF" stroke="#cc4400" stroke-width="2"/>
+        <!-- Specular Highlight Overlay -->
+        <text x="29" y="212" class="font-script" font-weight="900" font-size="205" fill="#B7EFC5" letter-spacing="-6" opacity="0.3" mask="url(#highlightMask)">Unga</text>
       </g>
 
-      <!-- Tagline: "— Your Everyday, Our Priority! —" -->
-      <g transform="translate(0, 335)">
-        <line x1="0" y1="-7" x2="45" y2="-7" stroke="#1B4332" stroke-width="4" stroke-linecap="round"/>
-        <text x="58" y="0" font-family="'Nunito', sans-serif" font-weight="800" font-size="28" fill="#1B4332" letter-spacing="1">Your Everyday, Our Priority!</text>
-        <line x1="455" y1="-7" x2="505" y2="-7" stroke="#1B4332" stroke-width="4" stroke-linecap="round"/>
+      <!-- "Market" Bold Display Lettering (Red-Orange Gradient) -->
+      <g id="word-market" transform="translate(5, 185)">
+        
+        <!-- Market 3D Bottom Bevel Extrusion -->
+        <text x="18" y="215" class="font-sans-bold" font-weight="900" font-size="195" fill="url(#marketShadow)" letter-spacing="-2">Market</text>
+        
+        <!-- Market Main Lettering -->
+        <text x="16" y="210" class="font-sans-bold" font-weight="900" font-size="195" fill="url(#marketOrangeRed)" letter-spacing="-2">Market</text>
+        
+        <!-- Market Specular Edge Glow -->
+        <text x="15" y="207" class="font-sans-bold" font-weight="900" font-size="195" fill="#FFDDD2" letter-spacing="-2" opacity="0.25">Market</text>
+
+        <!-- ORANGE SHOPPING BAG WITH MOUSE CURSOR CLICKER (Right of Market) -->
+        <g id="orange-shopping-bag" transform="translate(610, 48)">
+          <!-- Bag Looping Dark Green Handle -->
+          <path d="M 36 35 C 36 -12, 100 -12, 100 35" fill="none" stroke="#0B5D28" stroke-width="12" stroke-linecap="round"/>
+          
+          <!-- Bag Trapezoid Body -->
+          <path d="M 12 40 L 124 40 L 138 145 C 138 152, 132 158, 124 158 L 0 158 C -8 158, -14 152, -14 145 Z" fill="url(#bagGrad)" filter="url(#badgeShadow)"/>
+          
+          <!-- Bag Fold Crease Detail -->
+          <path d="M 2 145 L 20 45 L 35 145" stroke="#E85D04" stroke-width="3" fill="none" opacity="0.4"/>
+          
+          <!-- White Sparkle Starburst on Bag -->
+          <g transform="translate(68, 92)">
+            <circle cx="0" cy="0" r="18" fill="#FFE169" opacity="0.8"/>
+            <!-- 8-point star lines -->
+            <path d="M 0 -22 L 0 22 M -22 0 L 22 0 M -15 -15 L 15 15 M -15 15 L 15 -15" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="0" cy="0" r="5" fill="#FFFFFF"/>
+          </g>
+
+          <!-- White Computer Mouse Cursor Arrow Clicking Bag -->
+          <g transform="translate(65, 88)">
+            <!-- Drop Shadow for cursor -->
+            <polygon points="0,0 48,32 28,34 42,60 28,68 14,42 0,54" fill="#000000" opacity="0.2" transform="translate(3,4)"/>
+            <!-- White Cursor Body with crisp boundary -->
+            <polygon points="0,0 48,32 28,34 42,60 28,68 14,42 0,54" fill="#FFFFFF" stroke="#D00000" stroke-width="2.5" stroke-linejoin="round"/>
+          </g>
+        </g>
       </g>
 
-      <!-- Orange Smile Curve Underneath -->
-      <path d="M 120 355 Q 310 395 500 355" stroke="#FF5722" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <!-- ============================================== -->
+      <!-- TAGLINE & ORANGE SMILE SWOOSH                  -->
+      <!-- ============================================== -->
+      <g id="tagline-section" transform="translate(0, 435)">
+        <!-- Left Forest Green Dash -->
+        <line x1="-30" y1="-8" x2="45" y2="-8" stroke="#084C22" stroke-width="6" stroke-linecap="round"/>
+        
+        <!-- Tagline: "Your Everyday, Our Priority!" -->
+        <text x="65" y="0" class="font-tagline" font-weight="900" font-size="36" fill="#084C22" letter-spacing="1.2">Your Everyday, Our Priority!</text>
+        
+        <!-- Right Forest Green Dash -->
+        <line x1="630" y1="-8" x2="705" y2="-8" stroke="#084C22" stroke-width="6" stroke-linecap="round"/>
+
+        <!-- Vibrant Orange Curved Smile Swoosh -->
+        <path d="M 170 32 Q 410 82, 650 32" fill="none" stroke="url(#swooshGrad)" stroke-width="8" stroke-linecap="round"/>
+      </g>
+
     </g>
 
-    <!-- BOTTOM ROW: 5 CATEGORY BADGES -->
-    <g transform="translate(50, 435)">
-      <!-- 1. Fresh Produce -->
-      <g transform="translate(0, 0)">
-        <circle cx="35" cy="35" r="32" fill="#0A7C38"/>
-        <!-- Leaf icon inside -->
-        <path d="M 22 46 C 22 28, 42 20, 50 20 C 50 38, 38 48, 22 46 Z" fill="#FFFFFF"/>
-        <path d="M 22 46 Q 36 34 50 20" stroke="#0A7C38" stroke-width="2" fill="none"/>
-        <text x="80" y="30" font-family="'Nunito', sans-serif" font-weight="800" font-size="19" fill="#111827">Fresh</text>
-        <text x="80" y="52" font-family="'Nunito', sans-serif" font-weight="800" font-size="19" fill="#111827">Produce</text>
+
+    <!-- ========================================================= -->
+    <!-- BOTTOM: 5 AUTHENTIC CATEGORY BADGES (FROM OFFICIAL PHOTO) -->
+    <!-- ========================================================= -->
+    <g id="category-badges-row" transform="translate(60, 520)">
+      
+      <!-- 1. FRESH PRODUCE (Green Circle with Twin Leaves) -->
+      <g id="cat-fresh-produce" transform="translate(0, 0)">
+        <circle cx="45" cy="45" r="42" fill="#0B7A35" filter="url(#badgeShadow)"/>
+        <!-- White Twin Leaves Icon -->
+        <path d="M 28 60 C 28 35, 54 26, 64 26 C 64 50, 48 62, 28 60 Z" fill="#FFFFFF"/>
+        <path d="M 28 60 Q 46 45, 64 26" stroke="#0B7A35" stroke-width="2.5" fill="none"/>
+        <path d="M 44 58 C 44 42, 60 36, 68 36 C 68 52, 58 60, 44 58 Z" fill="#E8F5E9"/>
+        
+        <!-- Category Text -->
+        <text x="105" y="38" class="font-badge" font-weight="800" font-size="22" fill="#111827">Fresh</text>
+        <text x="105" y="65" class="font-badge" font-weight="800" font-size="22" fill="#111827">Produce</text>
       </g>
 
-      <!-- Divider line -->
-      <line x1="195" y1="15" x2="195" y2="55" stroke="#E5E7EB" stroke-width="2"/>
+      <!-- Vertical Divider 1 -->
+      <line x1="225" y1="20" x2="225" y2="70" stroke="#E5E7EB" stroke-width="2.5"/>
 
-      <!-- 2. Grocery Essentials -->
-      <g transform="translate(215, 0)">
-        <circle cx="35" cy="35" r="32" fill="#E65100"/>
-        <!-- Basket icon -->
-        <path d="M 20 32 L 50 32 L 45 52 L 25 52 Z" fill="#FFFFFF"/>
-        <path d="M 24 32 L 35 20 L 46 32" stroke="#FFFFFF" stroke-width="3" fill="none"/>
-        <text x="80" y="30" font-family="'Nunito', sans-serif" font-weight="800" font-size="19" fill="#111827">Grocery</text>
-        <text x="80" y="52" font-family="'Nunito', sans-serif" font-weight="800" font-size="19" fill="#111827">Essentials</text>
+      <!-- 2. GROCERY ESSENTIALS (Orange Circle with Basket) -->
+      <g id="cat-grocery-essentials" transform="translate(245, 0)">
+        <circle cx="45" cy="45" r="42" fill="#F15A24" filter="url(#badgeShadow)"/>
+        <!-- White Grocery Basket Icon -->
+        <path d="M 25 42 L 65 42 L 58 68 L 32 68 Z" fill="#FFFFFF"/>
+        <path d="M 31 42 L 45 26 L 59 42" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <line x1="45" y1="45" x2="45" y2="65" stroke="#F15A24" stroke-width="3"/>
+        <line x1="37" y1="45" x2="39" y2="65" stroke="#F15A24" stroke-width="2.5"/>
+        <line x1="53" y1="45" x2="51" y2="65" stroke="#F15A24" stroke-width="2.5"/>
+
+        <!-- Category Text -->
+        <text x="105" y="38" class="font-badge" font-weight="800" font-size="22" fill="#111827">Grocery</text>
+        <text x="105" y="65" class="font-badge" font-weight="800" font-size="22" fill="#111827">Essentials</text>
       </g>
 
-      <!-- Divider line -->
-      <line x1="415" y1="15" x2="415" y2="55" stroke="#E5E7EB" stroke-width="2"/>
+      <!-- Vertical Divider 2 -->
+      <line x1="480" y1="20" x2="480" y2="70" stroke="#E5E7EB" stroke-width="2.5"/>
 
-      <!-- 3. Dairy & Beverages -->
-      <g transform="translate(435, 0)">
-        <circle cx="35" cy="35" r="32" fill="#0288D1"/>
-        <!-- Bottle icon -->
-        <path d="M 30 20 L 40 20 L 42 26 L 42 50 L 28 50 L 28 26 Z" fill="#FFFFFF"/>
-        <text x="80" y="30" font-family="'Nunito', sans-serif" font-weight="800" font-size="19" fill="#111827">Dairy &amp;</text>
-        <text x="80" y="52" font-family="'Nunito', sans-serif" font-weight="800" font-size="19" fill="#111827">Beverages</text>
+      <!-- 3. DAIRY & BEVERAGES (Blue Circle with Milk Bottle) -->
+      <g id="cat-dairy-beverages" transform="translate(500, 0)">
+        <circle cx="45" cy="45" r="42" fill="#0072CE" filter="url(#badgeShadow)"/>
+        <!-- White Milk Bottle Icon -->
+        <rect x="38" y="24" width="14" height="6" rx="2" fill="#FFFFFF"/>
+        <path d="M 39 30 L 51 30 L 58 42 L 58 68 L 32 68 L 32 42 Z" fill="#FFFFFF"/>
+        <circle cx="45" cy="52" r="5" fill="#0072CE"/>
+
+        <!-- Category Text -->
+        <text x="105" y="38" class="font-badge" font-weight="800" font-size="22" fill="#111827">Dairy &amp;</text>
+        <text x="105" y="65" class="font-badge" font-weight="800" font-size="22" fill="#111827">Beverages</text>
       </g>
 
-      <!-- Divider line -->
-      <line x1="610" y1="15" x2="610" y2="55" stroke="#E5E7EB" stroke-width="2"/>
+      <!-- Vertical Divider 3 -->
+      <line x1="735" y1="20" x2="735" y2="70" stroke="#E5E7EB" stroke-width="2.5"/>
 
-      <!-- 4. Home & Household -->
-      <g transform="translate(630, 0)">
-        <circle cx="35" cy="35" r="32" fill="#D32F2F"/>
-        <!-- Spray spray bottle -->
-        <path d="M 26 24 L 38 24 L 44 32 L 40 52 L 28 52 L 28 32 Z" fill="#FFFFFF"/>
-        <path d="M 24 24 L 36 18" stroke="#FFFFFF" stroke-width="3"/>
-        <text x="80" y="30" font-family="'Nunito', sans-serif" font-weight="800" font-size="19" fill="#111827">Home &amp;</text>
-        <text x="80" y="52" font-family="'Nunito', sans-serif" font-weight="800" font-size="19" fill="#111827">Household</text>
+      <!-- 4. HOME & HOUSEHOLD (Red Circle with Cleaning Spray) -->
+      <g id="cat-home-household" transform="translate(755, 0)">
+        <circle cx="45" cy="45" r="42" fill="#E31837" filter="url(#badgeShadow)"/>
+        <!-- White Spray Bottle Icon -->
+        <path d="M 34 32 L 50 32 L 58 42 L 54 68 L 36 68 L 36 42 Z" fill="#FFFFFF"/>
+        <path d="M 33 32 L 48 24 L 56 24" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M 33 36 L 27 44" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Category Text -->
+        <text x="105" y="38" class="font-badge" font-weight="800" font-size="22" fill="#111827">Home &amp;</text>
+        <text x="105" y="65" class="font-badge" font-weight="800" font-size="22" fill="#111827">Household</text>
       </g>
 
-      <!-- Divider line -->
-      <line x1="810" y1="15" x2="810" y2="55" stroke="#E5E7EB" stroke-width="2"/>
+      <!-- Vertical Divider 4 -->
+      <line x1="990" y1="20" x2="990" y2="70" stroke="#E5E7EB" stroke-width="2.5"/>
 
-      <!-- 5. Personal Care -->
-      <g transform="translate(830, 0)">
-        <circle cx="35" cy="35" r="32" fill="#660099"/>
-        <!-- Shampoo / Lotion pump -->
-        <rect x="26" y="28" width="18" height="24" rx="4" fill="#FFFFFF"/>
-        <path d="M 35 28 L 35 20 L 44 20" stroke="#FFFFFF" stroke-width="3" fill="none"/>
-        <text x="80" y="30" font-family="'Nunito', sans-serif" font-weight="800" font-size="19" fill="#111827">Personal</text>
-        <text x="80" y="52" font-family="'Nunito', sans-serif" font-weight="800" font-size="19" fill="#111827">Care</text>
+      <!-- 5. PERSONAL CARE (Purple Circle with Lotion/Tube) -->
+      <g id="cat-personal-care" transform="translate(1010, 0)">
+        <circle cx="45" cy="45" r="42" fill="#5C2D91" filter="url(#badgeShadow)"/>
+        <!-- White Cosmetic Tube & Dispenser -->
+        <!-- Squeeze Tube -->
+        <path d="M 26 38 L 38 38 L 34 68 L 28 68 Z" fill="#FFFFFF"/>
+        <!-- Dispenser Bottle -->
+        <rect x="42" y="36" width="20" height="32" rx="4" fill="#FFFFFF"/>
+        <path d="M 52 36 L 52 26 L 62 26" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+        <!-- Category Text -->
+        <text x="105" y="38" class="font-badge" font-weight="800" font-size="22" fill="#111827">Personal</text>
+        <text x="105" y="65" class="font-badge" font-weight="800" font-size="22" fill="#111827">Care</text>
       </g>
+
     </g>
+
   </g>
 </svg>
